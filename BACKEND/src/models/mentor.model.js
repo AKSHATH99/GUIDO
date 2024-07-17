@@ -1,5 +1,8 @@
 import mongoose, { Schema } from "mongoose";
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env",});
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const EducationSchema = new Schema({
   collegeName: {
@@ -155,13 +158,15 @@ MentorSchema.methods.isPasswordWrong = async function(password){
 //generates accesstoken2
 MentorSchema.methods.generateAccessToken = function(){
   try {
+    console.log(process.env.ACCESS_TOKEN_SECRET, "hi");
+    console.log(this.gmail)
 
       return jwt.sign(
           {
               _id: this._id,
               gmail: this.gmail,
-              username: this.firstname,
-              fullName: this.lastname
+              firstname: this.firstname,
+              lastname: this.lastname
           },
           process.env.ACCESS_TOKEN_SECRET,
           {
@@ -177,6 +182,7 @@ MentorSchema.methods.generateAccessToken = function(){
 
 //creates refreshtoken using _id , this will be stored in db and used to recreate acces token after it is expired
 MentorSchema.methods.generateRefreshToken = function(){
+  console.log(process.env.REFRESH_TOKEN_SECRET, "bye")
   return jwt.sign(
       {
           _id: this._id,
