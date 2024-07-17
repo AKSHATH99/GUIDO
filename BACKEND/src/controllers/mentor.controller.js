@@ -11,8 +11,11 @@ import mongoose from "mongoose";
 const generateToken = async (mentorID) => {
   try {
     const mentor = await Mentor.findById(mentorID);
-    const accessToken = Mentor.generateAccessToken();
-    const refreshToken = Mentor.generateToken();
+    const accessToken = mentor.generateAccessToken();
+    console.log(accessToken, "accesstoekn");
+    const refreshToken = mentor.generateRefreshToken();
+
+    console.log(refreshToken);
 
     mentor.refreshToken = refreshToken;
 
@@ -47,9 +50,22 @@ const registerMentor = asyncHandler(async (req, res) => {
   } = req.body;
 
   if (
-    !firstname || !lastname || !gmail || !password || !age || !phone ||
-    !place || !language_spoken || !gender || !company || !role || !field ||
-    !yearofExp || !skills || !education || !fees
+    !firstname ||
+    !lastname ||
+    !gmail ||
+    !password ||
+    !age ||
+    !phone ||
+    !place ||
+    !language_spoken ||
+    !gender ||
+    !company ||
+    !role ||
+    !field ||
+    !yearofExp ||
+    !skills ||
+    !education ||
+    !fees
   ) {
     throw new ApiError(400, "ALL FIELDS ARE NEEDED");
   }
@@ -78,8 +94,9 @@ const registerMentor = asyncHandler(async (req, res) => {
     fees,
   });
 
-  const createdMentor = await Mentor.findById(mentor._id).select('-refreshToken -password');
-
+  const createdMentor = await Mentor.findById(mentor._id).select(
+    "-refreshToken -password"
+  );
 
   if (!createdMentor) {
     throw new ApiError(500, "SOMETHING WENT WRONG WHILE REGISTRATION");
@@ -101,7 +118,7 @@ const LoginMentor = asyncHandler(async (req, res) => {
     throw new ApiError(400, "ALL FIELDS ARE REQUIRED");
   }
 
-  const mentor = await Mentor.find({
+  const mentor = await Mentor.findOne({
     $or: [{ gmail }, { password }],
   });
 
@@ -109,7 +126,7 @@ const LoginMentor = asyncHandler(async (req, res) => {
     throw new ApiError(404, "MENTOR DOES NOT EXIST");
   }
 
-  const validPassword = await Mentor.isPasswordWrong(password);
+  const validPassword = await mentor.isPasswordWrong(password);
 
   if (!validPassword) {
     throw new ApiError(401, "CREDENTIALS WRONG");
@@ -131,14 +148,16 @@ const LoginMentor = asyncHandler(async (req, res) => {
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
     .json(
-      new ApiResponse(200 , {
-        user : MentorLoggedIn,
-        accessToken,
-        refreshToken
-      }, "LOGIN SUCCESSFULL")
+      new ApiResponse(
+        200,
+        {
+          user: MentorLoggedIn,
+          accessToken,
+          refreshToken,
+        },
+        "LOGIN SUCCESSFULL"
+      )
     );
 });
 
-export {
-  registerMentor, LoginMentor
-}
+export { registerMentor, LoginMentor };
