@@ -16,4 +16,10 @@ app.use(express.urlencoded({extended: true ,limit: "16kb"}))
 app.use(express.static("public"));
 app.use(cookieParser());
 
+//ROUTES 
+// https://localhost:8000/api/mentor/
+//http://localhost:8000/api/v1
+import userRouter from "./routes/mentor.routes.js"
+app.use("/api/v1/mentor",userRouter)
+
 export default app;
