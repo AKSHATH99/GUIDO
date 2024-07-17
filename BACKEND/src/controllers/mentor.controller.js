@@ -30,11 +30,10 @@ const registerMentor = asyncHandler(async (req, res) => {
   const {
     firstname,
     lastname,
-    email,
+    gmail,
     password,
     age,
     phone,
-    gmail,
     place,
     language_spoken,
     gender,
@@ -48,30 +47,14 @@ const registerMentor = asyncHandler(async (req, res) => {
   } = req.body;
 
   if (
-    [
-      firstname,
-      lastname,
-      email,
-      age,
-      phone,
-      gmail,
-      place,
-      language_spoken,
-      gender,
-      password,
-      company,
-      role,
-      field,
-      yearofExp,
-      skills,
-      education,
-      fees,
-    ].some((field) => field?.trim() === " ")
+    !firstname || !lastname || !gmail || !password || !age || !phone ||
+    !place || !language_spoken || !gender || !company || !role || !field ||
+    !yearofExp || !skills || !education || !fees
   ) {
-    throw new ApiError(400, "ALL FIELD ARE NEEDED");
+    throw new ApiError(400, "ALL FIELDS ARE NEEDED");
   }
 
-  const existedMentor = await UserActivation.findOne({ email });
+  const existedMentor = await Mentor.findOne({ gmail });
   if (existedMentor) {
     throw new ApiError(409, "ALREADY EXIST");
   }
@@ -95,9 +78,8 @@ const registerMentor = asyncHandler(async (req, res) => {
     fees,
   });
 
-  const createdMentor = await Mentor.findById(mentor._id).select(
-    " -refreshtoken , -password"
-  );
+  const createdMentor = await Mentor.findById(mentor._id).select('-refreshToken -password');
+
 
   if (!createdMentor) {
     throw new ApiError(500, "SOMETHING WENT WRONG WHILE REGISTRATION");
@@ -113,21 +95,21 @@ const registerMentor = asyncHandler(async (req, res) => {
 //----------------------------LOGIN MENTOR -----------------------------------------------------------------------
 
 const LoginMentor = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { gmail, password } = req.body;
 
-  if (!email || !password) {
+  if (!gmail || !password) {
     throw new ApiError(400, "ALL FIELDS ARE REQUIRED");
   }
 
   const mentor = await Mentor.find({
-    $or: [{ email }, { password }],
+    $or: [{ gmail }, { password }],
   });
 
   if (!mentor) {
     throw new ApiError(404, "MENTOR DOES NOT EXIST");
   }
 
-  const validPassword = await UserActivation.isPasswordWrong(password);
+  const validPassword = await Mentor.isPasswordWrong(password);
 
   if (!validPassword) {
     throw new ApiError(401, "CREDENTIALS WRONG");
@@ -135,8 +117,8 @@ const LoginMentor = asyncHandler(async (req, res) => {
 
   const { accessToken, refreshToken } = await generateToken(mentor._id);
 
-  const MentorLoggedIn = await UserActivation.findById(mentor._id).select(
-    "firstname lastname email company age gender place skills position field "
+  const MentorLoggedIn = await Mentor.findById(mentor._id).select(
+    "firstname lastname gmail company age gender place skills position field "
   );
 
   const options = {
