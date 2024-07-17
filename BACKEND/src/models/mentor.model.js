@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 const MentorSchema = new Schema({
 
@@ -56,6 +57,10 @@ const MentorSchema = new Schema({
   picture : {
     type : String,
     index: true ,
+  },
+  password : {
+    type: String , 
+    required: [true, 'Password is required']
   },
 
   // career details
@@ -128,6 +133,21 @@ const MentorSchema = new Schema({
     type : String,
   }
 },{timestamps:true});
+
+
+// if password is changed , hash it before saving to db
+MentorSchema.pre("save" , async function (next){
+  if(!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(this.password , 10);
+  next();
+})
+
+//checking if password is correct or not 
+MentorSchema.methods.isPasswordWrong = async function(password){
+  return await bcrypt.compare(password , this.password);
+}
+
 
 //generates accesstoken2
 MentorSchema.methods.generateAccessToken = function(){
