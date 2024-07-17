@@ -1,6 +1,25 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
+const EducationSchema = new Schema({
+  collegeName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  degreeName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  passoutYear: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+});
+
+
 const MentorSchema = new Schema({
 
   //basic personal details
@@ -83,8 +102,8 @@ const MentorSchema = new Schema({
     trim: true,
     index: true,
   },
-  yearOfExp: {
-    type: String,
+  yearofExp: {
+    type: Number,
     required: true,
     trim: true,
     index: true,
@@ -98,26 +117,10 @@ const MentorSchema = new Schema({
   
 
   //education
-  education : [{
-    collegeName: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      degreeName: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      passoutYear: {
-        type: Number,
-        required: true,
-        trim: true,
-      },
-  }],
+  education : [EducationSchema],
   
 //   mentoringDetails 
-  Fees: {
+  fees: {
     type: Number,
     required: true,
     trim: true,
@@ -125,7 +128,7 @@ const MentorSchema = new Schema({
   },
   studentsMentered: {
     type: Number,
-    required: true,
+    // required: true,
     trim: true,
     index: true,
   },
@@ -156,7 +159,7 @@ MentorSchema.methods.generateAccessToken = function(){
       return jwt.sign(
           {
               _id: this._id,
-              email: this.email,
+              gmail: this.gmail,
               username: this.firstname,
               fullName: this.lastname
           },
