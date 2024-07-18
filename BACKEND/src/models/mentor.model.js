@@ -158,8 +158,8 @@ MentorSchema.methods.isPasswordWrong = async function(password){
 //generates accesstoken2
 MentorSchema.methods.generateAccessToken = function(){
   try {
-    console.log(process.env.ACCESS_TOKEN_SECRET, "hi");
-    console.log(this.gmail)
+    // console.log(process.env.ACCESS_TOKEN_SECRET, "hi");
+    // console.log(this.gmail)
 
       return jwt.sign(
           {
@@ -182,7 +182,7 @@ MentorSchema.methods.generateAccessToken = function(){
 
 //creates refreshtoken using _id , this will be stored in db and used to recreate acces token after it is expired
 MentorSchema.methods.generateRefreshToken = function(){
-  console.log(process.env.REFRESH_TOKEN_SECRET, "bye")
+  // console.log(process.env.REFRESH_TOKEN_SECRET, "bye")
   return jwt.sign(
       {
           _id: this._id,

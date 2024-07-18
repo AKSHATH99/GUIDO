@@ -145,8 +145,8 @@ studentSchema.methods.isPasswordWrong = async function(password){
 //generates accesstoken2
 studentSchema.methods.generateAccessToken = function(){
   try {
-    console.log(process.env.ACCESS_TOKEN_SECRET, "hi");
-    console.log(this.gmail)
+    // console.log(process.env.ACCESS_TOKEN_SECRET, "hi");
+    // console.log(this.gmail)
 
       return jwt.sign(
           {
@@ -162,13 +162,13 @@ studentSchema.methods.generateAccessToken = function(){
       )
   } catch (error) {
       // Handle the error here, you can log it or throw it further
-      console.error('Error generating access token:', error);
+      // console.error('Error generating access token:', error);
       throw error; // throwing the error further for handling in the calling code
   }
 }
 
 studentSchema.methods.generateRefreshToken = function(){
-  console.log(process.env.REFRESH_TOKEN_SECRET, "bye")
+  // console.log(process.env.REFRESH_TOKEN_SECRET, "bye")
   return jwt.sign(
       {
           _id: this._id,
