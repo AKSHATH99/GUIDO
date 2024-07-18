@@ -1,6 +1,10 @@
 import mongoose, { Schema } from "mongoose";
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env",});
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const studentModel = new Schema({
+const studentSchema = new Schema({
 
   //basic personal details
 
@@ -15,6 +19,11 @@ const studentModel = new Schema({
     required: true,
     trim: true,
     index: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    trim: true,
   },
   age: {
     type: Number,
@@ -88,7 +97,7 @@ const studentModel = new Schema({
 
   resume: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
     index: true,
   },
@@ -106,7 +115,6 @@ const studentModel = new Schema({
   },
   twitter: {
     type: String,
-    required: true,
     trim: true,
     index: true,
   },
@@ -114,8 +122,64 @@ const studentModel = new Schema({
   //interested field 
   interests : {
     type: String,
-    required: true,
     trim: true,
     index: true,
+  },
+  refreshToken : {
+    type: String,
   }
+},{timestamps:true})
+
+// if password is changed , hash it before saving to db
+studentSchema.pre("save" , async function (next){
+  if(!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(this.password , 10);
+  next();
 })
+
+studentSchema.methods.isPasswordWrong = async function(password){
+  return await bcrypt.compare(password , this.password);
+}
+
+//generates accesstoken2
+studentSchema.methods.generateAccessToken = function(){
+  try {
+    console.log(process.env.ACCESS_TOKEN_SECRET, "hi");
+    console.log(this.gmail)
+
+      return jwt.sign(
+          {
+              _id: this._id,
+              gmail: this.gmail,
+              firstname: this.firstname,
+              lastname: this.lastname
+          },
+          process.env.ACCESS_TOKEN_SECRET,
+          {
+              expiresIn: "1d"
+          }
+      )
+  } catch (error) {
+      // Handle the error here, you can log it or throw it further
+      console.error('Error generating access token:', error);
+      throw error; // throwing the error further for handling in the calling code
+  }
+}
+
+studentSchema.methods.generateRefreshToken = function(){
+  console.log(process.env.REFRESH_TOKEN_SECRET, "bye")
+  return jwt.sign(
+      {
+          _id: this._id,
+          
+      },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+          expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+      }
+  )
+}
+
+
+export const Student = mongoose.model("Student", studentSchema);
