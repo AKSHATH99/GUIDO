@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {  registerMentor, LoginMentor} from "../controllers/mentor.controller.js";
+import {  registerMentor, LoginMentor, fetchMentor} from "../controllers/mentor.controller.js";
 import multer from "multer";
 import {upload} from "../middlewares/multer.middleware.js"
 import {verifyJWT} from "../middlewares/auth.middleware.js";
@@ -16,5 +16,9 @@ router.route("/register").post(
 
 // https://localhost:8000/api/mentor/login
 router.route("/login").post(LoginMentor);
+
+// https://localhost:8000/api/mentor/fetch
+router.route("/fetch").get(verifyJWT ,fetchMentor);
+
 
 export default router;

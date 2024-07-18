@@ -1,8 +1,8 @@
 import {Router} from "express";
-import {registerStudent , loginStudent} from "../controllers/student.controller.js";
+import {registerStudent , loginStudent , fetchStudent} from "../controllers/student.controller.js";
 import multer from "multer";
 import { upload } from "../middlewares/multer.middleware.js";
-import {verifyJWT} from "../middlewares/auth.middleware.js";
+import { verifyJWT } from "../middlewares/authStudent.middleware.js";
 
 const router = Router();
 
@@ -16,5 +16,8 @@ router.route("/register").post(
 
 // https://localhost:8000/api/student/login
 router.route("/login").post(loginStudent)
+
+// https://localhost:8000/api/student/fetch
+router.route("/fetch").get(verifyJWT , fetchStudent)
 
 export default router;
