@@ -12,10 +12,10 @@ const generateToken = async (mentorID) => {
   try {
     const mentor = await Mentor.findById(mentorID);
     const accessToken = mentor.generateAccessToken();
-    console.log(accessToken, "accesstoekn");
+    // console.log(accessToken, "accesstoekn");
     const refreshToken = mentor.generateRefreshToken();
 
-    console.log(refreshToken);
+    // console.log(refreshToken);
 
     mentor.refreshToken = refreshToken;
 
@@ -160,4 +160,17 @@ const LoginMentor = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerMentor, LoginMentor };
+
+//---------------------------FETCHING MENTOR DETAILS--------------------------------------------------------------
+const fetchMentor = asyncHandler(async(req , res)=>{
+  try {
+      console.log(req.user)
+      return res.status(200).json(new ApiResponse(200, req.user, "FETCHED SUCCESSFULLY"))
+    
+  } catch (error) {
+    throw new ApiError(100 , "SMTHG WENT WRONG WHILE FETCHING DETAILS")
+  }
+});
+
+
+export { registerMentor, LoginMentor , fetchMentor};

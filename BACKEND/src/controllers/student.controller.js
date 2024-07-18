@@ -148,4 +148,14 @@ const loginStudent = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerStudent, loginStudent };
+//--------------------------------FETCHING CURRENT STUDENT DETAILS-------------------------
+const fetchStudent = asyncHandler(async(req , res)=>{
+  try {
+      return res.status(200).json(new ApiResponse(200, req.user, "FETCHED SUCCESSFULLY"))
+    
+  } catch (error) {
+    throw new ApiError(100 , "SMTHG WENT WRONG WHILE FETCHING DETAILS")
+  }
+});
+
+export { registerStudent, loginStudent , fetchStudent };
