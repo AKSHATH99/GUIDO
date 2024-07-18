@@ -22,4 +22,7 @@ app.use(cookieParser());
 import userRouter from "./routes/mentor.routes.js"
 app.use("/api/v1/mentor",userRouter)
 
+import studentRouter from "./routes/student.route.js"
+app.use("/api/v1/student", studentRouter)
+
 export default app;
