@@ -127,10 +127,11 @@ const loginStudent = asyncHandler(async (req, res) => {
     .findById(student._id)
     .select("firstname  lastname gmail  age gender education  ");
 
-  const options = {
-    httpOnly: true,
-    secure: true,
-  };
+    const options = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // use secure cookies in production
+      sameSite: 'None', // adjust sameSite policy according to your needs
+    };
 
   return res
     .status(200)
