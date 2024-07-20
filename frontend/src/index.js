@@ -1,13 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import {
+  BrowserRouter,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import MentorAccount from "./components/MentorAccount";
+import MentorLogin from "./components/MentorLogin";
+import MentorRegistration from "./components/MentorRegistration";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const appRouter = createBrowserRouter([
+  {
+    path:"/MentorLogin",
+    element:<MentorLogin/>
+  },
+  {
+    path:"/MentorReg",
+    element:<MentorRegistration/>
+  },
+  {
+    path: "/MentorAccount",
+    element: <MentorAccount />,
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={appRouter}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </RouterProvider>
   </React.StrictMode>
 );
 

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link , useNavigate } from "react-router-dom";
+// import {useHistor}
 
 const MentorRegistration = () => {
+  const navigate = useNavigate()
   const [formdata, setFormdata] = useState({
     firstname: "",
     lastname: "",
@@ -62,6 +65,9 @@ const MentorRegistration = () => {
       );
 
       console.log(response);
+      if(response){
+        navigate("/MentorAccount")
+      }
     } catch (error) {
       console.log(error);
     }
@@ -341,12 +347,14 @@ const MentorRegistration = () => {
             </label>
             <br />
 
-            <button
+           {/* <Link to="/MentorAccount"> */}
+           <button
               className="border border-green-100 bg-green-100  w-3/4 ml-28 h-12 rounded-2xl m-5 text-2xl hover:bg-green-300"
               type="submit"
             >
               Register
             </button>
+            {/* </Link>  */}
           </form>
         </div>
       </div>
