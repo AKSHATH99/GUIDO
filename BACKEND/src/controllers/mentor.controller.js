@@ -160,17 +160,75 @@ const LoginMentor = asyncHandler(async (req, res) => {
     );
 });
 
+//---------------------------FETCHING CURRENT MENTOR DETAILS--------------------------------------------------------------
 
-//---------------------------FETCHING MENTOR DETAILS--------------------------------------------------------------
-const fetchMentor = asyncHandler(async(req , res)=>{
+const fetchMentor = asyncHandler(async (req, res) => {
   try {
-      console.log(req.user)
-      return res.status(200).json(new ApiResponse(200, req.user, "FETCHED SUCCESSFULLY"))
-    
+    console.log(req.user);
+    return res
+      .status(200)
+      .json(new ApiResponse(200, req.user, "FETCHED SUCCESSFULLY"));
   } catch (error) {
-    throw new ApiError(100 , "SMTHG WENT WRONG WHILE FETCHING DETAILS")
+    throw new ApiError(100, "SMTHG WENT WRONG WHILE FETCHING DETAILS");
   }
 });
 
+//---------------------------FETCHING A SPECFIC MENTOR--------------------------------------------------------------
+const fetchAMentor = asyncHandler(async (req, res) => {
+  try {
+    const { firstname } = req.params;
 
-export { registerMentor, LoginMentor , fetchMentor};
+    if (!firstname?.trim()) {
+      throw new ApiError(404, "PROVIDE NAME IN THE PARAMS");
+    }
+
+    const user = await Mentor.find({ firstname: firstname });
+
+    if (!user || user.length == 0) {
+      throw new ApiError(404, "User Not found");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, user, "User fetched successfully "));
+  } catch (error) {
+    throw new ApiError(400, "COULDNT FIND THE USER");
+  }
+});
+
+//----------------------------UPDATING MENTOR DETAILS----------------------------------------------------------------
+
+const updateMentor = asyncHandler(async (req, res) => {
+  try {
+    const {
+      firstname,
+      lastname,
+      age,
+      phone,
+      place,
+      language_spoken,
+      picture,
+      company,
+      role,
+      field,
+      yearofExp,
+      skills,
+      fees,
+      collegeName,
+      degreeName,
+      passoutYear,
+    } = req.body;
+
+    if(req.body == NULL ){
+      throw new ApiError(401 , "DATA NOT PROVIDED FOR UPDATING")
+    }
+
+    
+
+    const user = await  Mentor.findByIdAndUpdate(req.user._id)
+  } catch (error) {}
+});
+
+//----------------------------DELETING MENTOR DETAILS------------------------------------------------------------------
+
+export { registerMentor, LoginMentor, fetchMentor, fetchAMentor };
