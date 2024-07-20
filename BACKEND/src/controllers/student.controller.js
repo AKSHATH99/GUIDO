@@ -159,4 +159,24 @@ const fetchStudent = asyncHandler(async(req , res)=>{
   }
 });
 
+//------------------------------------FETCHING A SPECIFIC STUDENT---------------------
+const fetchAstudent = asyncHandler(async(req , res)=>{
+  try {
+    const {firstname} = req.params;
+
+    if(!firstname?.trim()){
+      throw new ApiError(404 , "PROVIDE NAME IN THE PARAMS");
+    }
+
+    const user = await Student.find({firstname : firstname});
+
+    if(!user || user.length == 0 ){
+      throw new ApiError(404 , "STUDENT NOT FOUND")
+    }
+    
+  } catch (error) {
+    throw new ApiError(404 , "STUDENT NOT FOUND")
+  }
+})
+
 export { registerStudent, loginStudent , fetchStudent };
