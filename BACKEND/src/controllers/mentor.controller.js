@@ -47,6 +47,7 @@ const registerMentor = asyncHandler(async (req, res) => {
     skills,
     education,
     fees,
+    bio
   } = req.body;
 
   if (
@@ -65,7 +66,8 @@ const registerMentor = asyncHandler(async (req, res) => {
     !yearofExp ||
     !skills ||
     !education ||
-    !fees
+    !fees||
+    !bio
   ) {
     throw new ApiError(400, "ALL FIELDS ARE NEEDED");
   }
@@ -85,6 +87,7 @@ const registerMentor = asyncHandler(async (req, res) => {
     language_spoken,
     gender,
     password,
+    bio,
     company,
     role,
     field,
