@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import {useHistor}
 
 const MentorRegistration = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formdata, setFormdata] = useState({
     firstname: "",
     lastname: "",
@@ -15,6 +15,7 @@ const MentorRegistration = () => {
     place: "",
     language_spoken: "",
     gender: "",
+    bio:"",
     education: [
       {
         collegeName: "",
@@ -65,8 +66,8 @@ const MentorRegistration = () => {
       );
 
       console.log(response);
-      if(response){
-        navigate("/MentorAccount")
+      if (response) {
+        navigate("/MentorAccount");
       }
     } catch (error) {
       console.log(error);
@@ -78,13 +79,26 @@ const MentorRegistration = () => {
     <>
       {/* <div className=" border bg-slate-100"> */}
       <div className=" border bg-gradient-to-r from-gray-100 to-gray-300">
-
-        <h1 className="text-4xl text-center mt-32   h-20 flex items-center justify-center "> BE THE <span className="text-rose-500 mx-3 font-bold underline"> MENTOR  </span> YOU NEVER HAD  </h1>
-        <h1 className="text-4xl text-center mt-3     h-20 flex items-center justify-center "> REGISTER YOURSELF AS A MENTOR AT  <span className="text-rose-500 ml-3 font-bold underline"> GUIDO </span>  </h1>
+        <h1 className="text-4xl text-center mt-32   h-20 flex items-center justify-center ">
+          {" "}
+          BE THE{" "}
+          <span className="text-rose-500 mx-3 font-bold underline">
+            {" "}
+            MENTOR{" "}
+          </span>{" "}
+          YOU NEVER HAD{" "}
+        </h1>
+        <h1 className="text-4xl text-center mt-3     h-20 flex items-center justify-center ">
+          {" "}
+          REGISTER YOURSELF AS A MENTOR AT{" "}
+          <span className="text-rose-500 ml-3 font-bold underline">
+            {" "}
+            GUIDO{" "}
+          </span>{" "}
+        </h1>
         {/*---------------------  REGISTRANTION FORM---------------------- */}
         <div className="m-96 mt-24 border rounded-xl shadow-2xl bg-white ">
           <form onSubmit={submitData}>
-            
             <h1 className="m-10 mb-0 text-xl ">PERSONAL INFORMATION</h1>
             <label className="m-10  text-xl">
               Name
@@ -140,31 +154,31 @@ const MentorRegistration = () => {
             <br />
 
             <div className="-mt-5">
-            <label className=" m-8 ml-11  text-xl">
-              Age
-              <input
-                className="border border-gray-200 bg-gray-200 m-7 ml-12 h-10 w-1/4 rounded-md p-3"
-                type="number"
-                name="age"
-                value={formdata.age}
-                onChange={handlechange}
-                placeholder="0"
-                required
-              />
-            </label>
+              <label className=" m-8 ml-11  text-xl">
+                Age
+                <input
+                  className="border border-gray-200 bg-gray-200 m-7 ml-12 h-10 w-1/4 rounded-md p-3"
+                  type="number"
+                  name="age"
+                  value={formdata.age}
+                  onChange={handlechange}
+                  placeholder="0"
+                  required
+                />
+              </label>
 
-            <label className="m-8 text-xl">
-              Gender
-              <input
-                className="border border-gray-200 bg-gray-200 m-7 h-10 w-1/4  rounded-md p-3"
-                type="text"
-                name="gender"
-                value={formdata.gender}
-                placeholder="Male / Female "
-                onChange={handlechange}
-                required
-              />
-            </label>
+              <label className="m-8 text-xl">
+                Gender
+                <input
+                  className="border border-gray-200 bg-gray-200 m-7 h-10 w-1/4  rounded-md p-3"
+                  type="text"
+                  name="gender"
+                  value={formdata.gender}
+                  placeholder="Male / Female "
+                  onChange={handlechange}
+                  required
+                />
+              </label>
             </div>
             <br />
 
@@ -313,6 +327,27 @@ const MentorRegistration = () => {
             </label>
             <br />
 
+            <label className=" m-8 ml-10 text-xl ">
+              <p className="ml-10 text-xl"> ADD BIO </p>
+              <p className="ml-10 text-sm mt-2">
+                {" "}
+                Add a birief about yourself that tells who you are , what you do
+                and how you can help them{" "}
+              </p>
+              <br />
+              <textarea
+                className="border border-gray-200 align-text-top bg-gray-200 m-7 h-36 w-3/4  mt-0  ml-10  rounded-md p-3"
+                type="text"
+                name="bio"
+                value={formdata.bio}
+                onChange={handlechange}
+                placeholder="3"
+                rows="5"
+                cols="50"                required
+              />
+            </label>
+            <br />
+
             <h1 className="m-10 mb-3 text-xl">CREATE A PASSWORD</h1>
 
             <label className=" m-8 ml-10 text-xl">
@@ -347,8 +382,8 @@ const MentorRegistration = () => {
             </label>
             <br />
 
-           {/* <Link to="/MentorAccount"> */}
-           <button
+            {/* <Link to="/MentorAccount"> */}
+            <button
               className="border border-green-100 bg-green-100  w-3/4 ml-28 h-12 rounded-2xl m-5 text-2xl hover:bg-green-300"
               type="submit"
             >

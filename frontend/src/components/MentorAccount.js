@@ -86,12 +86,13 @@ const MentorAccount = () => {
           <p className="text-3xl m-7 font-bold"> About Me </p>
           {/* <hr className="border border-black" /> */}
           <p className="m-5 text-xl leading-loose">
-            I am a tech mentor with a strong background in technology and 8
+            {/* I am a tech mentor with a strong background in technology and 8
             years of experience. Currently, I work as an SDE 2 at Google. I love
             helping others understand and succeed in the tech industry. Whether
             you're new to tech or looking to advance, I'm here to guide and
             support you with practical advice and encouragement. Let's work
-            together to achieve your goals and grow your skills.
+            together to achieve your goals and grow your skills. */}
+            {mentorData.bio}
           </p>
           {/* <hr className="border border-gray-200" /> */}
           {/* <p className="text-3xl m-7 font-bold">PROFESSIONAL DETAILS</p> */}
@@ -122,8 +123,8 @@ const MentorAccount = () => {
 
           <div className="m-7 mt-28">
           <p className="text-xl "> Graduated From  : </p>
-          <p className="text-4xl font-semibold">{mentorData.education[0].collegeName} , {mentorData.education[0].passoutYear} </p>
-          <p className="text-xl font-semibold">{mentorData.education[0].degreeName}</p>
+          <p className="text-4xl font-semibold">{mentorData?.education[0]?.collegeName} , {mentorData?.education[0]?.passoutYear} </p>
+          <p className="text-xl font-semibold">{mentorData?.education[0]?.degreeName}</p>
           </div>
           {/* <hr className="border border-gray-200"/> */}
         </div>
