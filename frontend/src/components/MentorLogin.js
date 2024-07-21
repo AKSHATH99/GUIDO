@@ -1,7 +1,9 @@
 import React , {useState} from "react";
 import axios from "axios";
+import { Link , useNavigate } from "react-router-dom";
 
 const MentorLogin = () => {
+  const navigate = useNavigate();
   const [formdata, setFormdata] = useState({
     gmail: "",
     password: "",
@@ -31,6 +33,9 @@ const MentorLogin = () => {
       console.log(response);
       console.log(response.data.data.accessToken);
       localStorage.setItem("token", response.data.data.accessToken);
+      if(response){
+        navigate("/MentorAccount")
+      }
     } catch (error) {
       console.log(error);
     }
