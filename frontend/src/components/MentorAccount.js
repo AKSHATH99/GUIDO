@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FeedbackComponent from "./FeedbackComponent";
 
 const MentorAccount = () => {
@@ -21,11 +21,18 @@ const MentorAccount = () => {
         }
       );
 
-      console.log(response);
+      setMentorData(response.data.data)
+      console.log(response.data.data.firstname);
+      console.log(mentorData.education[0].collegeName)
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+  
 
   // -------------------------------------------------------------------
   return (
@@ -40,10 +47,10 @@ const MentorAccount = () => {
               />
             </div>
             <div className="mt-10 m-5 ">
-              <p className="font-bold text-4xl"> JOE BIDEN </p>
+              <p className="font-bold text-4xl"> {mentorData.firstname}</p>
               <p className="text-xl mt-5 flex">
-                20 y/o <img className="ml-4" src="/images/location.png" />{" "}
-                <span className="">India </span>{" "}
+              {mentorData.age} y/o <img className="ml-4" src="/images/location.png" />{" "}
+                <span className="">{mentorData.place} </span>{" "}
               </p>
             </div>
           </div>
@@ -63,14 +70,14 @@ const MentorAccount = () => {
               <img className="h-12 mr-3 mt-2" src="/images/org.png" />
             </div>
             <div>
-              <p className="text-4xl font-bold"> 8+ </p>
-              <p className="text-xl mt-2">Years of Industrial Experience</p>
+              <p className="text-4xl font-bold"> {mentorData.yearofExp} </p>
+              <p className="text-xl mt-2">Years of Industrial Experiences</p>
             </div>
           </div>
         </div>
 
         <div className="border w-1/3 ml-[450px] m-5 rounded-3xl bg-green-300 hover:bg-green-500">
-          <button className=" p-5 w-full   text-xl font-bold">BOOK A SESSION</ button>
+          <button className=" p-5 w-full   text-xl font-bold">BOOK A SESSION   |    ₹ {mentorData.fees}</ button>
         </div>
       </div>
 
@@ -90,33 +97,33 @@ const MentorAccount = () => {
           {/* <p className="text-3xl m-7 font-bold">PROFESSIONAL DETAILS</p> */}
           <div className="m-7">
           <p className="text-xl ">Works At : </p>
-          <p className="text-4xl font-semibold">GOOGLE </p>
+          <p className="text-4xl font-semibold">{mentorData.company} .  </p>
           </div>
 
           <div className="m-7">
           <p className="text-xl ">Working As : </p>
-          <p className="text-4xl font-semibold">Java Developer  </p>
+          <p className="text-4xl font-semibold">{mentorData.role}  </p>
           </div>
 
           <div className="m-7">
           <p className="text-xl ">Field of Expertise : </p>
-          <p className="text-4xl font-semibold">Java Development  </p>
+          <p className="text-4xl font-semibold">{mentorData.field}  </p>
           </div>
 
           <div className="m-7">
           <p className="text-xl ">Skills : </p>
-          <p className="text-4xl font-semibold">Java ,Springboot  </p>
+          <p className="text-4xl font-semibold">{mentorData.skills}  </p>
           </div>
 
           <div className="m-7 mt-28">
           <p className="text-xl ">Languages I speak  : </p>
-          <p className="text-4xl font-semibold">English ,Hindi  </p>
+          <p className="text-4xl font-semibold">{mentorData.language_spoken}  </p>
           </div>
 
           <div className="m-7 mt-28">
           <p className="text-xl "> Graduated From  : </p>
-          <p className="text-4xl font-semibold">Cambridge University , 2018 </p>
-          <p className="text-xl font-semibold">Bachelors Of Computer Technology</p>
+          <p className="text-4xl font-semibold">{mentorData.education[0].collegeName} , {mentorData.education[0].passoutYear} </p>
+          <p className="text-xl font-semibold">{mentorData.education[0].degreeName}</p>
           </div>
           {/* <hr className="border border-gray-200"/> */}
         </div>
