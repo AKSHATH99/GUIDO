@@ -84,6 +84,11 @@ const MentorSchema = new Schema({
     type: String , 
     required: [true, 'Password is required']
   },
+  bio :{
+    type: String,
+    trime: true,
+  },
+  
 
   // career details
 
