@@ -11,11 +11,20 @@ import {
 import MentorAccount from "./components/MentorAccount";
 import MentorLogin from "./components/MentorLogin";
 import MentorRegistration from "./components/MentorRegistration";
+import StudentLogin from "./components/StudentLogin";
 
 const appRouter = createBrowserRouter([
   {
-    path:"/MentorLogin",
+    path:"/",
     element:<MentorLogin/>
+  },
+  {
+    path: "/studentLogin",
+    element: <StudentLogin/>
+  },
+  {
+    path:"/MentorLogin",
+    
   },
   {
     path:"/MentorReg",
