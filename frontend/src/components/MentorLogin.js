@@ -42,7 +42,7 @@ const MentorLogin = () => {
   };
   return (
     <div>
-      <p>LOGIN FORM FOR STUDENT</p>
+      <p>LOGIN FORM FOR MENTOR</p>
 
       <form onSubmit={submitData}>
         <label>
