@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const StudentLogin = () => {
   const [formdata, setFormdata] = useState({
@@ -37,35 +38,50 @@ const StudentLogin = () => {
   };
 
   return (
-    <div>
-      <p>LOGIN FORM FOR STUDENT</p>
+    <div className="flex bg-gray-200">
+    <div className="m-48">
+      <p className="text-4xl">LOGIN TO YOUR <span className="underline text-rose-500 font-bold mr-3 ">GUIDO </span> ACCOUNT  </p>
 
-      <form onSubmit={submitData}>
+      <form className="m-10" onSubmit={submitData}>
         <label>
-          email
+          <p className="text-2xl font-semibold">Email</p>
+          <br />
           <input
-            className="border border-black"
+            className="border    m-7 h-12 w-96   mt-0 ml-0 rounded-md p-3"
             type="email"
             name="gmail"
             value={formdata.gmail}
             onChange={handleChange}
+            placeholder="abc@gmail.com"
             required
           />
         </label>
+        <br />
         <label>
-          password
+          <p className="text-2xl mt- font-semibold"> Password</p>
+          <br />
           <input
-            className="border border-black"
+            className="border  m-7 h-12 w-96   mt-0 ml-0 rounded-md p-3"
             type="password"
-            name="password"
+            name="password" 
             value={formdata.password}
             onChange={handleChange}
+            placeholder="Password"
             required
           />
         </label>
-        <button className="border border-black" type="submit">LOGIN</button>
+        <br />
+        <button className="border border-green-100 bg-green-100  w-96 ml-0  h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
+
+          LOGIN
+        </button>
+        <p className="text-xl mt-10">Don't have a account ? <Link className="text-rose-500 hover:text-rose-700" to = "/MentorReg">Create your Account</Link> </p>
       </form>
     </div>
+    <div className="mt-40">
+      <img className="h-[600px] w-[600px]" src="/images/mentor2.png" />
+    </div>
+  </div>
   );
 };
 
