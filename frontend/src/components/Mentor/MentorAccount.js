@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FeedbackComponent from "./FeedbackComponent";
-import HeaderComponent from "./HeaderComponent.js"
+import HeaderComponent from "../HeaderComponent.js"
 
 const MentorAccount = () => {
   const [mentorData, setMentorData] = useState("");
