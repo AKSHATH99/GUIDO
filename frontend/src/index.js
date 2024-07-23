@@ -8,11 +8,11 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import MentorAccount from "./components/MentorAccount";
-import MentorLogin from "./components/MentorLogin";
-import MentorRegistration from "./components/MentorRegistration";
-import StudentLogin from "./components/StudentLogin";
-import StudentAcount from "./components/StudentAcount";
+import MentorAccount from "./components/Mentor/MentorAccount.js";
+import MentorLogin from "./components/Mentor/MentorLogin.js";
+import MentorRegistration from "./components/Mentor/MentorRegistration.js";
+import StudentLogin from "./components/Student/StudentLogin.js";
+import StudentAcount from "./components/Student/StudentAcount.js";
 
 const appRouter = createBrowserRouter([
   {
