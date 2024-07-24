@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FeedbackComponent from "./FeedbackComponent";
 import HeaderComponent from "../HeaderComponent.js"
+import Shimmer from "../Shimmer.js"
 
 const MentorAccount = () => {
   const [mentorData, setMentorData] = useState("");
@@ -39,6 +40,7 @@ const MentorAccount = () => {
   return (
     <>
     <HeaderComponent/>
+    {mentorData?
     <div className="bg-slate-100">
       <div className="border bg-white m-12  ">
         <div className="  flex ">
@@ -142,6 +144,7 @@ const MentorAccount = () => {
       </div>
       {/* <button onClick={fetchData} className="border border-black">FETCH DATA</button> */}
     </div>
+    :<Shimmer/>}
     </>
   );
 };
