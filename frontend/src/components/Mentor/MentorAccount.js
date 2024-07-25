@@ -11,7 +11,7 @@ const MentorAccount = () => {
   const [bookStatus, setBookStatus] = useState(false);
   const [reviewdata , setReviewData] = useState("");
   const [ReviewSubmited , setReviewSubmited] = useState(true);
-  const{studentID} = useParams(); 
+  const{id} = useParams(); 
   // const [st]
 
   //Function to book session
@@ -36,7 +36,7 @@ const MentorAccount = () => {
 
       const dataToSend = {
         ...reviewdata,
-        studentID,
+        id,
       }
 
       const response = await axios.post(" http://localhost:8000/api/v1/student/login/review",dataToSend,{
@@ -63,7 +63,7 @@ const MentorAccount = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        " http://localhost:8000/api/v1/mentor/fetch",
+        ` http://localhost:8000/api/v1/mentor/${id}`,
         {
           withCredentials: true,
           headers: {
