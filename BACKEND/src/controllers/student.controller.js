@@ -1,6 +1,7 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/apiError.js";
 import { Student } from "../models/student.model.js";
+import {Mentor} from "../models/mentor.model.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import jwt from "jsonwebtoken";
@@ -179,4 +180,43 @@ const fetchAstudent = asyncHandler(async(req , res)=>{
   }
 })
 
-export { registerStudent, loginStudent , fetchStudent };
+// --------------------------------MENTOR REVIEW-----------------------------
+const mentorReview= asyncHandler(async(req , res)=>{
+  try {
+    const {review , mentorID} = req.body;
+    const {_id} = req.user;
+
+    console.log(review)
+    console.log(mentorID);
+    if(!review){
+      throw new ApiError(400 , "Didnt provide review");
+    }
+    if(!mentorID){
+      throw new ApiError(400 , "Didnt provide mentorID");
+    }
+
+    const mentor = await Mentor.findById(mentorID);
+    if(!mentor){
+      throw new ApiError(404 , "Mentor account not found");
+    }
+    console.log(mentor);
+    
+    mentor.reviews.push({
+      review: review,
+      student:_id
+        })
+
+    const addedReview = await mentor.save();    
+
+    if(!addedReview){
+      throw new ApiError(400 , "Some error while adding review")
+    }
+
+    res.status(200).json(new ApiResponse(200 , "ADDED REVIEW"))
+    
+  } catch (error) {
+    throw new ApiError(400 , "SOME ERROR WHILE ADDING REVIEW " , error)
+  }
+})
+
+export { registerStudent, loginStudent , fetchStudent , mentorReview};
