@@ -4,7 +4,7 @@ import HeaderComponent from "./HeaderComponent";
 const Shimmer = () => {
   return (
     <div>
-        <HeaderComponent/>
+        
       <div className="bg-slate-300 h-96  w-3/4 ml-44 m-12 rounded-lg flex justify-center items-center">
       <p className="text-5xl text-gray-400"> Hold on.......</p>
       </div>
