@@ -4,12 +4,14 @@ import FeedbackComponent from "./FeedbackComponent";
 import HeaderComponent from "../HeaderComponent.js";
 import Shimmer from "../Shimmer.js";
 import Popup from "reactjs-popup";
+import {useParams} from "react-router-dom";
 
 const MentorAccount = () => {
   const [mentorData, setMentorData] = useState("");
   const [bookStatus, setBookStatus] = useState(false);
   const [reviewdata , setReviewData] = useState("");
   const [ReviewSubmited , setReviewSubmited] = useState(true);
+  const{studentID} = useParams(); 
   // const [st]
 
   //Function to book session
@@ -32,7 +34,12 @@ const MentorAccount = () => {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
 
-      const response = await axios.post("",reviewdata,{
+      const dataToSend = {
+        ...reviewdata,
+        studentID,
+      }
+
+      const response = await axios.post(" http://localhost:8000/api/v1/student/login/review",dataToSend,{
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
