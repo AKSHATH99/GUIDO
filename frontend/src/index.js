@@ -13,11 +13,12 @@ import MentorLogin from "./components/Mentor/MentorLogin.js";
 import MentorRegistration from "./components/Mentor/MentorRegistration.js";
 import StudentLogin from "./components/Student/StudentLogin.js";
 import StudentAcount from "./components/Student/StudentAcount.js";
+import Shimmer from "./components/Shimmer.js";
 
 const appRouter = createBrowserRouter([
   {
     path:"/",
-    element:<StudentAcount/>
+    element:<MentorLogin/>
   },
   {
     path: "/studentLogin",
@@ -33,7 +34,7 @@ const appRouter = createBrowserRouter([
     element:<MentorRegistration/>
   },
   {
-    path: "/MentorAccount",
+    path: "/MentorAccount/:id",
     element: <MentorAccount />,
   },
 ]);
