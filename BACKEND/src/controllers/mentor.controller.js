@@ -47,7 +47,7 @@ const registerMentor = asyncHandler(async (req, res) => {
     skills,
     education,
     fees,
-    bio
+    bio,
   } = req.body;
 
   if (
@@ -66,7 +66,7 @@ const registerMentor = asyncHandler(async (req, res) => {
     !yearofExp ||
     !skills ||
     !education ||
-    !fees||
+    !fees ||
     !bio
   ) {
     throw new ApiError(400, "ALL FIELDS ARE NEEDED");
@@ -176,7 +176,7 @@ const fetchMentor = asyncHandler(async (req, res) => {
   }
 });
 
-//---------------------------FETCHING A SPECFIC MENTOR--------------------------------------------------------------
+//---------------------------FETCHING /SEARCH A SPECFIC MENTOR--------------------------------------------------------------
 const fetchAMentor = asyncHandler(async (req, res) => {
   try {
     const { firstname } = req.params;
@@ -197,6 +197,25 @@ const fetchAMentor = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new ApiError(400, "COULDNT FIND THE USER");
   }
+});
+
+//---------------------------FETCHING MENTOR USING ID AS PARAMS----------------------------------------------------
+const fetchMentorByID = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    throw new ApiError(404, "MENTOR ID NOT PROVIDED");
+  }
+
+  const mentor = await Mentor.findById(id).select(
+    "-phone -gmail -refreshToken -password "
+  );
+
+  if (!mentor) {
+    throw new ApiError(404, "MENTOR NOT FOUND");
+  }
+
+ return res.status(200).json(new ApiResponse(200, mentor, "fetched mentor details"));
 });
 
 //----------------------------UPDATING MENTOR DETAILS----------------------------------------------------------------
@@ -222,16 +241,20 @@ const updateMentor = asyncHandler(async (req, res) => {
       passoutYear,
     } = req.body;
 
-    if(req.body == NULL ){
-      throw new ApiError(401 , "DATA NOT PROVIDED FOR UPDATING")
+    if (req.body == NULL) {
+      throw new ApiError(401, "DATA NOT PROVIDED FOR UPDATING");
     }
 
-    
-
-    const user = await  Mentor.findByIdAndUpdate(req.user._id)
+    const user = await Mentor.findByIdAndUpdate(req.user._id);
   } catch (error) {}
 });
 
 //----------------------------DELETING MENTOR DETAILS------------------------------------------------------------------
 
-export { registerMentor, LoginMentor, fetchMentor, fetchAMentor };
+export {
+  registerMentor,
+  LoginMentor,
+  fetchMentor,
+  fetchAMentor,
+  fetchMentorByID,
+};
