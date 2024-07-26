@@ -249,6 +249,25 @@ const updateMentor = asyncHandler(async (req, res) => {
   } catch (error) {}
 });
 
+//------------------------------UPDATING MENTORED STUDENT COUNT------------------------------------------------
+const updatecount = asyncHandler(async(req , res)=>{
+  const  {id} = req.params;
+  if(!id){
+    throw new ApiError(400 , "ID NOT PROVIDED")
+  }
+
+   const mentor = await Mentor.findById(id).select("studentsMentered");
+   if(!mentor){
+    throw new ApiError(404 , "MENTOR NOT FOUND")
+   }
+
+   const count = mentor.studentsMentered;
+   const updatedcount = count + 1;
+
+   const updatecount = await Mentor.findByIdAndUpdate(id , {studentsMentered : updatedcount})
+
+   res.status(200).json(new ApiResponse(200 , updatecount , "count updated "))
+})
 //----------------------------DELETING MENTOR DETAILS------------------------------------------------------------------
 
 export {
@@ -257,4 +276,5 @@ export {
   fetchMentor,
   fetchAMentor,
   fetchMentorByID,
+  updatecount
 };
