@@ -149,6 +149,7 @@
       // required: true,
       trim: true,
       index: true,
+      default:0
     },
     reviews :
       [reviewSchema],
