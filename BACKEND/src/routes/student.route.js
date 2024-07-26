@@ -2,7 +2,7 @@ import {Router} from "express";
 import {registerStudent , loginStudent , fetchStudent , mentorReview} from "../controllers/student.controller.js";
 import multer from "multer";
 import { upload } from "../middlewares/multer.middleware.js";
-import { verifyJWT } from "../middlewares/authStudent.middleware.js";
+import { verifyJWT2 } from "../middlewares/authStudent.middleware.js";
 import cors from "cors";
 
 const router = Router();
@@ -27,9 +27,9 @@ router.route("/register").post(
 router.route("/login").post(loginStudent)
 
 // https://localhost:8000/api/student/fetch
-router.route("/fetch").get( cors(corsOptions), verifyJWT , fetchStudent)
+router.route("/fetch").get( cors(corsOptions), verifyJWT2 , fetchStudent)
 
 // https://localhost:8000/api/student/review
-router.route("/review").post(cors(corsOptions), verifyJWT ,mentorReview )
+router.route("/review").post(cors(corsOptions), verifyJWT2 ,mentorReview )
 
 export default router;
