@@ -14,11 +14,16 @@ import MentorRegistration from "./components/Mentor/MentorRegistration.js";
 import StudentLogin from "./components/Student/StudentLogin.js";
 import StudentAcount from "./components/Student/StudentAcount.js";
 import Shimmer from "./components/Shimmer.js";
+import Home from "./components/Home.js";
 
 const appRouter = createBrowserRouter([
   {
     path:"/",
-    element:<MentorLogin/>
+    element:<StudentLogin/>
+  },
+  {
+    path: "/home",
+    element: <Home/>
   },
   {
     path: "/studentLogin",
