@@ -272,7 +272,7 @@ const updatecount = asyncHandler(async(req , res)=>{
 //---------------------------------FETCHING ALL MENTORS IN DB FOR HOME PAGE------------------------------------
 const fetchAllMentor = asyncHandler(async (req, res) => {
  try{
-  const mentorsData = await Mentor.find().select("_id firstname lastname skills fees bio field role ");
+  const mentorsData = await Mentor.find().select("_id firstname lastname skills fees bio field role bio company ");
 
   if (mentorsData.length === 0) {
     res.status(404).json(new ApiResponse(200, "no data found"));
