@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const StudentLogin = () => {
+  const navigate = useNavigate();
   const [formdata, setFormdata] = useState({
     gmail: "",
     password: "",
@@ -32,6 +34,7 @@ const StudentLogin = () => {
       console.log(response)
       console.log(response.data.data.accessToken)
       localStorage.setItem("token", response.data.data.accessToken);
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }
