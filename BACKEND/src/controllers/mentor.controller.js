@@ -268,6 +268,21 @@ const updatecount = asyncHandler(async(req , res)=>{
 
    res.status(200).json(new ApiResponse(200 , updatecount , "count updated "))
 })
+
+//---------------------------------FETCHING ALL MENTORS IN DB FOR HOME PAGE------------------------------------
+const fetchAllMentor = asyncHandler(async (req, res) => {
+ try{
+  const mentorsData = await Mentor.find();
+
+  if (mentorsData.length === 0) {
+    res.status(404).json(new ApiResponse(200, "no data found"));
+  }
+
+  res.status(200).json(new ApiResponse(200, mentorsData, "fetched mentors successfully"));
+}catch(error){
+  throw new ApiError(error)
+}
+})
 //----------------------------DELETING MENTOR DETAILS------------------------------------------------------------------
 
 export {
@@ -276,5 +291,6 @@ export {
   fetchMentor,
   fetchAMentor,
   fetchMentorByID,
-  updatecount
+  updatecount,
+  fetchAllMentor
 };
