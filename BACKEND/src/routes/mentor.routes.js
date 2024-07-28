@@ -41,7 +41,7 @@ router.route("/fetchAll").get(cors(corsOptions) ,fetchAllMentor)
 router.route("/find/:firstname").get(verifyJWT, fetchAMentor);
 
 // https://localhost:8000/api/mentor/:id
-router.route("/:id").get(cors(corsOptions), fetchMentorByID);
+router.route("/:id").get(cors(corsOptions), verifyJWT2, fetchMentorByID);
 
 //https://localhost:8000/api/mentor/updateCount/:id
 router.route("/updateCount/:id").post(cors(cors),verifyJWT2 , updatecount )
