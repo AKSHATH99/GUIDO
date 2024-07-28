@@ -189,6 +189,10 @@ const MentorAccount = () => {
                   </div>
                 </Popup>
               )}
+              <button className="border border-red-600 w-max h-max p-3 flex mt-7 rounded-lg ">
+                <img className="m-1 h-5 w-5" src="/images/report.png"/>
+               <p className="text-red-500 font-semibold mt-[2px]  ">REPORT</p> 
+                </button>
             </div>
           </div>
 
