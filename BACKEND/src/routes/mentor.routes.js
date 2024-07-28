@@ -25,7 +25,7 @@ const corsOptions = {
   origin: "http://localhost:3000", // Replace with the allowed origin
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
 
 // https://localhost:8000/api/mentor/login

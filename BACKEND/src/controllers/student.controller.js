@@ -186,6 +186,7 @@ const mentorReview= asyncHandler(async(req , res)=>{
     const {review , mentorID} = req.body;
     const {_id} = req.user;
 
+    console.log(_id);
     console.log(review)
     console.log(mentorID);
     if(!review){
