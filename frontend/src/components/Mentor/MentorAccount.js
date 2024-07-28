@@ -12,12 +12,28 @@ const MentorAccount = () => {
   const [reviewdata , setReviewData] = useState("");
   const [ReviewSubmited , setReviewSubmited] = useState(true);
   const{id} = useParams(); 
-  // const [st]
 
   //Function to book session
-  const bookingHandler = () => {
+  const bookingHandler = async() => {
     setBookStatus(true);
     console.log(bookStatus);
+    console.log(id) 
+
+    try{
+      axios.defaults.withCredentials = true;
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(`http://localhost:8000/api/v1/mentor/updateCount/${id}`,{},{
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },})
+
+        console.log(response)
+
+    }catch(error){
+      console.log(error)
+    }
   };
 
   //Function to handle review input
@@ -36,7 +52,7 @@ const MentorAccount = () => {
 
       const dataToSend = {
         ...reviewdata,
-        id,
+        // studentID,
       }
 
       const response = await axios.post(" http://localhost:8000/api/v1/student/login/review",dataToSend,{
