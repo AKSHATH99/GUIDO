@@ -38,9 +38,9 @@ const MentorAccount = () => {
 
   //Function to handle review input
   const handleChange=(e)=>{
-    const {name , value} = e.target;
+    const {value} = e.target;
     setReviewData(value);
-    console.log(value , "from handlechange")
+    // console.log(value , "from handlechange")
   }
 
   //Function to submit review
@@ -50,12 +50,7 @@ const MentorAccount = () => {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
 
-      const dataToSend = {
-        ...reviewdata,
-        // studentID,
-      }
-
-      const response = await axios.post(" http://localhost:8000/api/v1/student/login/review",dataToSend,{
+      const response = await axios.post(`http://localhost:8000/api/v1/student/review/${id}`,{review : reviewdata},{
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -179,9 +174,10 @@ const MentorAccount = () => {
                       cols="45"
                       rows="10"
                       value={reviewdata}
+                      onChange={handleChange}
                       name = "review"
                       placeholder="Write up your review and experience here to help others "
-                      className="m-5 border border-black"
+                      className="m-5 border border-black p-4"
                     />
                     <br />
                     <button
