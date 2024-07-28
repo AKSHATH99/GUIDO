@@ -183,10 +183,11 @@ const fetchAstudent = asyncHandler(async(req , res)=>{
 // --------------------------------MENTOR REVIEW-----------------------------
 const mentorReview= asyncHandler(async(req , res)=>{
   try {
-    const {review , mentorID} = req.body;
-    const {_id} = req.user;
+    const {review} = req.body;
+    const {mentorID} = req.params;
+    const id = req.user._id;
 
-    console.log(_id);
+    console.log( "helo ",id);
     console.log(review)
     console.log(mentorID);
     if(!review){
@@ -204,7 +205,7 @@ const mentorReview= asyncHandler(async(req , res)=>{
     
     mentor.reviews.push({
       review: review,
-      student:_id
+      student:id
         })
 
     const addedReview = await mentor.save();    
