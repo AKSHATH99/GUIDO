@@ -30,6 +30,6 @@ router.route("/login").post(loginStudent)
 router.route("/fetch").get( cors(corsOptions), verifyJWT2 , fetchStudent)
 
 // https://localhost:8000/api/student/review
-router.route("/review").post(cors(corsOptions), verifyJWT2 ,mentorReview )
+router.route("/review/:mentorID").post(cors(corsOptions), verifyJWT2 ,mentorReview )
 
 export default router;
