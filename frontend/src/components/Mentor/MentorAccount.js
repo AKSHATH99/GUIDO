@@ -278,17 +278,17 @@ const MentorAccount = () => {
             </div>
 
             <div className="w-1/2">
-  {reviews && reviews.length > 0 ? (
-    <div>
-      <p className="text-3xl m-7 font-bold">REVIEWS & FEEDBACKS </p>
-      {reviews.map((review, index) => (
-        <FeedbackComponent key={index} data={review} />
-      ))}
-    </div>
-  ) : (
-    ""
-  )}
-</div>
+              {reviews && reviews.length > 0 ? (
+                <div>
+                  <p className="text-3xl m-7 font-bold">REVIEWS & FEEDBACKS </p>
+                  {reviews.map((review, index) => (
+                    <FeedbackComponent key={index} data={review} />
+                  ))}
+                </div>
+              ) : (
+                "LOADING...................."
+              )}
+            </div>
           </div>
           {/* <button onClick={fetchData} className="border border-black">FETCH DATA</button> */}
         </div>
