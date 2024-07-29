@@ -1,6 +1,7 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/apiError.js";
 import { Mentor } from "../models/mentor.model.js";
+import {Student} from "../models/student.model.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import jwt from "jsonwebtoken";
@@ -283,6 +284,41 @@ const fetchAllMentor = asyncHandler(async (req, res) => {
   throw new ApiError(error)
 }
 })
+
+//----------------------------------FETCHING REVIEWS-----------------------------------------
+const fetchReview = asyncHandler(async(req , res)=>{
+  const {id} = req.params;
+
+   if(id == null){
+    throw new ApiError(404 , "Didnt provide the id");
+   }
+
+   const mentor = await Mentor.findById(id).select("reviews");
+
+   if (!mentor || !mentor.reviews) {
+    throw new ApiError(404, "No reviews found for the provided mentor ID");
+  }
+
+  const reviewsWithStudentInfo = await Promise.all(
+    mentor.reviews.map(async (review) => {
+      const student = await Student.findById(review.student).select("firstname lastname");
+
+      if (!student) {
+        throw new ApiError(404, "Could not find student who wrote the review");
+      }
+
+      return {
+        review: review.review,
+        student: student,
+      };
+    })
+  );
+
+  res.status(200).json(new ApiResponse(200, reviewsWithStudentInfo, "Fetched reviews successfully", ));
+
+   
+
+})
 //----------------------------DELETING MENTOR DETAILS------------------------------------------------------------------
 
 export {
@@ -292,5 +328,6 @@ export {
   fetchAMentor,
   fetchMentorByID,
   updatecount,
-  fetchAllMentor
+  fetchAllMentor,
+  fetchReview
 };
