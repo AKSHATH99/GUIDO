@@ -42,26 +42,30 @@ const Home = () => {
           className="border m-32 mb-0 mr-0 ml-72 mt-20 w-1/2 h-14 border-black rounded-l-lg p-2 pl-5 text-xl"
           placeholder="Search for your field here...."
         />
-        <button className="border h-14 mt-[81px] w-48 rounded-r-lg border-green-400 text-xl bg-green-300">Search</button>
+        <button className="border h-14 mt-[81px] w-48 rounded-r-lg border-green-400 text-xl bg-green-300">
+          Search
+        </button>
       </div>
       <div className="m-32 ml-72   text-4xl">
         <p>
           Choose your{" "}
           <span className="mx-1 font-bold text-rose-500 underline">
-            Sensei{" "}
+            Mentor{" "}
           </span>{" "}
-          from the 1000s of mentors{" "}
+          from the  <span className="mx-1 font-bold text-rose-500 underline">1000s</span> of mentors{" "}
         </p>
       </div>
-      {mentorsData ? (
-        <div className="flex flex-wrap">
-          <AccountBox data={mentorsData[0]} />
-          <AccountBox data={mentorsData[0]} />
-          <AccountBox data={mentorsData[0]} />
-        </div>
-      ) : (
-        <p>loadsing.....</p>
-      )}
+      <div className="m-10">
+        {mentorsData ? (
+          <div className="flex flex-wrap">
+            {mentorsData.map((mentor, index) => (
+              <AccountBox key={index} data={mentor} />
+            ))}
+          </div>
+        ) : (
+          <p>loading.....</p>
+        )}
+      </div>
     </div>
   );
 };
