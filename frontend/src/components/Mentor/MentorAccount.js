@@ -4,68 +4,76 @@ import FeedbackComponent from "./FeedbackComponent";
 import HeaderComponent from "../HeaderComponent.js";
 import Shimmer from "../Shimmer.js";
 import Popup from "reactjs-popup";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const MentorAccount = () => {
   const [mentorData, setMentorData] = useState("");
   const [bookStatus, setBookStatus] = useState(false);
-  const [reviewdata , setReviewData] = useState("");
-  const [ReviewSubmited , setReviewSubmited] = useState(true);
-  const{id} = useParams(); 
+  const [reviewdata, setReviewData] = useState("");
+  const [ReviewSubmited, setReviewSubmited] = useState(true);
+  const [reviews, setReviews] = useState("");
+  const { id } = useParams();
 
   //Function to book session
-  const bookingHandler = async() => {
+  const bookingHandler = async () => {
     setBookStatus(true);
     console.log(bookStatus);
-    console.log(id) 
+    console.log(id);
 
-    try{
+    try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
 
-      const response = await axios.post(`http://localhost:8000/api/v1/mentor/updateCount/${id}`,{},{
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },})
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/mentor/updateCount/${id}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-        console.log(response)
-
-    }catch(error){
-      console.log(error)
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   //Function to handle review input
-  const handleChange=(e)=>{
-    const {value} = e.target;
+  const handleChange = (e) => {
+    const { value } = e.target;
     setReviewData(value);
     // console.log(value , "from handlechange")
-  }
+  };
 
   //Function to submit review
-  const HandleReviewSubmit = async(e)=>{
+  const HandleReviewSubmit = async (e) => {
     e.preventDefault();
     try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
 
-      const response = await axios.post(`http://localhost:8000/api/v1/student/review/${id}`,{review : reviewdata},{
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },})
-
-        if(response){
-          setReviewSubmited(true);
-          console.log("SUBMITTED REVIEW",response)
-
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/student/review/${id}`,
+        { review: reviewdata },
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
+      );
 
+      if (response) {
+        setReviewSubmited(true);
+        console.log("SUBMITTED REVIEW", response);
+      }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   //Function to fetch user data
   const fetchData = async () => {
@@ -84,18 +92,34 @@ const MentorAccount = () => {
       );
 
       setMentorData(response.data.data);
-      console.log(response.data.data.firstname);
-      console.log(mentorData.education[0].collegeName);
+      // console.log(response.data.data.firstname);
+      // console.log(mentorData.education[0].collegeName);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const fetchReviews = async () => {
+    axios.defaults.withCredentials = true;
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(
+      ` http://localhost:8000/api/v1/mentor/review/${id}`,
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setReviews(response.data.data);
+    console.log(reviews[0].student.firstname);
+  };
+
   useEffect(() => {
     fetchData();
+    fetchReviews();
   }, []);
-
-
 
   // -------------------------------------------------------------------
   return (
@@ -175,7 +199,7 @@ const MentorAccount = () => {
                       rows="10"
                       value={reviewdata}
                       onChange={handleChange}
-                      name = "review"
+                      name="review"
                       placeholder="Write up your review and experience here to help others "
                       className="m-5 border border-black p-4"
                     />
@@ -190,9 +214,9 @@ const MentorAccount = () => {
                 </Popup>
               )}
               <button className="border border-red-600 w-max h-max p-3 flex mt-7 rounded-lg ">
-                <img className="m-1 h-5 w-5" src="/images/report.png"/>
-               <p className="text-red-500 font-semibold mt-[2px]  ">REPORT</p> 
-                </button>
+                <img className="m-1 h-5 w-5" src="/images/report.png" />
+                <p className="text-red-500 font-semibold mt-[2px]  ">REPORT</p>
+              </button>
             </div>
           </div>
 
@@ -254,12 +278,17 @@ const MentorAccount = () => {
             </div>
 
             <div className="w-1/2">
-              <p className="text-3xl m-7 font-bold">REVIEWS & FEEDBACKS </p>
-              <FeedbackComponent />
-              <FeedbackComponent />
-              <FeedbackComponent />
-              <FeedbackComponent />
-            </div>
+  {reviews && reviews.length > 0 ? (
+    <div>
+      <p className="text-3xl m-7 font-bold">REVIEWS & FEEDBACKS </p>
+      {reviews.map((review, index) => (
+        <FeedbackComponent key={index} data={review} />
+      ))}
+    </div>
+  ) : (
+    ""
+  )}
+</div>
           </div>
           {/* <button onClick={fetchData} className="border border-black">FETCH DATA</button> */}
         </div>
