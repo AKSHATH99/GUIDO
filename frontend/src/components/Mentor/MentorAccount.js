@@ -117,23 +117,29 @@ const MentorAccount = () => {
     console.log(reviews[0].student.firstname);
   };
 
-  const sendEmail = async()=>{
-    axios.defaults.withCredentials = true;
+  const sendEmail = async () => {
     const token = localStorage.getItem("token");
-
-    const response = await axios.post(
-      `http://localhost:8000/api/v1/student/email`,
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    console.log(token);
+  
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/student/email`,
+        {}, 
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, 
+          },
+        }
+      );
+      console.log(response);
+  
+      if (response) {
+        console.log("mail sent successfully");
       }
-    );
-    console.log(response);
-
-    if(response){
-      console.log("mail sended successfully ")
+    } catch (error) {
+      console.error("Error sending email:", error.response ? error.response.data : error.message);
     }
   };
 
