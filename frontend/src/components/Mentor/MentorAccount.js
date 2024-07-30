@@ -39,6 +39,7 @@ const MentorAccount = () => {
     } catch (error) {
       console.log(error);
     }
+    sendEmail();
   };
 
   //Function to handle review input
@@ -114,6 +115,26 @@ const MentorAccount = () => {
     );
     setReviews(response.data.data);
     console.log(reviews[0].student.firstname);
+  };
+
+  const sendEmail = async()=>{
+    axios.defaults.withCredentials = true;
+    const token = localStorage.getItem("token");
+
+    const response = await axios.post(
+      `http://localhost:8000/api/v1/student/email`,
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+
+    if(response){
+      console.log("mail sended successfully ")
+    }
   };
 
   useEffect(() => {
