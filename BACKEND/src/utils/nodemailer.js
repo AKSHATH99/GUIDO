@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "public\temp.env" });
 import nodemailer from "nodemailer"
 
 const transporter = nodemailer.createTransport({
@@ -5,8 +7,8 @@ const transporter = nodemailer.createTransport({
   port: 587, // Port may vary depending on your provider
   secure: false, // Use true for TLS, false for non-TLS (consult your provider)
   auth: {
-    user: "akshathpkk@gmail.com", // Replace with your email address
-    pass: "rkld sxhr pcnn kfyn", // Replace with your email password
+    user: process.env.SMTP_USERNAME, // Replace with your email address
+    pass: process.env.SMTP_PASS, // Replace with your email password
   },
 });
 
