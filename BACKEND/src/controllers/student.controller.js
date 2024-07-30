@@ -4,6 +4,8 @@ import { Student } from "../models/student.model.js";
 import {Mentor} from "../models/mentor.model.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/apiResponse.js";
+import {sendEmail}  from "../utils/nodemailer.js";
+
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
@@ -221,4 +223,27 @@ const mentorReview= asyncHandler(async(req , res)=>{
   }
 })
 
-export { registerStudent, loginStudent , fetchStudent , mentorReview};
+//---------------------------------SENDING EMAIL----------------------------------------------------------------
+const emailController = asyncHandler(async(req , res)=>{
+ try {
+   const to = req.user.gmail;
+   const name = req.user.firstname 
+   const phone = req.user.phone
+   console.log(phone)
+   console.log(name)
+   console.log(to)
+   const text = `You have recieved a mentorship session booking from ${name} . Including the details below : 
+    phone : ${phone}
+    mail  : ${to}`
+   
+   const emailSended =  await sendEmail(to , text);
+ 
+   res.status(200).json(new ApiResponse(200 , "Email send "))
+ 
+ } catch (error) {
+  throw new ApiError("Error while sending email " , error)
+ }
+
+
+})
+export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController};
