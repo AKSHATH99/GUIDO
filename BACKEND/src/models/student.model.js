@@ -61,6 +61,9 @@ const studentSchema = new Schema({
     trim: true,
     index: true,
   },
+  picure: {
+    type:String,
+  },
 
   //education details
   education : [{

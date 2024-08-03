@@ -68,6 +68,16 @@ const registerStudent = asyncHandler(async (req, res) => {
   if (userExist) {
     throw new ApiError(400, "USER ALREADY EXIST");
   }
+
+  const photolocalpath = req.file?.path;
+  if(!photolocalpath){
+      throw new ApiError(404 , "Didint recieve photolocalpath")
+  }
+
+  const photo = await uploadOnCloudinary(photolocalpath);
+  console.log(photo);
+  const parsedEducation = JSON.parse(education);
+
   const newStudent = await Student.create({
     firstname,
     lastname,
@@ -78,8 +88,9 @@ const registerStudent = asyncHandler(async (req, res) => {
     place,
     language_spoken,
     gender,
-    education,
+    education:parsedEducation,
     skills,
+    picure:photo?.url || ""
   });
 
   const createdStudent = await Student.findById(newStudent._id).select(
