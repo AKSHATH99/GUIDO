@@ -17,9 +17,7 @@ const corsOptions = {
 
 // https://localhost:8000/api/student/register
 router.route("/register").post(
-    upload.single([
-        {name: "picture" , maxCount: 1}
-    ]),
+    upload.single("picture"),
     registerStudent,
 )
 
