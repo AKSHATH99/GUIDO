@@ -20,7 +20,7 @@ const router = Router();
 // https://localhost:8000/api/mentor/register
 router
   .route("/register")
-  .post(upload.single([{ name: "picture", maxCount: 1 }]), registerMentor);
+  .post(upload.single("picture"), registerMentor);
 
 const corsOptions = {
   origin: "http://localhost:3000", // Replace with the allowed origin
