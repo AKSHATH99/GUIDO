@@ -5,7 +5,7 @@ const AccountBox = ({ data }) => {
   const navigate = useNavigate();
   const mentor = data;
   console.log(data);
-  console.log(mentor._id);
+  console.log(mentor.picture);
 
   const navigatefunc=()=>{
     navigate(`/MentorAccount/${mentor._id}`)
@@ -16,7 +16,7 @@ const AccountBox = ({ data }) => {
         <div>
           <img
             className="m-3    h-1/2 w-44 rounded-lg"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGCBKkmHH3XltbaG82O2S22LD01cirZQe62w&s"
+            src={`${mentor.picture}`}
           />
           <button className="border rounded-lg p-4 m-3 bg-green-300 hover:bg-green-500">
             BOOK A SESSION | ${mentor?.fees}

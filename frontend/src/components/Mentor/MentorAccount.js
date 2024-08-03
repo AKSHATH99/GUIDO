@@ -94,7 +94,7 @@ const MentorAccount = () => {
 
       setMentorData(response.data.data);
       // console.log(response.data.data.firstname);
-      // console.log(mentorData.education[0].collegeName);
+      console.log(mentorData.picture);
     } catch (error) {
       console.log(error);
     }
@@ -160,7 +160,8 @@ const MentorAccount = () => {
                 <div>
                   <img
                     className="rounded-full w-36 h-36"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3mr0rOaAemqvSNKmzBD-I6mcpod9HFQuCw&usqp=CAU"
+                    // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3mr0rOaAemqvSNKmzBD-I6mcpod9HFQuCw&usqp=CAU"
+                    src={`${mentorData.picture}`}
                   />
                 </div>
                 <div className="mt-10 m-5 ">
@@ -313,7 +314,7 @@ const MentorAccount = () => {
                   ))}
                 </div>
               ) : (
-                "LOADING...................."
+                "NO REVIEWS YET : ("
               )}
             </div>
           </div>
