@@ -51,6 +51,8 @@ const registerMentor = asyncHandler(async (req, res) => {
     bio,
   } = req.body;
 
+  console.log(education)
+
   if (
     !firstname ||
     !lastname ||
@@ -78,6 +80,18 @@ const registerMentor = asyncHandler(async (req, res) => {
     throw new ApiError(409, "ALREADY EXIST");
   }
 
+  console.log(req.file.path)
+
+  const photolocalpath = req.file?.path;
+  if(!photolocalpath){
+      throw new ApiError(404 , "Didint recieve photolocalpath")
+  }
+
+  const photo = await uploadOnCloudinary(photolocalpath);
+  console.log(photo);
+  const parsedEducation = JSON.parse(education);
+
+
   const mentor = await Mentor.create({
     firstname,
     lastname,
@@ -94,8 +108,9 @@ const registerMentor = asyncHandler(async (req, res) => {
     field,
     yearofExp,
     skills,
-    education,
+    education : parsedEducation,
     fees,
+    picture: photo?.url || ""
   });
 
   const createdMentor = await Mentor.findById(mentor._id).select(
