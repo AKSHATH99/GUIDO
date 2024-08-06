@@ -3,6 +3,7 @@ import HeaderComponent from "./HeaderComponent";
 import AccountBox from "./AccountBox";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 const Home = () => {
   const [mentorsData, setmentorsData] = useState("");
@@ -66,6 +67,7 @@ const Home = () => {
           <p>loading.....</p>
         )}
       </div>
+      <Footer/>
     </div>
   );
 };
