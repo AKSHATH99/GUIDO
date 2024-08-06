@@ -80,8 +80,6 @@ const registerMentor = asyncHandler(async (req, res) => {
     throw new ApiError(409, "ALREADY EXIST");
   }
 
-  console.log(req.file.path)
-
   const photolocalpath = req.file?.path;
   if(!photolocalpath){
       throw new ApiError(404 , "Didint recieve photolocalpath")
