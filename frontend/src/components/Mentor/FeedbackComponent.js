@@ -1,7 +1,6 @@
 import React from "react";
 
 const FeedbackComponent = ({data}) => {
-  console.log(data.student.firstname)
   return (
     <div className="m-10 border rounded-3xl">
       <div className="m-4">
