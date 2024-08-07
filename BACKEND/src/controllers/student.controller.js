@@ -281,5 +281,22 @@ const updateDetails = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteAccount= asyncHandler(async(req , res)=>{
 
-export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController ,updateDetails};
+  try {
+    const id = req.user._id;
+  
+    const student = await Student.findByIdAndDelete(id);
+  
+    if(!student){
+      throw new ApiError(400 , "COULDNT DELETE YOUR ACCOUNT")
+    }
+ 
+    res.status(200).json(new ApiResponse(200 , student, "delted account !"))
+  } catch (error) {
+     throw new ApiError(404 , "couldnt delete account")
+  }
+ })
+
+
+export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController ,updateDetails , deleteAccount};

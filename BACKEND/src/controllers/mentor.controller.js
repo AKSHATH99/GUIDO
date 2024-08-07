@@ -325,8 +325,26 @@ const fetchReview = asyncHandler(async(req , res)=>{
    
 
 })
-//----------------------------DELETING MENTOR DETAILS------------------------------------------------------------------
 
+//----------------------------DELETING MENTOR DETAILS------------------------------------------------------------------
+const deleteAccount= asyncHandler(async(req , res)=>{
+
+ try {
+   const id = req.user._id;
+ 
+   const mentor = await Mentor.findByIdAndDelete(id);
+ 
+   if(!mentor){
+     throw new ApiError(400 , "COULDNT DELETE YOUR ACCOUNT")
+   }
+
+   res.status(200).json(new ApiResponse(200 , mentor, "delted account !"))
+ } catch (error) {
+    throw new ApiError(404 , "couldnt delete account")
+ }
+})
+
+//---------------------------------CHANGE PASSWORD--------------------------------------------------------------
 export {
   registerMentor,
   LoginMentor,
@@ -337,4 +355,5 @@ export {
   fetchAllMentor,
   fetchReview,
   updateDetails,
+  deleteAccount 
 };
