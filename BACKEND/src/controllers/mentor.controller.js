@@ -234,33 +234,26 @@ const fetchMentorByID = asyncHandler(async (req, res) => {
 
 //----------------------------UPDATING MENTOR DETAILS----------------------------------------------------------------
 
-const updateMentor = asyncHandler(async (req, res) => {
+const updateDetails = asyncHandler(async (req, res) => {
   try {
-    const {
-      firstname,
-      lastname,
-      age,
-      phone,
-      place,
-      language_spoken,
-      picture,
-      company,
-      role,
-      field,
-      yearofExp,
-      skills,
-      fees,
-      collegeName,
-      degreeName,
-      passoutYear,
-    } = req.body;
+    
+      const userID = req.user._id;
+      const updates= req.body;
+      
 
-    if (req.body == NULL) {
-      throw new ApiError(401, "DATA NOT PROVIDED FOR UPDATING");
+
+    const updatedmentor = await Mentor.findByIdAndUpdate(userID, updates, { new: true, runValidators: true });
+    if(!updatedmentor){
+      throw new ApiError(400 , "Couldnt find user")
     }
+    console.log(updatedmentor);
+    
 
-    const user = await Mentor.findByIdAndUpdate(req.user._id);
-  } catch (error) {}
+    res.status(200).json(new ApiResponse(200 , updatedmentor, "SUCCESSFULLY UPDATED"))
+
+  } catch (error) {
+    throw new ApiError(400 , "SOME ERROR WHILE UPDATING MENTOR DETAILS", error)
+  }
 });
 
 //------------------------------UPDATING MENTORED STUDENT COUNT------------------------------------------------
@@ -342,5 +335,6 @@ export {
   fetchMentorByID,
   updatecount,
   fetchAllMentor,
-  fetchReview
+  fetchReview,
+  updateDetails,
 };

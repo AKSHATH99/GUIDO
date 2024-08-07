@@ -257,4 +257,29 @@ const emailController = asyncHandler(async(req , res)=>{
 
 
 })
-export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController};
+
+
+// -------------------------------------UPDATING STUDENT DETAILS--------------------------
+const updateDetails = asyncHandler(async (req, res) => {
+  try {
+    
+      const userID = req.user._id;
+      const updates= req.body;
+      
+
+    const updatedstudent = await Student.findByIdAndUpdate(userID, updates, { new: true, runValidators: true });
+    if(!updatedstudent){
+      throw new ApiError(400 , "Couldnt find user")
+    }
+    console.log(updatedstudent);
+    
+
+    res.status(200).json(new ApiResponse(200 , updatedstudent, "SUCCESSFULLY UPDATED"))
+
+  } catch (error) {
+    throw new ApiError(400 , "SOME ERROR WHILE UPDATING MENTOR DETAILS", error)
+  }
+});
+
+
+export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController ,updateDetails};
