@@ -7,7 +7,8 @@ import {
   fetchMentorByID,
   updatecount,
   fetchAllMentor,
-  fetchReview
+  fetchReview,
+  updateDetails
 } from "../controllers/mentor.controller.js";
 import multer from "multer";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -37,6 +38,9 @@ router.route("/fetch").get(verifyJWT, fetchMentor);
 
 //https://localhost:8000/api/mentor/fetchAll
 router.route("/fetchAll").get(cors(corsOptions) ,fetchAllMentor)   
+
+//https://localhost:8000/api/mentor/updateDetails
+router.route("/updateDetails").put(cors(corsOptions),verifyJWT,updateDetails)
 
 // https://localhost:8000/api/mentor/find/:firstname
 router.route("/find/:firstname").get(verifyJWT, fetchAMentor);
