@@ -8,7 +8,8 @@ import {
   updatecount,
   fetchAllMentor,
   fetchReview,
-  updateDetails
+  updateDetails,
+  deleteAccount
 } from "../controllers/mentor.controller.js";
 import multer from "multer";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -41,6 +42,9 @@ router.route("/fetchAll").get(cors(corsOptions) ,fetchAllMentor)
 
 //https://localhost:8000/api/mentor/updateDetails
 router.route("/updateDetails").put(cors(corsOptions),verifyJWT,updateDetails)
+
+//https://localhost:8000/api/mentor/deleteAccount
+router.route("/deleteAccount").delete(cors(corsOptions), verifyJWT ,deleteAccount)
 
 // https://localhost:8000/api/mentor/find/:firstname
 router.route("/find/:firstname").get(verifyJWT, fetchAMentor);
