@@ -281,6 +281,30 @@ const updateDetails = asyncHandler(async (req, res) => {
   }
 });
 
+//------------------------------------UPDATING IMAGE------------------------------------------
+const updatePicture = asyncHandler(async(req , res)=>{
+  try {
+    const id = req.user._id;
+    const photolocalpath = req.file?.path;
+    if(!photolocalpath){
+        throw new ApiError(404 , "Didint recieve photolocalpath")
+    }
+  
+    const photo = await uploadOnCloudinary(photolocalpath);
+    console.log(photo);
+
+    const updatedStudent = await Student.findByIdAndUpdate(id , {picure: photo?.url});
+    if(updatedStudent == null){
+      throw new ApiError(400 , "error while uploading to cloudinary")
+    }
+    res.status(200).json(new ApiResponse(200 , updatedStudent , "Image updation successfull"))
+  } catch (error) {
+    throw new ApiError(400 , "ERROR WHILE UPDATING IMAGE")
+  }
+})
+
+
+//------------------------------------DELETING ACCOUNT--------------------------------------
 const deleteAccount= asyncHandler(async(req , res)=>{
 
   try {
@@ -299,4 +323,4 @@ const deleteAccount= asyncHandler(async(req , res)=>{
  })
 
 
-export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController ,updateDetails , deleteAccount};
+export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController ,updateDetails , deleteAccount , updatePicture};

@@ -276,6 +276,28 @@ const updatecount = asyncHandler(async(req , res)=>{
    res.status(200).json(new ApiResponse(200 , updatecount , "count updated "))
 })
 
+//--------------------------------UPDATING PROFILE IMAGE-----------------------------------------------------
+const updatePicture = asyncHandler(async(req , res)=>{
+  try {
+    const id = req.user._id;
+    const photolocalpath = req.file?.path;
+    if(!photolocalpath){
+        throw new ApiError(404 , "Didint recieve photolocalpath")
+    }
+  
+    const photo = await uploadOnCloudinary(photolocalpath);
+    console.log(photo);
+
+    const updatedMentor = await Mentor.findByIdAndUpdate(id , {picture: photo?.url});
+    if(updatedMentor == null){
+      throw new ApiError(400 , "error while uploading to cloudinary")
+    }
+    res.status(200).json(new ApiResponse(200 , updatedMentor , "Image updation successfull"))
+  } catch (error) {
+    throw new ApiError(400 , "ERROR WHILE UPDATING IMAGE")
+  }
+})
+
 //---------------------------------FETCHING ALL MENTORS IN DB FOR HOME PAGE------------------------------------
 const fetchAllMentor = asyncHandler(async (req, res) => {
  try{
@@ -355,5 +377,6 @@ export {
   fetchAllMentor,
   fetchReview,
   updateDetails,
-  deleteAccount 
+  deleteAccount ,
+  updatePicture
 };
