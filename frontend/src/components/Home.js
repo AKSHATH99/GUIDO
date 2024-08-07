@@ -7,6 +7,7 @@ import Footer from "./Footer";
 
 const Home = () => {
   const [mentorsData, setmentorsData] = useState("");
+  const [loginStudentData , setLoginStudentData] = useState("");
 
   //Function to fetch all the mentors from DB
   const fetchAll = async () => {
@@ -23,21 +24,45 @@ const Home = () => {
           },
         }
       );
-      console.log(response.data.data[0]);
+      // console.log(response.data.data[0]);
       setmentorsData(response.data.data);
-      console.log(mentorsData);
+      // console.log(mentorsData);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const fetchLoggedInData=async()=>{
+    try {
+      axios.defaults.withCredentials = true;
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(
+        `  http://localhost:8000/api/v1/student/fetch`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data.data.picure);
+      setLoginStudentData(response.data.data)
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  console.log("hi",loginStudentData.picure);
+
   useEffect(() => {
     fetchAll();
+    fetchLoggedInData();
   }, []);
 
   return (
     <div>
-      <HeaderComponent />
+      <HeaderComponent picture = {loginStudentData.picure} />
       <div className="flex">
         <input
           className="border m-32 mb-0 mr-0 ml-72 mt-20 w-1/2 h-14 border-black rounded-l-lg p-2 pl-5 text-xl"
