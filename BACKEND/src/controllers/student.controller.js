@@ -139,7 +139,7 @@ const loginStudent = asyncHandler(async (req, res) => {
   // console.log(accessToken)
   const loggedIn = await Student
     .findById(student._id)
-    .select("firstname  lastname gmail  age gender education  ");
+    .select("firstname  lastname gmail  age gender education picure ");
 
     const options = {
       httpOnly: true,
