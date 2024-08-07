@@ -23,13 +23,15 @@ const StudentRegister = () => {
     skills: "",
   });
 
+  const [selectedFile , setSelectedFile]  = useState(null)
+
   const handlechange = (e) => {
     const { name, value } = e.target;
     const [field, index] = name.split(".");
 
     if (index) {
       const updatedEducation = [...formdata.education];
-      updatedEducation[index][field] = value;
+      updatedEducation[0][field] = value;
 
       setFormdata({
         ...formdata,
@@ -43,16 +45,37 @@ const StudentRegister = () => {
     }
   };
 
+  const handleFileChange = (e)=>{
+    setSelectedFile(e.target.files[0]);
+    console.log(selectedFile)
+  }
+
   const submitData = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+
+    Object.keys(formdata).forEach((key) => {
+      if (key === "education") {
+        formData.append(key, JSON.stringify(formdata[key]));
+      } else {
+        formData.append(key, formdata[key]);
+      }
+    });
+    // If an image file is selected, append it to the form data
+    if (selectedFile) {
+      formData.append("picture", selectedFile); // Replace "image" with the actual field name in your backend API
+    }
+
+    console.log(selectedFile);
 
     try {
       const response = await axios.post(
         "http://localhost:8000/api/v1/student/register",
-        formdata,
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -286,6 +309,14 @@ const StudentRegister = () => {
               />
             </label>
             <br />
+
+            <h1 className="m-10 mb-3 text-xl">UPLOAD IMAGE </h1>
+            <p className="w-96 text-sm ml-10 ">
+                Make sure to upload a professional photo for a better impression {" "}
+              </p>
+            <input type="file" onChange={handleFileChange}
+              className=" m-7 h-10 w-1/2 mt-4 ml-10 rounded-md  text-xl "
+            />
 
             <button
               className="border border-green-100 bg-green-100  w-3/4 ml-28 h-12 rounded-2xl m-5 text-2xl hover:bg-green-300"
