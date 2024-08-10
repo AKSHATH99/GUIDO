@@ -15,11 +15,20 @@ import StudentLogin from "./components/Student/StudentLogin.js";
 import StudentAcount from "./components/Student/StudentAcount.js";
 import Shimmer from "./components/Shimmer.js";
 import Home from "./components/Home.js";
+import StudentRegister from "./components/Student/StudentrRegister.js";
 
 const appRouter = createBrowserRouter([
   {
     path:"/",
     element:<StudentLogin/>
+  },
+  {
+    path: "/studentAccount",
+    element: <StudentAcount/>
+  },
+  {
+    path:"/studentReg",
+    element:<StudentRegister/>
   },
   {
     path: "/home",
