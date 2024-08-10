@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import HeaderComponent from "../HeaderComponent.js";
+import Footer from "../Footer.js";
 
 const StudentAcount = () => {
   const [studentData, setStudentData] = useState("");
   const [student, setStudent] = useState({});
 
-  // useEffect(()=>{
+  
   const fetchData = async () => {
     try {
       axios.defaults.withCredentials = true;
@@ -20,36 +21,38 @@ const StudentAcount = () => {
           },
         }
       );
-      setStudentData(response);
-      console.log(studentData?.data?.data?.firstname);
-      const student = studentData?.data?.data;
-      console.log(student.firstname);
-      console.log("done");
+      setStudentData(response.data.data);
+      console.log(response)
+      console.log(studentData.education[0].collegeName);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // },[])
+  useEffect(()=>{
+    fetchData();  
+  },[])
   return (
     <>
       <HeaderComponent />
+      {studentData?
       <div>
         <div className="bg-rose-300 border h-56 text-rose-400">ss</div>
-        <div className="flex m-20 border -mt-20 bg-white rounded-lg shadow-lg ml-32   w-max">
-          <div className="p-5 pr-0">
+        <div className="flex m-20 border -mt-20 bg-white rounded-lg shadow-lg ml-60   w-max">
+          <div className="p-5 pr-32">
             <img
-              className="rounded-xl m-3 w-3/4 h-full p-2"
-              src="https://media.istockphoto.com/id/597958694/photo/young-adult-male-student-in-the-lobby-of-a-university.jpg?s=612x612&w=0&k=20&c=QaNEzmcKrLJzmwOcu2lgwm1B7rm3Ouq2McYYdmoMGpU="
+              className="rounded-xl m-3 w-72 h-full p-2"
+              // src="https://media.istockphoto.com/id/597958694/photo/young-adult-male-student-in-the-lobby-of-a-university.jpg?s=612x612&w=0&k=20&c=QaNEzmcKrLJzmwOcu2lgwm1B7rm3Ouq2McYYdmoMGpU="
+              src={studentData.picure}
             />
           </div>
           <div className="mt-20 -ml-10 m-5 ">
-            <p className="font-bold text-5xl"> Akshath P</p>
+            <p className="font-bold text-5xl"> {studentData.firstname} {studentData.lastname}</p>
+              <p className=" text-xl mt-4"> Speaks  : {studentData.language_spoken  }</p>
             <p className="text-xl mt-4  p-2 pl-0">
-              Bachelors of Computer Technology
+              {studentData.education[0].degreeName}
               <div className="flex mt-4 -ml-5">
                 <img className="ml-4" src="/images/location.png" />{" "}
-                <p className="">Bangalore</p>{" "}
+                <p className="">{studentData.place}</p>{" "}
               </div>
             </p>
           </div>
@@ -96,20 +99,41 @@ const StudentAcount = () => {
           </p>
         </div>
 
-        <div className="m-20 border  bg-white rounded-lg shadow-lg ml-32 w-3/4 ">
-          <p className="p-5 text-4xl ml-20 font-bold">EDUCATION</p>
+        
+        <div className="m-20 border  bg-white rounded-lg shadow-lg ml-32 w-3/4 flex ">
 
-        <div>   <span className="text-3xl ml-3 font-bold "> AT :</span>  <p className="ml-24  m-4 p-2">  IIT BOMBAY </p></div>
-        <div>   <span className="text-3xl ml-3 font-bold "> DOING :</span> <p className="ml-24  m-4 p-2">  BTECH CSE </p></div>
-        <div>   <span className="text-3xl ml-3 font-bold "> CURRENTLY AT :</span> <p className="ml-24  m-4 p-2">  4th year</p></div>
-        <div>   <span className="text-3xl ml-3 font-bold "> GRADUATING IN : </span> <p className="ml-24  m-4 p-2"> 2025  </p></div>
-          
+        <div>
+        <p className="p-5 text-4xl ml-20 font-bold">EDUCATION</p>
+        <div className="p-5 ml-16">
+        <div className="flex m-5">   <span className="text-xl ml-3 font-bold "> AT :</span>  <p className="ml-10 text-xl ">  {studentData.education[0].collegeName} </p></div>
+        <div className="flex m-5">   <span className="text-xl ml-3 font-bold "> DOING :</span> <p className="ml-10 text-xl">  {studentData.education[0].degreeName} </p></div>
+        <div className="flex m-5">   <span className="text-xl ml-3 font-bold "> CURRENTLY IN :</span> <p className="ml-10 text-xl"> {studentData.education[0].currentYear}r</p></div>
+        <div className="flex m-5">   <span className="text-xl ml-3 font-bold "> GRADUATING IN : </span> <p className="ml-10 text-xl"> {studentData.education[0].passoutYear}  </p></div>
+        </div>
+        </div>
+
+        <div className=" w-1/2 ml-20">
+        <p className="p-5 text-4xl ml-20 font-bold">SKILLS</p>
+        <div className="p-5 ml-16 flex flex-wrap">
+        <div className=" m-5 border p-3 shadow-lg">   <span className="text-xl  font-bold "> Java</span>  </div>
+        <div className=" m-5 border p-3 shadow-lg">   <span className="text-xl  font-bold "> SpringBoot</span> </div>
+        <div className=" m-5 border p-3 shadow-lg">   <span className="text-xl  font-bold "> MySQL</span> </div>
+        <div className=" m-5 border p-3 shadow-lg">   <span className="text-xl  font-bold "> C++ </span> </div>
+        <div className=" m-5 border p-3 shadow-lg">   <span className="text-xl  font-bold "> Github </span> </div>
+        <div className=" m-5 border p-3 shadow-lg">   <span className="text-xl  font-bold "> Python </span> </div>
+        <div className=" m-5 border p-3 shadow-lg">   <span className="text-xl  font-bold "> RestApi </span> </div>
+        <div className=" m-5 border p-3 shadow-lg">   <span className="text-xl  font-bold "> MongoDb </span> </div>
+        </div>` `
+        </div>
+
         </div>
 
         <button className="border border-black" onClick={fetchData}>
           FETCH DATA
         </button>
       </div>
+      : "loading"}
+      <Footer/>
     </>
   );
 };
