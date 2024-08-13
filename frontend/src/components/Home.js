@@ -46,8 +46,9 @@ const Home = () => {
           },
         }
       );
-      console.log(response.data.data.picure);
+      // console.log(response.data.data._id);
       setLoginStudentData(response.data.data)
+      // console.log(loginStudentData._id)
       
     } catch (error) {
       console.log(error);
@@ -56,13 +57,13 @@ const Home = () => {
   console.log("hi",loginStudentData.picure);
 
   useEffect(() => {
-    fetchAll();
     fetchLoggedInData();
+    fetchAll();
   }, []);
 
   return (
     <div>
-      <HeaderComponent picture = {loginStudentData.picure} />
+      <HeaderComponent picture = {loginStudentData.picure}/>
       <div className="flex">
         <input
           className="border m-32 mb-0 mr-0 ml-72 mt-20 w-1/2 h-14 border-black rounded-l-lg p-2 pl-5 text-xl"
