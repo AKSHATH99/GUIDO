@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeaderComponent = (picture) => {
   return (
@@ -8,9 +9,9 @@ const HeaderComponent = (picture) => {
       </div>
       <div className="flex ml-56 m-9 mb-0 text-xl justify-evenly    w-1/2 mt-12">
         <div className="">
-          <p>ABOUT US </p>
+          <p> HOME </p>
         </div>
-        <div className="">
+        <div className="">  
           <p>ABOUT US </p>
         </div>
         <div>
@@ -23,7 +24,7 @@ const HeaderComponent = (picture) => {
 
       <div className="m-9 mb-2 mt-5   ml-56">
         {/* <img className="rounded-full h-20 w-20" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3mr0rOaAemqvSNKmzBD-I6mcpod9HFQuCw&usqp=CAU"/> */}
-        <img className="rounded-full h-20 w-20" src={picture.picture}/>
+      <Link to="/studentAccount"><img className="rounded-full h-20 w-20" src={picture.picture}/></Link>  
       </div>
     </div>
   );

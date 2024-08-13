@@ -4,8 +4,8 @@ import { Link ,useNavigate } from "react-router-dom";
 const AccountBox = ({ data }) => {
   const navigate = useNavigate();
   const mentor = data;
-  console.log(data);
-  console.log(mentor.picture);
+  // console.log(data);
+  // console.log(mentor.picture);
 
   const navigatefunc=()=>{
     navigate(`/MentorAccount/${mentor._id}`)
