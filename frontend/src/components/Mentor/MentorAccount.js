@@ -114,7 +114,7 @@ const MentorAccount = () => {
       }
     );
     setReviews(response.data.data);
-    console.log(reviews[0].student.firstname);
+    // console.log(reviews[0].student.firstname);
   };
 
   const sendEmail = async () => {
