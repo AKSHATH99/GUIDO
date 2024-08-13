@@ -5,6 +5,7 @@ import StudentRegister from './components/Student/StudentrRegister.js';
 import MentorRegistration from './components/Mentor/MentorRegistration.js';
 import MentorLogin from './components/Mentor/MentorLogin.js';
 import MentorAccount from './components/Mentor/MentorAccount.js';
+import Shimmer from './components/Shimmer.js';
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
       <StudentAcount/> */}
       {/* <MentorRegistration/> */}
       {/* <MentorLogin/> */}
-      <MentorAccount/>  
-      
+        <MentorAccount/>
+
     </div>
   );
 }
