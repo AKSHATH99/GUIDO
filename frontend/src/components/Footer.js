@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="mt-52 border shadow-2xl border-red-200 p-24 pt-11 pb-20 mb-0   ">
       <div className="flex">
         <div>
-          <p className="text-6xl  font-bold">GUIDO</p>
+          <p className="text-6xl text-rose-500 font-bold">GUIDO</p>
           <p className="mt-5 w-80">
             At Guido students find tech industry mentors for support and career
             advice. Connect with experienced professionals for personalized

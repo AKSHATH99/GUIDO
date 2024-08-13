@@ -64,25 +64,31 @@ const Home = () => {
   return (
     <div>
       <HeaderComponent picture = {loginStudentData.picure}/>
-      <div className="flex">
+      <div className="m-32 mt-20 ml-96   text-4xl">
+        <p>
+          Find your{" "}
+          <span className="mx-1 font-bold text-rose-500 ">
+            Mentor{" "}
+          </span>{" "}
+          from the  <span className="mx-1 font-bold text-rose-500 ">1000s</span> of Mentors  ......{" "}
+        </p>
+      </div>
+      <div className="flex ml-56 -mt-32 ">
         <input
-          className="border m-32 mb-0 mr-0 ml-72 mt-20 w-1/2 h-14 border-black rounded-l-lg p-2 pl-5 text-xl"
-          placeholder="Search for your field here...."
+          className="border m-32 mb-0 mr-0  mt-20  w-1/2 h-14 rounded-l-xl p-2 pl-5 text-xl"
+          placeholder="Search  For A Mentor Here ..."
         />
-        <button className="border h-14 mt-[81px] w-48 rounded-r-lg border-green-400 text-xl bg-green-300">
+        <button className=" h-14 mt-[81px] w-48 rounded-r-xl border-green-400 text-xl bg-green-300">
           Search
         </button>
       </div>
-      <div className="m-32 ml-72   text-4xl">
-        <p>
-          Choose your{" "}
-          <span className="mx-1 font-bold text-rose-500 underline">
-            Mentor{" "}
-          </span>{" "}
-          from the  <span className="mx-1 font-bold text-rose-500 underline">1000s</span> of mentors{" "}
-        </p>
+      
+      <div className="ml-44 m-20 mb-0 text-rose-400 text-4xl flex ">
+       <img className="mr-5" src="/images/star.png"/>
+          Popular Mentors 
       </div>
-      <div className="m-10">
+
+      <div className="m-10 mt-10 ml-32">
         {mentorsData ? (
           <div className="flex flex-wrap">
             {mentorsData.map((mentor, index) => (

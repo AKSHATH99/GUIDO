@@ -41,7 +41,7 @@ const AccountBox = ({ data }) => {
           </div>
           <p className="border w-max m-3 p-2 shadow-lg">{mentor?.skills}</p>
 
-          <p className="w-96 m-2">
+          <p className="w-[350px] m-2">
             I am a tech mentor with a strong background in technology and 8
             years of experience. Currently, I work as an SDE 2 at Google. I love
             helping others understand and succeed in the tech industry. Whether
