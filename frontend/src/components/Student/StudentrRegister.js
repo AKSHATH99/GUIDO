@@ -24,6 +24,8 @@ const StudentRegister = () => {
   });
 
   const [selectedFile , setSelectedFile]  = useState(null)
+  const [errormsg , setErrormsg] = useState("")
+
 
   const handlechange = (e) => {
     const { name, value } = e.target;
@@ -83,6 +85,8 @@ const StudentRegister = () => {
       console.log(response);
     } catch (error) {
       console.log(error);
+      const [errormsg , setErrormsg] = useState("")
+
     }
   };
 
@@ -325,6 +329,7 @@ const StudentRegister = () => {
               Register
             </button>
           </form>
+        {errormsg?<ErrorBlock errortext={errormsg} />: null}
         </div>
       </div>
     </>

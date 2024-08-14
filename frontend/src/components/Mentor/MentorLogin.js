@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import ErrorBlock from "../ErrorBlock";
 
 const MentorLogin = () => {
   const navigate = useNavigate();
@@ -8,6 +9,8 @@ const MentorLogin = () => {
     gmail: "",
     password: "",
   });
+
+  const [errormsg , setErrormsg] = useState("")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,6 +43,8 @@ const MentorLogin = () => {
       }
     } catch (error) {
       console.log(error);
+      setErrormsg(error.response.statusText)
+
     }
   };
   return (
@@ -76,6 +81,9 @@ const MentorLogin = () => {
             />
           </label>
           <br />
+
+        {errormsg?<ErrorBlock errortext={errormsg} />: null}
+
           <button className="border border-green-100 bg-green-100  w-96 ml-0  h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
 
             LOGIN

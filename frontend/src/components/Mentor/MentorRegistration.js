@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-// import {useHistor}
+import ErrorBlock from "../ErrorBlock";
 
 const MentorRegistration = () => {
   const navigate = useNavigate();
@@ -32,6 +32,8 @@ const MentorRegistration = () => {
   });
 
   const [selectedFile , setSelectedFile]  = useState(null)
+  const [errormsg , setErrormsg] = useState("")
+
 
   const handlechange = (e) => {
     const { name, value } = e.target;
@@ -99,6 +101,7 @@ const MentorRegistration = () => {
       }
     } catch (error) {
       console.log(error);
+      setErrormsg(error.response.statusText)
     }
   };
 
@@ -427,6 +430,7 @@ const MentorRegistration = () => {
             </button>
             {/* </Link>  */}
           </form>
+        {errormsg?<ErrorBlock errortext={errormsg} />: null}
         </div>
       </div>
     </>
