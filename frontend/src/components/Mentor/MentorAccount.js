@@ -5,6 +5,8 @@ import HeaderComponent from "../HeaderComponent.js";
 import Shimmer from "../Shimmer.js";
 import Popup from "reactjs-popup";
 import { useParams } from "react-router-dom";
+import ErrorBlock from "../ErrorBlock.js";
+import MessageBlock from "../MessageBlock.js";
 
 const MentorAccount = () => {
   const [mentorData, setMentorData] = useState("");
@@ -12,8 +14,14 @@ const MentorAccount = () => {
   const [reviewdata, setReviewData] = useState("");
   const [ReviewSubmited, setReviewSubmited] = useState(true);
   const [reviews, setReviews] = useState("");
+  const [errormsg , setErrormsg] = useState("")
+  const [message , setMessage]=useState("");
   const { id } = useParams();
 
+
+  useEffect(()=>{
+    fetchReviews();
+  },[ReviewSubmited , reviews , reviewdata])
   //Function to book session
   const bookingHandler = async () => {
     setBookStatus(true);
@@ -38,6 +46,8 @@ const MentorAccount = () => {
       console.log(response);
     } catch (error) {
       console.log(error);
+      setErrormsg(error.response.statusText)
+      
     }
     sendEmail();
   };
@@ -70,8 +80,10 @@ const MentorAccount = () => {
       if (response) {
         setReviewSubmited(true);
         console.log("SUBMITTED REVIEW", response);
+        setMessage("REVIEW SUBMITED")
       }
     } catch (error) {
+      setErrormsg(error.response.statusText)
       console.log(error);
     }
   };
@@ -96,25 +108,31 @@ const MentorAccount = () => {
       // console.log(response.data.data.firstname);
       console.log(mentorData.picture);
     } catch (error) {
+      setErrormsg(error.response.statusText)
       console.log(error);
     }
   };
 
   const fetchReviews = async () => {
-    axios.defaults.withCredentials = true;
-    const token = localStorage.getItem("token");
+    try {
+      axios.defaults.withCredentials = true;
+      const token = localStorage.getItem("token");
+  
+      const response = await axios.get(
+        ` http://localhost:8000/api/v1/mentor/review/${id}`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setReviews(response.data.data);
+    } catch (error) {
+      console.log(error);
+      setErrormsg(error.response.statusText)
 
-    const response = await axios.get(
-      ` http://localhost:8000/api/v1/mentor/review/${id}`,
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    setReviews(response.data.data);
-    // console.log(reviews[0].student.firstname);
+    }
   };
 
   const sendEmail = async () => {
@@ -137,9 +155,11 @@ const MentorAccount = () => {
   
       if (response) {
         console.log("mail sent successfully");
+        setMessage('SUCCESS ! Mentor has been notified about you enrollment')
       }
     } catch (error) {
       console.error("Error sending email:", error.response ? error.response.data : error.message);
+      setErrormsg(error.response.statusText)
     }
   };
 
@@ -248,6 +268,13 @@ const MentorAccount = () => {
             </div>
           </div>
 
+          {/* Error messages and success messages will be displayed here */}
+          <div className="ml-96">
+          {errormsg?<ErrorBlock errortext={errormsg} />: null}
+          {message?<MessageBlock message={message} />: null}
+          </div>
+
+          {/* <MessageBlock message={"helo"}/> */}
           <div className="border flex bg-white m-12">
             <div className=" w-1/3 border-r">
               <p className="text-4xl text-rose-400 m-7 font-bold"> About Me </p>
