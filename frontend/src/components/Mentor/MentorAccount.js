@@ -153,19 +153,19 @@ const MentorAccount = () => {
     <>
       <HeaderComponent />
       {mentorData ? (
-        <div className="bg-slate-100">
-          <div className="border bg-white m-12  ">
+        <div className="">
+          <div className="border bg-white m-12 ml-56  w-max ">
             <div className="  flex ">
               <div className="flex m-10">
                 <div>
                   <img
-                    className="rounded-full w-36 h-36"
+                    className="  w-36 h-full rounded-full  "
                     // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3mr0rOaAemqvSNKmzBD-I6mcpod9HFQuCw&usqp=CAU"
                     src={`${mentorData.picture}`}
                   />
                 </div>
                 <div className="mt-10 m-5 ">
-                  <p className="font-bold text-4xl"> {mentorData.firstname}</p>
+                  <p className="font-bold text-4xl "> {mentorData.firstname}</p>
                   <p className="text-xl mt-5 flex">
                     {mentorData.age} y/o{" "}
                     <img className="ml-4" src="/images/location.png" />{" "}
@@ -179,8 +179,8 @@ const MentorAccount = () => {
                   <img className="h-10 mr-3 mt-6" src="/images/grag.png" />
                 </div>
                 <div>
-                  <p className="text-4xl font-bold"> 1000 + </p>
-                  <p className="text-xl mt-2">Students Mentored</p>
+                  <p className="text-4xl font-bold text-rose-400"> 1000 + </p>
+                  <p className="text-xl mt-2 ">Students Mentored</p>
                 </div>
               </div>
 
@@ -188,8 +188,8 @@ const MentorAccount = () => {
                 <div>
                   <img className="h-12 mr-3 mt-2" src="/images/org.png" />
                 </div>
-                <div>
-                  <p className="text-4xl font-bold"> {mentorData.yearofExp} </p>
+                <div className="pr-10">
+                  <p className="text-4xl font-bold text-rose-400"> {mentorData.yearofExp} </p>
                   <p className="text-xl mt-2">
                     Years of Industrial Experiences
                   </p>
@@ -250,7 +250,7 @@ const MentorAccount = () => {
 
           <div className="border flex bg-white m-12">
             <div className=" w-1/3 border-r">
-              <p className="text-3xl m-7 font-bold"> About Me </p>
+              <p className="text-4xl text-rose-400 m-7 font-bold"> About Me </p>
               {/* <hr className="border border-black" /> */}
               <p className="m-5 text-xl leading-loose">
                 {/* I am a tech mentor with a strong background in technology and 8
@@ -305,16 +305,20 @@ const MentorAccount = () => {
               {/* <hr className="border border-gray-200"/> */}
             </div>
 
-            <div className="w-1/2">
+            <div className="w-1/2   ">
+            <p className="text-4xl text-rose-400 m-7 font-bold">REVIEWS & FEEDBACKS </p>
               {reviews && reviews.length > 0 ? (
                 <div>
-                  <p className="text-3xl m-7 font-bold">REVIEWS & FEEDBACKS </p>
                   {reviews.map((review, index) => (
                     <FeedbackComponent key={index} data={review} />
                   ))}
                 </div>
               ) : (
-                "NO REVIEWS YET : ("
+                <div  className="ml-20 mt-32">
+                  {/* <p className="mt-24 text-4xl ml-32 text-orange-400 font-serif">NO REVIEWS YET </p> */}
+                  <img className="w-full " src="/images/nothing2.jpg"/>
+                </div>
+
               )}
             </div>
           </div>
