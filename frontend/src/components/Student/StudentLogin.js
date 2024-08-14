@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ErrorBlock from "../ErrorBlock";
 
 const StudentLogin = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const StudentLogin = () => {
     gmail: "",
     password: "",
   });
+  const [errormsg , setErrormsg] = useState("")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +38,8 @@ const StudentLogin = () => {
       localStorage.setItem("token", response.data.data.accessToken);
       navigate("/home");
     } catch (error) {
-      console.log(error);
+      console.log(error.response.statusText);
+      setErrormsg(error.response.statusText)
     }
   };
 
@@ -74,6 +77,8 @@ const StudentLogin = () => {
           />
         </label>
         <br />
+        {errormsg?<ErrorBlock errortext={errormsg} />: null}
+        
         <button className="border border-green-100 bg-green-100  w-96 ml-0  h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
 
           LOGIN
