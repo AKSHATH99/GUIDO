@@ -4,6 +4,7 @@ import AccountBox from "./AccountBox";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
+import HomeShimmer from "./HomeShimmer";
 
 const Home = () => {
   const [mentorsData, setmentorsData] = useState("");
@@ -88,16 +89,24 @@ const Home = () => {
           Popular Mentors 
       </div>
 
-      <div className="m-10 mt-10 ml-32">
-        {mentorsData ? (
+      <div className="m-10 mt-10 ml-48">
+        {
+        mentorsData ? (
           <div className="flex flex-wrap">
             {mentorsData.map((mentor, index) => (
               <AccountBox key={index} data={mentor} />
             ))}
           </div>
-        ) : (
-          <p>loading.....</p>
+        ) 
+        : (
+          <div className="flex flex-wrap">
+        <HomeShimmer/>
+        <HomeShimmer/>
+        <HomeShimmer/>
+        </div>
+
         )}
+        
       </div>
       <Footer/>
     </div>
