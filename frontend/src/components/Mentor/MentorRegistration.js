@@ -15,7 +15,7 @@ const MentorRegistration = () => {
     place: "",
     language_spoken: "",
     gender: "",
-    bio:"",
+    bio: "",
     education: [
       {
         collegeName: "",
@@ -31,9 +31,8 @@ const MentorRegistration = () => {
     fees: " ",
   });
 
-  const [selectedFile , setSelectedFile]  = useState(null)
-  const [errormsg , setErrormsg] = useState("")
-
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [errormsg, setErrormsg] = useState("");
 
   const handlechange = (e) => {
     const { name, value } = e.target;
@@ -55,10 +54,10 @@ const MentorRegistration = () => {
     }
   };
 
-  const handleFileChange = (e)=>{
+  const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
-    console.log(selectedFile)
-  }
+    console.log(selectedFile);
+  };
 
   const submitData = async (e) => {
     e.preventDefault();
@@ -78,11 +77,10 @@ const MentorRegistration = () => {
     }
 
     console.log(selectedFile);
-    
+
     // if (selectedFile) {
     //   formData.append('file', selectedFile);
     // }
-
 
     try {
       const response = await axios.post(
@@ -101,7 +99,7 @@ const MentorRegistration = () => {
       }
     } catch (error) {
       console.log(error);
-      setErrormsg(error.response.statusText)
+      setErrormsg(error.response.statusText);
     }
   };
 
@@ -330,17 +328,38 @@ const MentorRegistration = () => {
             </label>
             <br />
 
-            <label className=" m-8 ml-10 text-xl ">
+            <label className="m-8 ml-10 text-xl">
               Field:
-              <input
-                className="border border-gray-200 bg-gray-200 m-7 h-10 w-1/2 mt-0 ml-[68px] rounded-md p-3"
-                type="text"
+              <select
+                className="border border-gray-200 bg-gray-200 m-7 h-10 w-1/2 mt-0 ml-[68px] rounded-md px-3"
                 name="field"
                 value={formdata.field}
                 onChange={handlechange}
-                placeholder="Web Development "
                 required
-              />
+              >
+                <option value="All">All</option>
+                <option value=" Web development (Frontend / Backend / Full Stack)" className="p-10 hover:text-red-500">
+                  Web development (Frontend / Backend / Full Stack)
+                </option>
+                <option value="AI / ML" className="p-10">
+                  AI / ML
+                </option>
+                <option value="Data Science" className="p-10">
+                  Data Science
+                </option>
+                <option value="Software Development" className="p-10">
+                  Software Development
+                </option>
+                <option value="Tester" className="p-10">
+                  Tester
+                </option>
+                <option value="CyberSecurity and Ethickal Hackin" className="p-10">
+                  CyberSecurity and Ethickal Hacking
+                </option>
+                <option value="Cloud Computing and Networking" className="p-10">
+                  Cloud Computing and Networking
+                </option>
+              </select>
             </label>
             <br />
 
@@ -374,7 +393,8 @@ const MentorRegistration = () => {
                 onChange={handlechange}
                 placeholder="3"
                 rows="5"
-                cols="50"                required
+                cols="50"
+                required
               />
             </label>
             <br />
@@ -415,9 +435,11 @@ const MentorRegistration = () => {
 
             <h1 className="m-10 mb-3 text-xl">UPLOAD IMAGE </h1>
             <p className="w-96 text-sm ml-10 ">
-                Make sure to upload a professional photo for a better impression {" "}
-              </p>
-            <input type="file" onChange={handleFileChange}
+              Make sure to upload a professional photo for a better impression{" "}
+            </p>
+            <input
+              type="file"
+              onChange={handleFileChange}
               className=" m-7 h-10 w-1/2 mt-4 ml-10 rounded-md  text-xl "
             />
 
@@ -430,7 +452,7 @@ const MentorRegistration = () => {
             </button>
             {/* </Link>  */}
           </form>
-        {errormsg?<ErrorBlock errortext={errormsg} />: null}
+          {errormsg ? <ErrorBlock errortext={errormsg} /> : null}
         </div>
       </div>
     </>
