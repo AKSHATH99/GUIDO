@@ -1,43 +1,46 @@
 import React from "react";
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AccountBox = ({ data }) => {
   const navigate = useNavigate();
   const mentor = data;
-  // console.log(data);
-  // console.log(mentor.picture);
 
-  const navigatefunc=()=>{
-    navigate(`/MentorAccount/${mentor._id}`)
-  }
+  const navigatefunc = () => {
+    navigate(`/MentorAccount/${mentor._id}`);
+  };
+
   return (
-    <div className="border shadow-xl w-max h-max m-10 ">
+    <div
+      className="border shadow-xl w-max h-max m-10 hover:bg-gray-100 hover:cursor-pointer hover:shadow-2xl transform hover:scale-105 transition duration-300 ease-in-out"
+    >
       <div className="flex m-5">
         <div>
           <img
-            className="m-3    h-1/2 w-44 rounded-lg"
+            className="m-3 h-1/2 w-44 rounded-lg"
             src={`${mentor.picture}`}
+            alt={`${mentor.firstname} ${mentor.lastname}`}
           />
-          <button className="border rounded-lg p-4 m-3 bg-green-300 hover:bg-green-500">
+          <button className="border rounded-lg p-4 m-3 bg-green-300 hover:bg-green-500 transition duration-200 ease-in-out">
             BOOK A SESSION | ${mentor?.fees}
           </button>
           <br />
-          
-            {" "}
-            <Link to={`/MentorAccount/${mentor?._id}`}>
-            <button onClick={navigatefunc} className="border rounded-lg p-4 m-3 bg-slate-400 text-white hover:bg-slate-500">
-             VIEW PROFILE
+
+          <Link to={`/MentorAccount/${mentor?._id}`}>
+            <button
+              onClick={navigatefunc}
+              className="border rounded-lg p-4 m-3 bg-slate-400 text-white hover:bg-slate-500 transition duration-200 ease-in-out"
+            >
+              VIEW PROFILE
             </button>
-            </Link>
-          
+          </Link>
         </div>
         <div className="m-3">
-          <p className=" mt-5 font-bold text-4xl ">
-            {mentor?.firstname} {mentor?.lastname}{" "}
+          <p className="mt-5 font-bold text-4xl">
+            {mentor?.firstname} {mentor?.lastname}
           </p>
           <div className="flex">
-            <p className="border w-max m-3 p-2 shadow-lg">{mentor?.company} </p>
-            <p className="border w-max m-3 p-2 shadow-lg">{mentor?.role} </p>
+            <p className="border w-max m-3 p-2 shadow-lg">{mentor?.company}</p>
+            <p className="border w-max m-3 p-2 shadow-lg">{mentor?.role}</p>
           </div>
           <p className="border w-max m-3 p-2 shadow-lg">{mentor?.skills}</p>
 

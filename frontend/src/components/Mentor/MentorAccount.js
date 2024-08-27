@@ -165,7 +165,7 @@ const MentorAccount = () => {
 
   useEffect(() => {
     fetchData();
-    fetchReviews();
+    // fetchReviews();
   }, []);
 
   // -------------------------------------------------------------------
