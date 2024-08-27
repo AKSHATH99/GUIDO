@@ -16,19 +16,19 @@ const HeaderComponent = (picture) => {
         <p className="text-rose-500 text-5xl font-bold">GUIDO </p>
       </div>
       <div className="flex ml-20 m-9 mb-0 text-2xl justify-evenly text-rose-400 font-bold   w-1/2 mt-12">
-        <div className="">
+        <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
           <Link to="/home">
             {" "}
             <p> HOME </p>
           </Link>
         </div>
-        <div className="">
+        <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
           <p>ABOUT US </p>
         </div>
-        <div>
+        <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
           <p>GUIDO </p>
         </div>
-        <div>
+        <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
           <p>GUIDO </p>
         </div>
       </div>
