@@ -26,7 +26,7 @@ router
   .post(upload.single("picture"), registerMentor);
 
 const corsOptions = {
-  origin: "http://localhost:3000", // Replace with the allowed origin
+  origin: "https://guido-frontend.vercel.app/", // Replace with the allowed origin
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
