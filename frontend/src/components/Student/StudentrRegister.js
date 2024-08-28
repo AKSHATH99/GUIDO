@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import ErrorBlock from "../ErrorBlock.js"
 
 const StudentRegister = () => {
   const [formdata, setFormdata] = useState({
