@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FeedbackComponent from "./FeedbackComponent";
 import HeaderComponent from "../HeaderComponent.js";
-import Shimmer from "../Shimmer.js";
+import Shimmer from "../Shimmer/Shimmer.js";
 import Popup from "reactjs-popup";
 import { useParams } from "react-router-dom";
 import ErrorBlock from "../ErrorBlock.js";

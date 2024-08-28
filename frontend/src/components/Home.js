@@ -4,7 +4,7 @@ import AccountBox from "./AccountBox";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-import HomeShimmer from "./HomeShimmer";
+import HomeShimmer from "./Shimmer/HomeShimmer";
 
 const Home = () => {
   const [mentorsData, setmentorsData] = useState("");
