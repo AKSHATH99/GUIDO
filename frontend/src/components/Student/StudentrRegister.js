@@ -85,7 +85,7 @@ const StudentRegister = () => {
       console.log(response);
     } catch (error) {
       console.log(error);
-      const [errormsg , setErrormsg] = useState("")
+      // const [errormsg , setErrormsg] = useState("")
 
     }
   };
