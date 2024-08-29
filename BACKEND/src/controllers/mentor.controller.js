@@ -348,6 +348,35 @@ const fetchReview = asyncHandler(async(req , res)=>{
 
 })
 
+//------------------------------------- FILTER BASED ON FIELD-------------------------------------
+const filterMentor = asyncHandler(async (req, res, next) => {
+  try {
+    // Destructuring the filterfield from query parameters
+    const { filterfield } = req.query;
+
+    // Check if the filterfield parameter is provided
+    if (!filterfield) {
+      return next(new ApiError(400, "No query provided")); // Use next() for error handling middleware
+    }
+
+    // Query to find mentors based on the provided field value
+    const filteredMentor = await Mentor.find({ field: filterfield });
+
+    // If no mentors are found, return a custom error
+    if (!filteredMentor || filteredMentor.length === 0) {
+      return next(new ApiError(404, "No mentor found")); // Ensure a proper error message is sent
+    }
+
+    // Send the filtered mentors in the response
+    res.status(200).json(new ApiResponse(200, filteredMentor, "Filtered mentors successfully"));
+  } catch (error) {
+    // Log the error for debugging and return a generic error message
+    console.error(error);
+    return next(new ApiError(500, "Internal server error"));
+  }
+});
+
+
 //----------------------------DELETING MENTOR DETAILS------------------------------------------------------------------
 const deleteAccount= asyncHandler(async(req , res)=>{
 
@@ -378,5 +407,6 @@ export {
   fetchReview,
   updateDetails,
   deleteAccount ,
-  updatePicture
+  updatePicture,
+  filterMentor  
 };
