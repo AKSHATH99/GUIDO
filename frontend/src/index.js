@@ -11,9 +11,9 @@ import {
 import MentorAccount from "./components/Mentor/MentorAccount.js";
 import MentorLogin from "./components/Mentor/MentorLogin.js";
 import MentorRegistration from "./components/Mentor/MentorRegistration.js";
+import MyMentorAccount from "./components/Mentor/MyAccount.js";
 import StudentLogin from "./components/Student/StudentLogin.js";
 import StudentAcount from "./components/Student/StudentAcount.js";
-// import Shimmer from "./components/Shimmer.js";
 import Home from "./components/Home.js";
 import StudentRegister from "./components/Student/StudentrRegister.js";
 
@@ -51,6 +51,10 @@ const appRouter = createBrowserRouter([
     path: "/MentorAccount/:id",
     element: <MentorAccount />,
   },
+  {
+    path:"/myMentorAccount",
+    element: <MyMentorAccount/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
