@@ -8,7 +8,11 @@ import HomeShimmer from "./Shimmer/HomeShimmer";
 
 const Home = () => {
   const [mentorsData, setmentorsData] = useState("");
+
   const [loginStudentData, setLoginStudentData] = useState("");
+
+  const [filteredMentor , setFilteredMentor] = useState("");
+  const [filterField , setFilterfield] = useState("");
 
   //Function to fetch all the mentors from DB
   const fetchAll = async () => {
@@ -54,7 +58,7 @@ const Home = () => {
       console.log(error);
     }
   };
-  console.log("hi", loginStudentData.picure);
+  // console.log("hi", loginStudentData.picure);
 
   useEffect(() => {
     fetchLoggedInData();
@@ -79,6 +83,41 @@ const Home = () => {
       setLoginStudentData(response.data.data);
     } catch (error) {}
   };
+
+  const handleChangeInFilterField = (e) => {
+    setFilterfield(e.target.value);
+    console.log("change in filter ")
+    console.log(filterField)
+    
+  };
+
+  // const response = await axios.get(`http://localhost:8000/api/v1/mentor/filter?filterfield=${filterField}`, {
+  //   params: { filterfield: filterField },
+  // });
+  
+  const filterMentors = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`http://localhost:8000/api/v1/mentor/filter?filterfield=${filterField}`, {
+          params: { filterfield: filterField },
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+      ;
+      setFilteredMentor(response.data.data); 
+    
+    } catch (err) {
+      console.error(err);      
+    }
+  };
+
+  useEffect(() => {
+    filterMentors()
+    console.log('Updated filterField:', filteredMentor);
+  }, [filterField]); // Dependency array includes filterField
 
   return (
     <div>
@@ -106,13 +145,13 @@ const Home = () => {
         <p>Popular Mentors </p>
 
         {/* <label for="dropdown" className="text-xl ml-[430px] mt-3 font-bold">Filter :   </label> */}
-        <select id="filter"  name="filter mentor" className="text-xl ml-[500px] border px-10 py-3 text-black shadow-lg " >
+        <select id="filter" onChange={handleChangeInFilterField} name="filter mentor" className="text-xl ml-[500px] border px-10 py-3 text-black shadow-lg " >
           {" "}
-          <option value="option1">All</option>
-          <option value="option2" className="p-10 hover:text-red-500">Web development (Frontend / Backend / Full Stack)</option>
-          <option value="option3" className="p-10">AI / ML</option>
-          <option value="option4" className="p-10"> Data Science  </option>
-          <option value="option4" className="p-10"> Software Development  </option>
+          <option value="All">All</option>
+          <option value="Web development (Frontend / Backend / Full Stack)" className="p-10 hover:text-red-500">Web development (Frontend / Backend / Full Stack)</option>
+          <option value="AI / ML" className="p-10">AI / ML</option>
+          <option value="Data Science " className="p-10"> Data Science  </option>
+          <option value="Software Development " className="p-10"> Software Development  </option>
         </select>
 
         
