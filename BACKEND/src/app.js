@@ -17,20 +17,20 @@ app.use((req, res, next) => {
 // };
 // app.use(cors({ origin: 'https://guido-frontend.vercel.app/', credentials: true }))
 
-// app.use(
-//   cors({ origin: ["https://guido-frontend.vercel.app"],
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials:true,
-// })
-// );
+app.use(
+  cors({ origin: ["https://guido-frontend.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials:true,
+})
+);
 
-const corsOptions = {
-  origin: "https://guido-frontend.vercel.app", // Replace with your frontend's origin
-  credentials: true, // allow credentials (cookies)
-  methods: ["GET", "POST", "PUT", "DELETE"],
-};
+// const corsOptions = {
+//   origin: "https://guido-frontend.vercel.app", // Replace with your frontend's origin
+//   credentials: true, // allow credentials (cookies)
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 
 app.use(express.json({ limit: "1600000" }));
