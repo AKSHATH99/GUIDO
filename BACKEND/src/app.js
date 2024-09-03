@@ -29,6 +29,8 @@ const corsOptions = {
   credentials: true, // allow credentials (cookies)
 };
 
+app.use(cors(corsOptions));
+
 
 app.use(express.json({ limit: "1600000" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
