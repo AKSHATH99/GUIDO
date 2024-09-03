@@ -11,11 +11,11 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Optional: Allow specific headers
     next();
   });
-// const corsOptions = {
-//   origin: "http://localhost:3000", // your frontend domain
-//   credentials: true, // allow credentials (cookies)
-// };
-// app.use(cors({ origin: 'https://guido-frontend.vercel.app/', credentials: true }))
+const corsOptions = {
+  origin: "http://localhost:3000", // your frontend domain
+  credentials: true, // allow credentials (cookies)
+};
+app.use(cors({ origin: 'https://guido-frontend.vercel.app/', credentials: true }))
 
 app.use(
   cors({ origin: ["https://guido-frontend.vercel.app"],
