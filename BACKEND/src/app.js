@@ -15,7 +15,14 @@ app.use((req, res, next) => {
 //   origin: "http://localhost:3000", // your frontend domain
 //   credentials: true, // allow credentials (cookies)
 // };
-app.use(cors({ origin: 'https://guido-frontend.vercel.app/', credentials: true }))
+// app.use(cors({ origin: 'https://guido-frontend.vercel.app/', credentials: true }))
+
+app.use(
+  cors({ origin: ["https://guido-frontend.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials:true,
+})
+);
 
 app.use(express.json({ limit: "1600000" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
@@ -26,7 +33,7 @@ app.use(cookieParser());
 // https://localhost:8000/api/mentor/
 // http://localhost:8000/api/v1
 import userRouter from "./routes/mentor.routes.js";
-app.use("/api/v1/mentor", userRouter);
+app.use("/api/v1/mentor", userRouter);  
 
 import studentRouter from "./routes/student.route.js";
 app.use("/api/v1/student", studentRouter);
