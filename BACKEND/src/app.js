@@ -5,12 +5,12 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 // CORS Middleware (place this at the top, before routes)
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', 'https://guido-frontend.vercel.app/'); // Replace with your frontend's origin
-//     res.setHeader('Access-Control-Allow-Credentials', true);
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Optional: Allow specific headers
-//     next();
-//   });
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://guido-frontend.vercel.app/'); // Replace with your frontend's origin
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Optional: Allow specific headers
+    next();
+  });
 // const corsOptions = {
 //   origin: "http://localhost:3000", // your frontend domain
 //   credentials: true, // allow credentials (cookies)
