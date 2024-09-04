@@ -25,7 +25,7 @@ const StudentLogin = () => {
     try {
       axios.defaults.withCredentials = true;
       const response = await axios.post(
-        " https://guido-backend.vercel.app/",
+        " https://guido-backend.vercel.app/api/v1/student/login",
         formdata,
         {
           headers: {
