@@ -14,6 +14,8 @@ const Home = () => {
   const [filteredMentor , setFilteredMentor] = useState("");
   const [filterField , setFilterfield] = useState("");
 
+  const [noFilter , setNoFilter] = useState(false)
+
   //Function to fetch all the mentors from DB
   const fetchAll = async () => {
     try {
@@ -97,6 +99,10 @@ const Home = () => {
   
   const filterMentors = async () => {
     try {
+      setNoFilter(false)
+      if (filterField === "All") {
+        await fetchAll();
+      } else {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
       const response = await axios.get(`http://localhost:8000/api/v1/mentor/filter?filterfield=${filterField}`, {
@@ -107,10 +113,20 @@ const Home = () => {
           },
         })
       ;
-      setFilteredMentor(response.data.data); 
-    
+      if(response.data.data.length === 0){
+        setNoFilter(true)   
+        console.log("FUCK ME ");
+        
+      }
+      else{
+        //setFilteredMentor(response.data.data); 
+      setmentorsData(response.data.data)}
+      }
     } catch (err) {
-      console.error(err);      
+        setNoFilter(true)   
+        console.log("FUCK ME ") ;
+      console.error(err);  
+          
     }
   };
 
@@ -119,6 +135,8 @@ const Home = () => {
     console.log('Updated filterField:', filteredMentor);
   }, [filterField]); // Dependency array includes filterField
 
+ 
+  // ----------------------------------------------------------------------------------------------------------------------
   return (
     <div>
       <HeaderComponent picture={loginStudentData.picure} />
@@ -158,20 +176,27 @@ const Home = () => {
       </div>
 
       <div className="m-10 mt-10 ml-48">
-        {mentorsData ? (
-          <div className="flex flex-wrap r">  
-            {mentorsData.map((mentor, index) => (
-              <AccountBox key={index} data={mentor} />
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-wrap ">
-            <HomeShimmer />
-            <HomeShimmer />
-            <HomeShimmer />
-          </div>
-        )}
+        {console.log(noFilter)}
+  {noFilter ? (
+    <div className="text-orange-300  ml-64 h-60 mt-32 text-3xl flex"> <img className="" src="/images/notfound.png" /> <p className="font-mono mt-16">Oops ! We dont have mentor of this field</p> 
+</div>
+  ) : (
+    mentorsData && mentorsData.length > 0 ? (
+      <div className="flex flex-wrap r">
+        {mentorsData.map((mentor, index) => (
+          <AccountBox key={index} data={mentor} />
+        ))}
       </div>
+    ) : (
+      <div className="flex flex-wrap">
+        <HomeShimmer />
+        <HomeShimmer />
+        <HomeShimmer />
+      </div>
+    )
+  )}
+</div>
+
       <Footer />
     </div>
   );
