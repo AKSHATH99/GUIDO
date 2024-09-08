@@ -12,8 +12,9 @@ const HeaderComponent = (picture) => {
   return (
   
     <div className="flex -2  ">
-      <div className="m-9 mb-0 ml-44">
-        <p className="text-rose-500 text-5xl font-bold">GUIDO </p>
+      <div className="m-9 mb-0 ml-44 flex">
+        <img className="h-10 w-10 mt-2" src="/images/logo.png"/>
+        <p className="text-rose-500 text-5xl font-bold  ml-5">GUIDO </p>
       </div>
       <div className="flex ml-20 m-9 mb-0 text-2xl justify-evenly text-rose-400 font-bold   w-1/2 mt-12">
         <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
@@ -33,7 +34,7 @@ const HeaderComponent = (picture) => {
         </div>
       </div>
 
-      <div className="m-9 mb-2 mt-5   ml-20 ">
+      <div className="m-9 mb-2 mt-5   ml-20 hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out">
         {dppicture? (
           <Link to="/studentAccount">
             <img
