@@ -55,7 +55,7 @@ router.route("/deleteAccount").delete(cors(corsOptions), verifyJWT ,deleteAccoun
 router.route("/filter").get(cors(corsOptions),verifyJWT2 , filterMentor )
 
 // https://localhost:8000/api/mentor/find/:firstname
-router.route("/find/:firstname").get(verifyJWT, fetchAMentor);
+router.route("/find/:firstname").get(verifyJWT2, fetchAMentor);
 
 // https://localhost:8000/api/mentor/:id
 router.route("/:id").get(cors(corsOptions), verifyJWT2, fetchMentorByID);
