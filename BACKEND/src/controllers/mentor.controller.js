@@ -194,12 +194,13 @@ const fetchMentor = asyncHandler(async (req, res) => {
 const fetchAMentor = asyncHandler(async (req, res) => {
   try {
     const { firstname } = req.params;
-
+    console.log(firstname)
     if (!firstname?.trim()) {
       throw new ApiError(404, "PROVIDE NAME IN THE PARAMS");
     }
 
-    const user = await Mentor.find({ firstname: firstname });
+    const regex = new RegExp(`^${firstname}`, 'i');
+    const user = await Mentor.find({ firstname: { $regex: regex } }).select("_id firstname lastname company role field picture ");
 
     if (!user || user.length == 0) {
       throw new ApiError(404, "User Not found");
