@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import HomeShimmer from "./Shimmer/HomeShimmer";
+import SearchResultComponent from "./SearchResultComponent";
 
 const Home = () => {
   const [mentorsData, setmentorsData] = useState("");
@@ -15,6 +16,10 @@ const Home = () => {
   const [filterField , setFilterfield] = useState("");
 
   const [noFilter , setNoFilter] = useState(false)
+
+
+  const [searchInput , setSearchInput] = useState("");
+  const [searchResult , setSearchResult] = useState("");
 
   //Function to fetch all the mentors from DB
   const fetchAll = async () => {
@@ -67,13 +72,19 @@ const Home = () => {
     fetchAll();
   }, []);
 
+  const handleChangeInFilterField = (e) => {
+    setFilterfield(e.target.value);
+    
+  };
+
+
   const searchMentor = async () => {
     try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        `  http://localhost:8000/api/v1/student/  `,
+        `http://localhost:8000/api/v1/mentor/find/${searchInput}`,
         {
           withCredentials: true,
           headers: {
@@ -81,21 +92,22 @@ const Home = () => {
           },
         }
       );
-      // console.log(response.data.data._id);
-      setLoginStudentData(response.data.data);
-    } catch (error) {}
+      console.log(response);
+      setSearchResult(response.data.data)
+      console.log(searchResult)
+      // setLoginStudentData(response.data.data);
+    } catch (error) {}  
   };
 
-  const handleChangeInFilterField = (e) => {
-    setFilterfield(e.target.value);
-    console.log("change in filter ")
-    console.log(filterField)
-    
+  const handleSearchInput = (e) => {
+    setSearchInput(e.target.value);
+    console.log("change in search input ")
+    console.log(searchInput)    
   };
 
-  // const response = await axios.get(`http://localhost:8000/api/v1/mentor/filter?filterfield=${filterField}`, {
-  //   params: { filterfield: filterField },
-  // });
+  useEffect(() => {
+    searchMentor()
+  }, [searchInput])
   
   const filterMentors = async () => {
     try {
@@ -115,7 +127,6 @@ const Home = () => {
       ;
       if(response.data.data.length === 0){
         setNoFilter(true)   
-        console.log("FUCK ME ");
         
       }
       else{
@@ -124,7 +135,6 @@ const Home = () => {
       }
     } catch (err) {
         setNoFilter(true)   
-        console.log("FUCK ME ") ;
       console.error(err);  
           
     }
@@ -132,7 +142,6 @@ const Home = () => {
 
   useEffect(() => {
     filterMentors()
-    console.log('Updated filterField:', filteredMentor);
   }, [filterField]); // Dependency array includes filterField
 
  
@@ -150,13 +159,26 @@ const Home = () => {
       </div>
       <div className="flex ml-80 -mt-44 ">
         <input
+          value={searchInput}
+          onChange={handleSearchInput}
           className="border m-32 mb-0 mr-0  mt-20  w-1/2 h-14 rounded-l-xl p-2 pl-5 text-xl"
           placeholder="Search  For A Mentor Here ..."
         />
-        <button className=" h-14 mt-[81px] w-48 rounded-r-xl border-green-400 text-xl bg-green-300">
+        <button onClick={searchMentor} className=" h-14 mt-[81px] w-48 rounded-r-xl border-green-400 text-xl bg-green-300">
           Search
         </button>
       </div>
+      {searchResult ? (
+        <div
+          className="absolute ml-[450px] h-max w-1/2 p-4 shadow-md bg-white z-50"
+          
+        >
+         {/* <SearchResultComponent/> */}
+         {searchResult.map((result , index) => (        
+          <Link to={`/MentorAccount/${result?._id}`}><SearchResultComponent key={index} data={result} /></Link>
+        ))}
+        </div>
+      ):""}
 
       <div className="ml-56 m-20 mb-0 text-rose-400 text-4xl flex ">
         <img className="mr-5" src="/images/star.png" />
@@ -176,7 +198,7 @@ const Home = () => {
       </div>
 
       <div className="m-10 mt-10 ml-48">
-        {console.log(noFilter)}
+        {/* {console.log(noFilter)} */}
   {noFilter ? (
     <div className="text-orange-300  ml-64 h-60 mt-32 text-3xl flex"> <img className="" src="/images/notfound.png" /> <p className="font-mono mt-16">Oops ! We dont have mentor of this field</p> 
 </div>
