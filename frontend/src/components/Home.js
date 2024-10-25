@@ -21,6 +21,8 @@ const Home = () => {
   const [searchInput , setSearchInput] = useState("");
   const [searchResult , setSearchResult] = useState("");
 
+
+
   //Function to fetch all the mentors from DB
   const fetchAll = async () => {
     try {
@@ -139,6 +141,15 @@ const Home = () => {
           
     }
   };
+  
+  // searchResult
+  const collapseSearchResult=()=>{
+    // setSearchInput("");
+    console.log("COLLAPSE");
+    
+  }
+
+
 
   useEffect(() => {
     filterMentors()
@@ -157,26 +168,30 @@ const Home = () => {
           Mentors ......{" "}
         </p>
       </div>
-      <div className="flex ml-80 -mt-44 ">
+      <div className="flex ml-[370px] -mt-44 ">
         <input
           value={searchInput}
           onChange={handleSearchInput}
           className="border m-32 mb-0 mr-0  mt-20  w-1/2 h-14 rounded-l-xl p-2 pl-5 text-xl"
           placeholder="Search  For A Mentor Here ..."
         />
-        <button onClick={searchMentor} className=" h-14 mt-[81px] w-48 rounded-r-xl border-green-400 text-xl bg-green-300">
-          Search
+        <button onClick={collapseSearchResult} className=" h-14 mt-[81px] w-max rounded-r-xl border text-xl">
+          <img className="h-5 m-3" src="/images/close.png" />
         </button>
-      </div>
-      {searchResult ? (
+      </div> 
+      {console.log(searchResult)
+        } 
+      {searchResult && searchResult.length > 0 ? (
         <div
-          className="absolute ml-[450px] h-max w-1/2 p-4 shadow-md bg-white z-50"
+        
+          className="absolute ml-[500px] h-max w-[805px] p-4 shadow-md bg-white z-50"
           
         >
          {/* <SearchResultComponent/> */}
          {searchResult.map((result , index) => (        
           <Link to={`/MentorAccount/${result?._id}`}><SearchResultComponent key={index} data={result} /></Link>
-        ))}
+          // console.log(result)
+        ))} 
         </div>
       ):""}
 
