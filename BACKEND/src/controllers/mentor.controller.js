@@ -216,7 +216,8 @@ const fetchAMentor = asyncHandler(async (req, res) => {
 
 //---------------------------FETCHING MENTOR USING ID AS PARAMS----------------------------------------------------
 const fetchMentorByID = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const  {id } = req.params;
+  console.log("FUCKIGN HWAT BIRTHHC",id);
 
   if (!id) {
     throw new ApiError(404, "MENTOR ID NOT PROVIDED");
