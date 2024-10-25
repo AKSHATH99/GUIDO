@@ -11,11 +11,11 @@
         console.log(results)
         
     return (
-        <div className='flex p-3 hover:bg-slate-100 hover:cursor-pointer'>
+        <div className='flex p-6 hover:bg-slate-100 hover:cursor-pointer'>
             {/* <img className='h-10 w-10 rounded-full' src="/images/plaindp.jpg"></img> */}
             <img className='h-10 w-10 rounded-full' src={results?.picture}></img>
         <div className='ml-4'>
-            <p className='font-bold'>{results?.firstname}  {results?.lastname}</p>
+            <p className='font-bold text-2xl'>{results?.firstname}  {results?.lastname}</p>
             <p>{results?.role} .  {results?.company}  . {results?.field}</p>
         </div>
         </div>
