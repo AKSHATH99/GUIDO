@@ -26,7 +26,7 @@ const StudentLogin = () => {
 
   const submitData = async (e) => {
     setLoader(true)
-    toast.error("wow");
+   
     e.preventDefault();
     try {
       axios.defaults.withCredentials = true;
@@ -44,15 +44,17 @@ const StudentLogin = () => {
       localStorage.setItem("token", response.data.data.accessToken);
       navigate("/home");
     } catch (error) {
-      console.log(error.response.statusText);
-      setErrormsg(error.response.statusText)
+      console.log(error.response.status);
+      setErrormsg(error.response.status);
+      toast.error(`${error.response.status}, Incorrect mail or password`);
+      setLoader(false)
     }
   };
 
   return (
     <div className="lg:flex bg-gray-200 min-h-screen h-screen">
   <div className="lg:m-48 lg:pb-5 lg:pt-0 p-10 pt-40 lg:mb-48 mb-0">
-    <ToastContainer theme="dark" hideProgressBar={true}/>
+    
     <p className="text-xl lg:text-4xl">
       LOGIN TO YOUR <span className="underline text-rose-500 font-bold mr-3">GUIDO</span> ACCOUNT
     </p>
@@ -86,7 +88,7 @@ const StudentLogin = () => {
         />
       </label>
       <br />
-      {errormsg ? <ErrorBlock errortext={errormsg} /> : null}
+      <ToastContainer theme="dark" hideProgressBar={true}/>
 
       <button  className="border border-green-100 bg-green-100 lg:w-96 w-72 ml-0 h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
         {Loader?<div className="ml-44"><LoaderAnimation/></div>:"LOGIN "}
