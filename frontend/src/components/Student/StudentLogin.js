@@ -44,52 +44,54 @@ const StudentLogin = () => {
   };
 
   return (
-    <div className="flex bg-gray-200">
-    <div className="m-48">
-      <p className="text-4xl">LOGIN TO YOUR <span className="underline text-rose-500 font-bold mr-3 ">GUIDO </span> ACCOUNT  </p>
+    <div className="lg:flex bg-gray-200 min-h-screen h-screen">
+  <div className="lg:m-48 lg:pb-5 lg:pt-0 p-10 pt-40 lg:mb-48 mb-0">
+    <p className="text-xl lg:text-4xl">
+      LOGIN TO YOUR <span className="underline text-rose-500 font-bold mr-3">GUIDO</span> ACCOUNT
+    </p>
 
-      <form className="m-10" onSubmit={submitData}>
-        <label>
-          <p className="text-2xl font-semibold">Email</p>
-          <br />
-          <input
-            className="border    m-7 h-12 w-96   mt-0 ml-0 rounded-md p-3"
-            type="email"
-            name="gmail"
-            value={formdata.gmail}
-            onChange={handleChange}
-            placeholder="abc@gmail.com"
-            required
-          />
-        </label>
+    <form className="lg:m-10 mt-10" onSubmit={submitData}>
+      <label>
+        <p className="text-2xl font-semibold">Email</p>
         <br />
-        <label>
-          <p className="text-2xl mt- font-semibold"> Password</p>
-          <br />
-          <input
-            className="border  m-7 h-12 w-96   mt-0 ml-0 rounded-md p-3"
-            type="password"
-            name="password" 
-            value={formdata.password}
-            onChange={handleChange}
-            placeholder="Password"
-            required
-          />
-        </label>
+        <input
+          className="border m-7 h-12 lg:w-96 w-72 mt-0 ml-0 rounded-md p-3"
+          type="email"
+          name="gmail"
+          value={formdata.gmail}
+          onChange={handleChange}
+          placeholder="abc@gmail.com"
+          required
+        />
+      </label>
+      <br />
+      <label>
+        <p className="text-2xl mt- font-semibold">Password</p>
         <br />
-        {errormsg?<ErrorBlock errortext={errormsg} />: null}
-        
-        <button className="border border-green-100 bg-green-100  w-96 ml-0  h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
+        <input
+          className="border m-7 h-12 lg:w-96 w-72 mt-0 ml-0 rounded-md p-3"
+          type="password"
+          name="password"
+          value={formdata.password}
+          onChange={handleChange}
+          placeholder="Password"
+          required
+        />
+      </label>
+      <br />
+      {errormsg ? <ErrorBlock errortext={errormsg} /> : null}
 
-          LOGIN
-        </button>
-        <p className="text-xl mt-10">Don't have a account ? <Link className="text-rose-500 hover:text-rose-700" to = "/MentorReg">Create your Account</Link> </p>
-      </form>
-    </div>
-    <div className="mt-40">
-      <img className="h-[600px] w-[600px]" src="/images/mentor2.png" />
-    </div>
+      <button className="border border-green-100 bg-green-100 lg:w-96 w-72 ml-0 h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
+        LOGIN
+      </button>
+      <p className="text-xl mt-10">Don't have an account? <Link className="text-rose-500 hover:text-rose-700" to="/MentorReg">Create your Account</Link></p>
+    </form>
   </div>
+  <div className="mt-40 hidden lg:block">
+    <img className="h-[600px] w-[600px]" src="/images/mentor2.png" />
+  </div>
+</div>
+
   );
 };
 
