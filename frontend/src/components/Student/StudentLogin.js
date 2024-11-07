@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ErrorBlock from "../ErrorBlock";
+import LoaderAnimation from "../Shimmer/LoaderAnimation";
+import {ToastContainer , toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const StudentLogin = () => {
   const navigate = useNavigate();
@@ -10,7 +13,8 @@ const StudentLogin = () => {
     gmail: "",
     password: "",
   });
-  const [errormsg , setErrormsg] = useState("")
+  const [errormsg , setErrormsg] = useState("") 
+  const [Loader , setLoader] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +25,8 @@ const StudentLogin = () => {
   };
 
   const submitData = async (e) => {
+    setLoader(true)
+    toast.error("wow");
     e.preventDefault();
     try {
       axios.defaults.withCredentials = true;
@@ -46,6 +52,7 @@ const StudentLogin = () => {
   return (
     <div className="lg:flex bg-gray-200 min-h-screen h-screen">
   <div className="lg:m-48 lg:pb-5 lg:pt-0 p-10 pt-40 lg:mb-48 mb-0">
+    <ToastContainer theme="dark" hideProgressBar={true}/>
     <p className="text-xl lg:text-4xl">
       LOGIN TO YOUR <span className="underline text-rose-500 font-bold mr-3">GUIDO</span> ACCOUNT
     </p>
@@ -81,9 +88,9 @@ const StudentLogin = () => {
       <br />
       {errormsg ? <ErrorBlock errortext={errormsg} /> : null}
 
-      <button className="border border-green-100 bg-green-100 lg:w-96 w-72 ml-0 h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
-        LOGIN
-      </button>
+      <button  className="border border-green-100 bg-green-100 lg:w-96 w-72 ml-0 h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
+        {Loader?<div className="ml-44"><LoaderAnimation/></div>:"LOGIN "}
+      </button > 
       <p className="text-xl mt-10">Don't have an account? <Link className="text-rose-500 hover:text-rose-700" to="/MentorReg">Create your Account</Link></p>
     </form>
   </div>
