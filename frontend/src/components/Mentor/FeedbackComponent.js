@@ -1,28 +1,32 @@
 import React from "react";
 
-const FeedbackComponent = ({data}) => {
+const FeedbackComponent = ({ data }) => {
   return (
-    <div className="m-10 border rounded-3xl">
+    <div className="m-10 border rounded-3xl bg-slate-100 shadow-xl hover:bg-slate-200 hover:shadow-2xl hover:border-gray-300 transition-all duration-300">
       <div className="m-4">
         <span className="m-3">
-        <img src="/images/qoute2.png"/> <p className="leading-8 text-xl "> 
-          {/* His insight and expertise have been transformative, offering
-          clear direction and fostering my confidence. Their approachable and
-          encouraging nature makes every interaction a learning opportunity. I'm
-          deeply appreciative of their commitment to my personal and
-          professional development. " */}
-          {data.review}
-          </p><img src="/images/qoute1.png"/>
+          <p className="leading-8 text-xl italic">{data.review}</p>
         </span>
       </div>
-      <div className="flex m-4">
-        <div>
+      <div className=" m-4">
+        <div className="flex">
           <img
-            className="h-16 w-16 rounded-full"
-            src="https://media.istockphoto.com/id/597958694/photo/young-adult-male-student-in-the-lobby-of-a-university.jpg?s=612x612&w=0&k=20&c=QaNEzmcKrLJzmwOcu2lgwm1B7rm3Ouq2McYYdmoMGpU="
+            className="h-8 w-8 rounded-full"
+            src="/images/star.png"
+          />
+          <img
+            className="h-8 w-8 rounded-full"
+            src="/images/star.png"
+          />
+          <img
+            className="h-8 w-8 rounded-full"
+            src="/images/star.png"
           />
         </div>
-        <div className="text-xl m-2 ">{data.student.firstname} {data.student.lastname}</div>
+        <div className="text-xl m-2  font-bold ">
+          {data.student.firstname} {data.student.lastname}{" "}
+          <p className="font-normal text-sm">October 2024</p>
+        </div>
       </div>
     </div>
   );

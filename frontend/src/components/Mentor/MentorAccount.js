@@ -21,12 +21,12 @@ const MentorAccount = () => {
 
   useEffect(()=>{
     fetchReviews();
-  },[ReviewSubmited , reviews , reviewdata])
+  },[ReviewSubmited])
   //Function to book session
   const bookingHandler = async () => {
     setBookStatus(true);
-    console.log(bookStatus);
-    console.log(id);
+    // console.log(bookStatus);
+    // console.log(id);
 
     try {
       axios.defaults.withCredentials = true;
@@ -43,7 +43,7 @@ const MentorAccount = () => {
         }
       );
 
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
       setErrormsg(error.response.statusText)
@@ -105,7 +105,6 @@ const MentorAccount = () => {
       );
 
       setMentorData(response.data.data);
-      // console.log(response.data.data.firstname);
       console.log(mentorData.picture);
     } catch (error) {
       setErrormsg(error.response.statusText)
@@ -137,7 +136,7 @@ const MentorAccount = () => {
 
   const sendEmail = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
+    // console.log(token);
   
     try {
       const response = await axios.post(
@@ -151,7 +150,7 @@ const MentorAccount = () => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
   
       if (response) {
         console.log("mail sent successfully");
@@ -174,7 +173,7 @@ const MentorAccount = () => {
       <HeaderComponent />
       {mentorData ? (
         <div className="">
-          <div className="border bg-white m-12 ml-56  w-max ">
+          <div className="border bg-slate-100 m-12 ml-56  w-max rounded-t-lg ">
             <div className="  flex ">
               <div className="flex m-10">
                 <div>
@@ -275,8 +274,8 @@ const MentorAccount = () => {
           </div>
 
           {/* <MessageBlock message={"helo"}/> */}
-          <div className="border flex bg-white m-12">
-            <div className=" w-1/3 border-r">
+          <div className="border flex bg-slate-100 m-12 ml-[215px] w-3/4 -mt-10 rounded-b-xl">
+            <div className="w-max  border-r">
               <p className="text-4xl text-rose-400 m-7 font-bold"> About Me </p>
               {/* <hr className="border border-black" /> */}
               <p className="m-5 text-xl leading-loose">
@@ -332,10 +331,11 @@ const MentorAccount = () => {
               {/* <hr className="border border-gray-200"/> */}
             </div>
 
-            <div className="w-1/2   ">
+                  {/*REVIEW SECTION  */}
+            <div className="w- ">
             <p className="text-4xl text-rose-400 m-7 font-bold">REVIEWS & FEEDBACKS </p>
               {reviews && reviews.length > 0 ? (
-                <div>
+                <div className="flex flex-wrap">
                   {reviews.map((review, index) => (
                     <FeedbackComponent key={index} data={review} />
                   ))}
