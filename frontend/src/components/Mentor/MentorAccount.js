@@ -7,27 +7,29 @@ import Popup from "reactjs-popup";
 import { useParams } from "react-router-dom";
 import ErrorBlock from "../ErrorBlock.js";
 import MessageBlock from "../MessageBlock.js";
+import {Slide, ToastContainer , toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const MentorAccount = () => {
   const [mentorData, setMentorData] = useState("");
   const [bookStatus, setBookStatus] = useState(false);
   const [reviewdata, setReviewData] = useState("");
   const [ReviewSubmited, setReviewSubmited] = useState(true);
-  const [reviews, setReviews] = useState("");
-  const [errormsg , setErrormsg] = useState("")
-  const [message , setMessage]=useState("");
+  const [reviews, setReviews] = useState("")
   const { id } = useParams();
 
 
+  // FETCH REVIEWS WHILE DOM LOADS
   useEffect(()=>{
     fetchReviews();
   },[ReviewSubmited])
-  //Function to book session
+
+
+
+  //BOOK SESSION IS HANDLED HERE
   const bookingHandler = async () => {
     setBookStatus(true);
-    // console.log(bookStatus);
-    // console.log(id);
-
     try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
@@ -42,30 +44,36 @@ const MentorAccount = () => {
           },
         }
       );
-
-      // console.log(response);
+      if(response){
+     toast.success("SUCCESSFULLY BOOKED",{transition:Slide})
+      }
     } catch (error) {
       console.log(error);
-      setErrormsg(error.response.statusText)
-      
+      toast.error(`Some error occured while booking  . Try again`,{transition:Slide})
     }
+    //send mail
     sendEmail();
   };
 
-  //Function to handle review input
+
+
+  //HANDLES REVIEW INPUT CHANGE
   const handleChange = (e) => {
     const { value } = e.target;
     setReviewData(value);
     // console.log(value , "from handlechange")
   };
 
-  //Function to submit review
+
+
+
+
+  //HANDLES REVIEW SUBMISSION 
   const HandleReviewSubmit = async (e) => {
     e.preventDefault();
     try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
-
       const response = await axios.post(
         `http://localhost:8000/api/v1/student/review/${id}`,
         { review: reviewdata },
@@ -80,15 +88,19 @@ const MentorAccount = () => {
       if (response) {
         setReviewSubmited(true);
         console.log("SUBMITTED REVIEW", response);
-        setMessage("REVIEW SUBMITED")
+        toast.success("Thanks for submiting your review ")
       }
+
     } catch (error) {
-      setErrormsg(error.response.statusText)
+      toast.error(`Some error occured while submiting review  . Try again`,{transition:Slide})
       console.log(error);
     }
   };
 
-  //Function to fetch user data
+
+
+
+  //FETCHES USER DATA
   const fetchData = async () => {
     try {
       axios.defaults.withCredentials = true;
@@ -107,11 +119,13 @@ const MentorAccount = () => {
       setMentorData(response.data.data);
       console.log(mentorData.picture);
     } catch (error) {
-      setErrormsg(error.response.statusText)
+      toast.error(`Some error occured fetching data . Try again`,{transition:Slide})
       console.log(error);
     }
   };
 
+
+  //FETCHES REVIES FROM API
   const fetchReviews = async () => {
     try {
       axios.defaults.withCredentials = true;
@@ -129,11 +143,15 @@ const MentorAccount = () => {
       setReviews(response.data.data);
     } catch (error) {
       console.log(error);
-      setErrormsg(error.response.statusText)
+      toast.error(`Some error occured while finding reviews  . Try again`,{transition:Slide})
+
 
     }
   };
 
+
+
+  //FUNCTION TO SEND MAIL
   const sendEmail = async () => {
     const token = localStorage.getItem("token");
     // console.log(token);
@@ -154,25 +172,37 @@ const MentorAccount = () => {
   
       if (response) {
         console.log("mail sent successfully");
-        setMessage('SUCCESS ! Mentor has been notified about you enrollment')
+        toast.success("MAIL SENT TO MENTOR ")
       }
     } catch (error) {
       console.error("Error sending email:", error.response ? error.response.data : error.message);
-      setErrormsg(error.response.statusText)
+      toast.error(`Some error occured while sending email  . Try again`,{transition:Slide})
+
     }
   };
+
 
   useEffect(() => {
     fetchData();
     // fetchReviews();
   }, []);
 
-  // -------------------------------------------------------------------
+
+
+
+
+
+  // ----------------------------DOM---------------------------------------
   return (
     <>
+
+
+
+    {/*------------------------ HEADER SECTION -------------------------------*/}
       <HeaderComponent />
       {mentorData ? (
         <div className="">
+          <ToastContainer theme="dark" hideProgressBar={true}  />
           <div className="border bg-slate-100 m-12 ml-56  w-max rounded-t-lg ">
             <div className="  flex ">
               <div className="flex m-10">
@@ -266,25 +296,16 @@ const MentorAccount = () => {
               </button>
             </div>
           </div>
+          
 
-          {/* Error messages and success messages will be displayed here */}
-          <div className="ml-96">
-          {errormsg?<ErrorBlock errortext={errormsg} />: null}
-          {message?<MessageBlock message={message} />: null}
-          </div>
 
-          {/* <MessageBlock message={"helo"}/> */}
+
+    {/*------------------------ DESCRIPTION SECTION -------------------------------*/}
           <div className="border flex bg-slate-100 m-12 ml-[215px] w-3/4 -mt-10 rounded-b-xl">
             <div className="w-max  border-r">
               <p className="text-4xl text-rose-400 m-7 font-bold"> About Me </p>
               {/* <hr className="border border-black" /> */}
               <p className="m-5 text-xl leading-loose">
-                {/* I am a tech mentor with a strong background in technology and 8
-            years of experience. Currently, I work as an SDE 2 at Google. I love
-            helping others understand and succeed in the tech industry. Whether
-            you're new to tech or looking to advance, I'm here to guide and
-            support you with practical advice and encouragement. Let's work
-            together to achieve your goals and grow your skills. */}
                 {mentorData.bio}
               </p>
               {/* <hr className="border border-gray-200" /> */}
@@ -331,7 +352,8 @@ const MentorAccount = () => {
               {/* <hr className="border border-gray-200"/> */}
             </div>
 
-                  {/*REVIEW SECTION  */}
+
+        {/*--------------------------REVIEW SECTION-----------------------------------------*/}
             <div className="w- ">
             <p className="text-4xl text-rose-400 m-7 font-bold">REVIEWS & FEEDBACKS </p>
               {reviews && reviews.length > 0 ? (
