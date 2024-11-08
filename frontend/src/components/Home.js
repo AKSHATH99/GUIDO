@@ -8,232 +8,174 @@ import HomeShimmer from "./Shimmer/HomeShimmer";
 import SearchResultComponent from "./SearchResultComponent";
 
 const Home = () => {
-  const [mentorsData, setmentorsData] = useState("");
+  const [mentorsData, setMentorsData] = useState([]);
+  const [loginStudentData, setLoginStudentData] = useState({});
+  const [filteredMentors, setFilteredMentors] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const [filterField, setFilterField] = useState("All");
+  const [noFilter, setNoFilter] = useState(false);
 
-  const [loginStudentData, setLoginStudentData] = useState("");
-
-  const [filteredMentor , setFilteredMentor] = useState("");
-  const [filterField , setFilterfield] = useState("");
-
-  const [noFilter , setNoFilter] = useState(false)
-
-
-  const [searchInput , setSearchInput] = useState("");
-  const [searchResult , setSearchResult] = useState("");
-
-
-
-  //Function to fetch all the mentors from DB
-  const fetchAll = async () => {
+  // Fetch all mentors from the database
+  const fetchAllMentors = async () => {
     try {
-      axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
-
-      const response = await axios.get(
-        ` http://localhost:8000/api/v1/mentor/fetchAll`,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      // console.log(response.data.data[0]);
-      setmentorsData(response.data.data);
-      // console.log(mentorsData);
+      const response = await axios.get(`http://localhost:8000/api/v1/mentor/fetchAll`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMentorsData(response.data.data);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching mentors:", error);
     }
   };
 
-  const fetchLoggedInData = async () => {
+  // Fetch logged-in student data
+  const fetchLoggedInStudent = async () => {
     try {
-      axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
-
-      const response = await axios.get(
-        `  http://localhost:8000/api/v1/student/fetch`,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      // console.log(response.data.data._id);
+      const response = await axios.get(`http://localhost:8000/api/v1/student/fetch`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setLoginStudentData(response.data.data);
-      // console.log(loginStudentData._id)
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching student data:", error);
     }
   };
-  // console.log("hi", loginStudentData.picure);
 
-  useEffect(() => {
-    fetchLoggedInData();
-    fetchAll();
-  }, []);
-
-  const handleChangeInFilterField = (e) => {
-    setFilterfield(e.target.value);
-    
-  };
-
-
+  // Fetch mentors based on the search input
   const searchMentor = async () => {
+    if (!searchInput.trim()) return;
     try {
-      axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
-
-      const response = await axios.get(
-        `http://localhost:8000/api/v1/mentor/find/${searchInput}`,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response);
-      setSearchResult(response.data.data)
-      console.log(searchResult)
-      // setLoginStudentData(response.data.data);
-    } catch (error) {}  
+      const response = await axios.get(`http://localhost:8000/api/v1/mentor/find/${searchInput}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSearchResult(response.data.data);
+    } catch (error) {
+      console.error("Error searching mentors:", error);
+    }
   };
 
-  const handleSearchInput = (e) => {
-    setSearchInput(e.target.value);
-    console.log("change in search input ")
-    console.log(searchInput)    
-  };
-
-  useEffect(() => {
-    searchMentor()
-  }, [searchInput])
-  
+  // Filter mentors based on the selected filter field
   const filterMentors = async () => {
     try {
-      setNoFilter(false)
+      setNoFilter(false);
       if (filterField === "All") {
-        await fetchAll();
-      } else {
-      axios.defaults.withCredentials = true;
-      const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:8000/api/v1/mentor/filter?filterfield=${filterField}`, {
-          params: { filterfield: filterField },
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-      ;
-      if(response.data.data.length === 0){
-        setNoFilter(true)   
-        
+        fetchAllMentors();
+        return;
       }
-      else{
-        //setFilteredMentor(response.data.data); 
-      setmentorsData(response.data.data)}
+
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `http://localhost:8000/api/v1/mentor/filter?filterfield=${filterField}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (response.data.data.length === 0) {
+        setNoFilter(true);
+      } else {
+        setMentorsData(response.data.data);
       }
     } catch (err) {
-        setNoFilter(true)   
-      console.error(err);  
-          
+      setNoFilter(true);
+      console.error("Error filtering mentors:", err);
     }
   };
-  
-  // searchResult
-  const collapseSearchResult=()=>{
-    // setSearchInput("");
-    console.log("COLLAPSE");
-    
-  }
-
-
 
   useEffect(() => {
-    filterMentors()
-  }, [filterField]); // Dependency array includes filterField
+    fetchLoggedInStudent();
+    fetchAllMentors();
+  }, []);
 
- 
-  // ----------------------------------------------------------------------------------------------------------------------
+  useEffect(() => {
+    searchMentor();
+  }, [searchInput]);
+
+  useEffect(() => {
+    filterMentors();
+  }, [filterField]);
+
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
+      {/* Header */}
       <HeaderComponent picture={loginStudentData.picure} />
-      <div className="m-32 mt-20 ml-[500px]   text-4xl">
-        <p>
-          Find your{" "}
-          <span className="mx-1 font-bold text-rose-500 ">Mentor </span> from
-          the <span className="mx-1 font-bold text-rose-500 ">1000s</span> of
-          Mentors ......{" "}
-        </p>
+
+      {/* Hero Section */}
+      <div className="text-center mt-12 mb-8">
+        <h1 className="text-5xl font-bold text-gray-800">
+          Find your <span className="text-rose-500">Mentor</span> from the{" "}
+          <span className="text-rose-500">1000s</span>!
+        </h1>
       </div>
-      <div className="flex ml-[370px] -mt-44 ">
+
+      {/* Search Input */}
+      <div className="flex justify-center mb-8">
         <input
           value={searchInput}
-          onChange={handleSearchInput}
-          className="border m-32 mb-0 mr-0  mt-20  w-1/2 h-14 rounded-l-xl p-2 pl-5 text-xl"
-          placeholder="Search  For A Mentor Here ..."
+          onChange={(e) => setSearchInput(e.target.value)}
+          className="w-1/2 h-12 border rounded-l-xl p-4 text-lg"
+          placeholder="Search for a Mentor..."
         />
-        <button onClick={collapseSearchResult} className=" h-14 mt-[81px] w-max rounded-r-xl border text-xl">
-          <img className="h-5 m-3" src="/images/close.png" />
-        </button>
-      </div> 
-      {console.log(searchResult)
-        } 
-      {searchResult && searchResult.length > 0 ? (
-        <div
-        
-          className="absolute ml-[500px] h-max w-[805px] p-4 shadow-md bg-white z-50"
-          
+        <button
+          onClick={() => {setSearchInput(""); setSearchResult("")}} 
+          className="h-12 w-12 bg-gray-200 rounded-r-xl flex items-center justify-center"
         >
-         {/* <SearchResultComponent/> */}
-         {searchResult.map((result , index) => (        
-          <Link to={`/MentorAccount/${result?._id}`}><SearchResultComponent key={index} data={result} /></Link>
-          // console.log(result)
-        ))} 
+          <img src="/images/close.png" alt="Close" className="h-6" />
+        </button>
+      </div>
+
+      {/* Search Results */}
+      {searchResult.length > 0 && (
+        <div className="absolute ml-[450px] -mt-8 h-max w-[1000px]  shadow-md bg-white z-50">
+          {searchResult.map((result, index) => (
+            <Link key={index} to={`/MentorAccount/${result?._id}`}>
+              <SearchResultComponent data={result} />
+            </Link>
+          ))}
         </div>
-      ):""}
+      )}
 
-      <div className="ml-56 m-20 mb-0 text-rose-400 text-4xl flex ">
-        <img className="mr-5" src="/images/star.png" />
-        <p>Popular Mentors </p>
-
-        {/* <label for="dropdown" className="text-xl ml-[430px] mt-3 font-bold">Filter :   </label> */}
-        <select id="filter" onChange={handleChangeInFilterField} name="filter mentor" className="text-xl ml-[500px] border px-10 py-3 text-black shadow-lg " >
-          {" "}
+      {/* Filter Dropdown */}
+      <div className="flex justify-center items-center mb-12">
+        <p className="text-2xl font-semibold text-rose-500 mr-4">Filter Mentors</p>
+        <select
+          onChange={(e) => setFilterField(e.target.value)}
+          className="border p-3 text-lg rounded shadow"
+        >
           <option value="All">All</option>
-          <option value="Web development (Frontend / Backend / Full Stack)" className="p-10 hover:text-red-500">Web development (Frontend / Backend / Full Stack)</option>
-          <option value="AI / ML" className="p-10">AI / ML</option>
-          <option value="Data Science " className="p-10"> Data Science  </option>
-          <option value="Software Development " className="p-10"> Software Development  </option>
+          <option value="Web development (Frontend / Backend / Full Stack)">
+            Web Development
+          </option>
+          <option value="AI / ML">AI / ML</option>
+          <option value="Data Science">Data Science</option>
+          <option value="Software Development">Software Development</option>
         </select>
-
-        
       </div>
 
-      <div className="m-10 mt-10 ml-48">
-        {/* {console.log(noFilter)} */}
-  {noFilter ? (
-    <div className="text-orange-300  ml-64 h-60 mt-32 text-3xl flex"> <img className="" src="/images/notfound.png" /> <p className="font-mono mt-16">Oops ! We dont have mentor of this field</p> 
-</div>
-  ) : (
-    mentorsData && mentorsData.length > 0 ? (
-      <div className="flex flex-wrap r">
-        {mentorsData.map((mentor, index) => (
-          <AccountBox key={index} data={mentor} />
-        ))}
+      <div className="ml-64 text-3xl text-red-300 font-bold mt-24">BASED ON YOUR PREFERENCES </div>
+      {/* Mentor List */}
+      <div className="container mx-auto px-6">
+        {noFilter ? (
+          <div className="flex  flex-col">
+            <img src="/images/notfound.png" alt="Not Found" className="w-32 mb-4" />
+            <p className="text-xl text-orange-400">Oops! No mentors available for this field.</p>
+          </div>
+        ) : mentorsData.length > 0 ? (
+          <div className="flex flex-wrap ">
+            {mentorsData.map((mentor, index) => (
+              <AccountBox key={index} data={mentor} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-3 gap-8">
+            <HomeShimmer />
+            <HomeShimmer />
+            <HomeShimmer />
+          </div>
+        )}
       </div>
-    ) : (
-      <div className="flex flex-wrap">
-        <HomeShimmer />
-        <HomeShimmer />
-        <HomeShimmer />
-      </div>
-    )
-  )}
-</div>
 
+      {/* Footer */}
       <Footer />
     </div>
   );

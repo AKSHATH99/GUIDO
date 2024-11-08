@@ -44,9 +44,9 @@ const StudentLogin = () => {
       localStorage.setItem("token", response.data.data.accessToken);
       navigate("/home");
     } catch (error) {
-      console.log(error.response.status);
-      setErrormsg(error.response.status);
-      toast.error(`${error.response.status}, Incorrect mail or password`);
+      console.log(error?.response?.status);
+      setErrormsg(error?.response?.status);
+      toast.error(`${error?.response?.status}, Incorrect mail or password`);
       setLoader(false)
     }
   };
