@@ -16,11 +16,12 @@ import StudentLogin from "./components/Student/StudentLogin.js";
 import StudentAcount from "./components/Student/StudentAcount.js";
 import Home from "./components/Home.js";
 import StudentRegister from "./components/Student/StudentrRegister.js";
+import IntroPage from "./components/IntroPage.js";
 
 const appRouter = createBrowserRouter([
   {
     path:"/",
-    element:<StudentLogin/>
+    element:<IntroPage/>
   },
   {
     path: "/studentAccount",

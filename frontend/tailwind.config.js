@@ -1,9 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"], // Updated to include .jsx, .tsx if needed
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'],
+        edu: ['"Edu AU VIC WA NT Pre"', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
-}
+};
+  
