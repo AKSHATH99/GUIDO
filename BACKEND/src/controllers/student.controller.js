@@ -200,9 +200,9 @@ const mentorReview= asyncHandler(async(req , res)=>{
     const {mentorID} = req.params;
     const id = req.user._id;
 
-    console.log( "helo ",id);
-    console.log(review)
-    console.log(mentorID);
+    // console.log( "helo ",id);
+    // console.log(review)
+    // console.log(mentorID);
     if(!review){
       throw new ApiError(400 , "Didnt provide review");
     }
