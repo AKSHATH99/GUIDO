@@ -1,7 +1,32 @@
 import React from "react";
 import HeaderComponent from "./HeaderComponent";
+import Footer from "./Footer";
 
 const IntroPage = () => {
+  const mentors = [
+    {
+      name: "Sarah Johnson",
+      Company: "Google",
+      bio: "I am a tech mentor with a strong background in technology and 8 years of experience. Currently, I work as an SDE 2 at Google. I love helping others understand and succeed in the tech industry. Whether you're new to tech or looking to advance, I'm here to guide and support you with practical advice and encouragement.",
+      level: "SDE-2",
+      image: "/images/trainer-2.jpg",
+    },
+    {
+      name: "Alex Benjamin",
+      Company: "Apple",
+      bio: "I am a tech mentor with a strong background in technology and 8 years of experience. Currently, I work as an SDE 2 at Apple. I love helping others understand and succeed in the tech industry. Whether you're new to tech or looking to advance, I'm here to guide and support you with practical advice and encouragement.",
+      level: "SDE-2",
+      image: "/images/trainer-3.jpg",
+    },
+    {
+      name: "Mitchele Wayne ",
+      Company: "Microsoft",
+      bio: "I am a tech mentor with a strong background in technology and 8 years of experience. Currently, I work as an SDE 2 at Microsoft. I love helping others understand and succeed in the tech industry. Whether you're new to tech or looking to advance, I'm here to guide and support you with practical advice and encouragement.",
+      level: "SDE-2",
+      image: "/images/trainer-1.jpg",
+    },
+  ];
+
   return (
     <div className="">
       {/* <HeaderComponent/> */}
@@ -37,13 +62,13 @@ const IntroPage = () => {
             </span>
           </div>
           <img
-            className="ml-  w-[500px] p-3 -mt-20 ml-10"
+            className="ml-  w-[450px] p-3 -mt-20 ml-10"
             src="/images/hero-image.png"
           />
         </div>
 
         <div className="p-3 -mt-64">
-          <div className="ml-56 text-2xl my-3 text-gray-600 ">
+          <div className="ml-56 text-2xl my-10 text-gray-600 ">
             <p>Feeling lost ? Dont know how to build your career? </p>
             <p>
               Dont worry . Join GUIDO and find suitable mentor to guide your way
@@ -51,43 +76,122 @@ const IntroPage = () => {
             </p>
           </div>
           <div className="flex  w-max ml-60  mt-24  ">
-            <img  className="h-5 w-5 mt-1" src="/images/explore-down.png"/>
+            <img className="h-5 w-5 mt-1" src="/images/explore-down.png" />
             <div className="text-xl   ml-1  text-slate-500  ">
-              Scroll down to explore {" "}
+              Scroll down to explore{" "}
             </div>
           </div>
         </div>
       </div>
 
-      {/* SECTION 2 */}
-      <div className="mt-60">
-        <p className="text-7xl text-rose-500 font-bold ml-60">WHY GUIDO ?</p>
-        <div className="flex">
-        <p className="w-1/2 text-3xl text-gray-600 ml-60 mt-20 leading-relaxed  ">
-          GUIDO is designed to bridge the gap between tech students and industry
-          professionals, offering a platform for personalized mentorship. By
-          connecting learners with experienced mentors, it provides targeted
-          guidance to help navigate the complexities of the tech world.Our goal is to empower
-          the next generation of tech talent by making mentorship accessible,
-          impactful, and tailored to individual aspirations. With GUIDO,
-          students can accelerate their learning journey and unlock their full
-          potential.
+      <div className="ml-60 mt-60  ">
+        <h1 className="text-4xl font-bold  text-rose-500 ">
+          MEET OUR TOP MENTORS
+        </h1>
+
+        <div className="flex gap-16 mt-16 mb-10 mr-8">
+          {mentors.map((mentor) => {
+            return (
+              <div className="w-1/4    border border-gray-300 shadow-lg text-center text-lg font-semibold p-8 rounded-lg hover:shadow-2xl transition duration-300 ease-in-out">
+                <img src={mentor.image} />
+                <p className="text-bold  mt-10 text-2xl"> {mentor.name}</p>
+                <p>{mentor.Company}</p>
+                <p>{mentor.level}</p>
+                <p className="italic">{mentor.bio}</p>
+
+                <div className="flex p-4 ml-28">
+                  <img src="/images/star.png" />
+                  <img src="/images/star.png" />
+                  <img src="/images/star.png" />
+                  <img src="/images/star.png" />
+                </div>
+              </div>
+            );
+          })}
+          <p className="text-xl mt-80 text-red-500 w-max">
+          <img src="/images/explore-arrow.png" />
+          Find More {" "}
         </p>
-        <img
-            className="ml-  w-[500px] p-3  ml-10"
-            src="/images/software.png"
-          />
-        </div>
-        <div className="ml-60 border rounded-md shadow-2xl bg-rose-600 border-rose-500 w-max px-10 py-5 mb-10 text-xl font-bold  text-white hover:bg-rose-300 hover:cursor-pointer">
-          EXPLORE GUIDO 
         </div>
 
-        <div className="flex ml-60">
-            <div className="w-max border border-rose-400 m-10 p-10">1</div>
-            <div className="w-max border border-rose-400 m-10 p-10">2</div>
-            <div className="w-max border border-rose-400 m-10 p-10">3</div>
+        
+      </div>
+
+      {/* SECTION 2 */}
+      <div className="mt-52 flex flex-col items-start ml-60">
+        {/* Section Title - Left Aligned */}
+        <p className="text-5xl text-rose-500 font-bold mb-24 text-left">
+          Why Choose GUIDO?
+        </p>
+
+        {/* Offerings Section */}
+        <div className="flex flex-wrap justify-start gap-20 w-full">
+          <div className="w-72 border border-gray-200 shadow-xl rounded-lg p-8 text-center transition-all duration-300 ease-in-out hover:shadow-2xl hover:bg-gray-50">
+            <img
+              className="w-20 mx-auto mb-6"
+              src="/images/1on1.png"
+              alt="1-on-1 Guidance"
+            />
+            <p className="text-2xl font-semibold text-rose-500 mb-4">
+              1:1 Guidance
+            </p>
+            <p className="text-gray-600">
+              Exclusive guidance from industry-leading mentors.
+            </p>
+          </div>
+
+          <div className="w-72 border border-gray-200 shadow-xl rounded-lg p-8 text-center transition-all duration-300 ease-in-out hover:shadow-2xl hover:bg-gray-50">
+            <img
+              className="w-20 mx-auto mb-6"
+              src="/images/faang.png"
+              alt="FAANG Mentors"
+            />
+            <p className="text-2xl font-semibold text-rose-500 mb-4">
+              FAANG Experts
+            </p>
+            <p className="text-gray-600">
+              Learn from mentors with real experience at top-tier companies.
+            </p>
+          </div>
+
+          <div className="w-72 border border-gray-200 shadow-xl rounded-lg p-8 text-center transition-all duration-300 ease-in-out hover:shadow-2xl hover:bg-gray-50">
+            <img
+              className="w-20 mx-auto mb-6"
+              src="/images/cs.jpg"
+              alt="Domain Expertise"
+            />
+            <p className="text-2xl font-semibold text-rose-500 mb-4">
+              Diverse Domains
+            </p>
+            <p className="text-gray-600">
+              Find mentors in every tech domain, all in one place.
+            </p>
+          </div>
+
+          <div className="w-72 border border-gray-200 shadow-xl rounded-lg p-8 text-center transition-all duration-300 ease-in-out hover:shadow-2xl hover:bg-gray-50">
+            <img
+              className="w-20 mx-auto mb-6"
+              src="/images/learning-path.png"
+              alt="Custom Learning Paths"
+            />
+            <p className="text-2xl font-semibold text-rose-500 mb-4">
+              Personalized Learning Paths
+            </p>
+            <p className="text-gray-600">
+              Get tailored learning paths based on your goals, skills, and
+              interests.
+            </p>
+          </div>
+        </div>
+
+        {/* CTA Button - Left Aligned */}
+        <div className="mt-20 mb-16 text-left">
+          <button className="text-white bg-rose-500 hover:bg-rose-400 border border-rose-500 rounded-md px-12 py-4 text-2xl font-bold shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
+            FIND YOUR MENTOR 
+          </button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
