@@ -1,8 +1,12 @@
 import React from "react";
 import HeaderComponent from "./HeaderComponent";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+
 
 const IntroPage = () => {
+  const navigate = useNavigate();
+
   const mentors = [
     {
       name: "Sarah Johnson",
@@ -38,11 +42,11 @@ const IntroPage = () => {
         </h1>
 
         <div className="flex  ml-[300px] p-10 mt-5 text-2xl font-bold ">
-          <p className="ml-5">EXPLORE</p>
+          <p className="ml-5 hover:cursor-pointer "  onClick={()=>{navigate("/studentLogin")}}>EXPLORE</p>
           <p className="ml-16">ABOUT US </p>
-          <p className="ml-16 text-rose-400">BECOME A MENTOR </p>
+          <p className="ml-16 text-rose-400 " onClick={()=>{navigate("/MentorLogin")}}>BECOME A MENTOR </p>
 
-          <div className="text-white border border-rose-500 ml-16 bg-rose-500 px-8 py-2 rounded-xl -mt-3">
+          <div className="text-white border border-rose-500 ml-16 bg-rose-500 px-8 py-2 rounded-xl -mt-3" onClick={()=>{navigate("/studentLogin")}}>
             LOGIN / SIGN-UP
           </div>
         </div>
@@ -108,7 +112,7 @@ const IntroPage = () => {
               </div>
             );
           })}
-          <p className="text-xl mt-80 text-red-500 w-max">
+          <p className="text-xl mt-80 text-red-500 w-max hover:cursor-pointer " onClick={()=>{navigate("/studentLogin")}}>
           <img src="/images/explore-arrow.png" />
           Find More {" "}
         </p>
@@ -120,12 +124,12 @@ const IntroPage = () => {
       {/* SECTION 2 */}
       <div className="mt-52 flex flex-col items-start ml-60">
         {/* Section Title - Left Aligned */}
-        <p className="text-5xl text-rose-500 font-bold mb-24 text-left">
+        <p className="text-5xl text-rose-500 font-bold  text-left">
           Why Choose GUIDO?
         </p>
 
         {/* Offerings Section */}
-        <div className="flex flex-wrap justify-start gap-20 w-full">
+        <div className="flex flex-wrap justify-start gap-20 w-full mt-12">
           <div className="w-72 border border-gray-200 shadow-xl rounded-lg p-8 text-center transition-all duration-300 ease-in-out hover:shadow-2xl hover:bg-gray-50">
             <img
               className="w-20 mx-auto mb-6"
@@ -185,11 +189,15 @@ const IntroPage = () => {
         </div>
 
         {/* CTA Button - Left Aligned */}
-        <div className="mt-20 mb-16 text-left">
-          <button className="text-white bg-rose-500 hover:bg-rose-400 border border-rose-500 rounded-md px-12 py-4 text-2xl font-bold shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <div className="mt-20 mb-16 text-left bg-gray-300  ">
+          <button onClick={()=>{navigate("/studentLogin")}} className="text-white bg-rose-500 hover:bg-rose-400 border border-rose-500 rounded-md px-12 py-4 text-2xl font-bold shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
             FIND YOUR MENTOR 
           </button>
         </div>
+      </div>
+
+      <div className="ml-60 mt-40">
+        <h1 className="text-4xl font-bold text-rose-500">SUCCESS STORIES</h1>
       </div>
       <Footer/>
     </div>
