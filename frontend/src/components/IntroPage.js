@@ -2,7 +2,7 @@ import React from "react";
 import HeaderComponent from "./HeaderComponent";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from "framer-motion";
 
 const IntroPage = () => {
   const navigate = useNavigate();
@@ -42,13 +42,58 @@ const IntroPage = () => {
         </h1>
 
         <div className="flex  ml-[300px] p-10 mt-5 text-2xl font-bold ">
-          <p className="ml-5 hover:cursor-pointer "  onClick={()=>{navigate("/studentLogin")}}>EXPLORE</p>
-          <p className="ml-16">ABOUT US </p>
-          <p className="ml-16 text-rose-400 " onClick={()=>{navigate("/MentorLogin")}}>BECOME A MENTOR </p>
+          <motion.p
+            whileHover={{
+              scale: 1.2,
+              transition: { duration: 0.3 },
+            }}
+            whileTap={{ scale: 0.9 }}
+            className="ml-5 hover:cursor-pointer bg-gradient-to-r from-purple-500 to-indigo-500 text-transparent bg-clip-text"
+            onClick={() => {
+              navigate("/studentLogin");
+            }}
+          >
+            EXPLORE
+          </motion.p>
 
-          <div className="text-white border border-rose-500 ml-16 bg-rose-500 px-8 py-2 rounded-xl -mt-3" onClick={()=>{navigate("/studentLogin")}}>
+          <motion.p
+            whileHover={{
+              scale: 1.2,
+              transition: { duration: 0.3 },
+            }}
+            whileTap={{ scale: 0.9 }}
+            className="ml-16 hover:cursor-pointer bg-gradient-to-r from-purple-500 to-indigo-500 text-transparent bg-clip-text"
+            onClick={() => {
+              navigate("/studentLogin");
+            }}
+          >
+            ABOUT US{" "}
+          </motion.p>
+
+          <motion.p
+            whileHover={{
+              scale: 1.2,
+              transition: { duration: 0.3 },
+            }}
+            whileTap={{ scale: 0.9 }}
+            className="ml-16 hover:cursor-pointer bg-gradient-to-r from-purple-500 to-indigo-500 text-transparent bg-clip-text"
+            onClick={() => {
+              navigate("/MentorLogin");
+            }}
+          >
+            BECOME A MENTOR{" "}
+          </motion.p>
+
+          <motion.div
+            className="text-white border border-rose-500 ml-16 bg-rose-500 px-8 py-2 rounded-xl -mt-3 hover:cursor-pointer  "
+            onClick={() => {
+              navigate("/studentLogin");
+            }}
+            whileHover={{ scale: 1.05, opacity: 0.9 }} // Scale up and reduce opacity on hover
+            transition={{ duration: 0.3 }} // Duration of the transition
+          >
             LOGIN / SIGN-UP
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -65,7 +110,7 @@ const IntroPage = () => {
               Mentor
             </span>
           </div>
-          <img
+          <motion.img
             className="ml-  w-[450px] p-3 -mt-20 ml-10"
             src="/images/hero-image.png"
           />
@@ -79,11 +124,21 @@ const IntroPage = () => {
               to success{" "}
             </p>
           </div>
+
           <div className="flex  w-max ml-60  mt-24  ">
-            <img className="h-5 w-5 mt-1" src="/images/explore-down.png" />
-            <div className="text-xl   ml-1  text-slate-500  ">
+            <motion.img
+              className="h-5 w-5 mt-1"
+              animate={{ y: [0, 5, 0] }}
+              transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+              src="/images/explore-down.png"
+            />
+            <motion.div
+              className="text-xl ml-1 text-slate-500"
+              animate={{ y: [0, 5, 0] }}
+              transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+            >
               Scroll down to explore{" "}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -112,13 +167,19 @@ const IntroPage = () => {
               </div>
             );
           })}
-          <p className="text-xl mt-80 text-red-500 w-max hover:cursor-pointer " onClick={()=>{navigate("/studentLogin")}}>
-          <img src="/images/explore-arrow.png" />
-          Find More {" "}
-        </p>
+          <motion.p
+            initial={{ x: 0 }}
+            animate={{ x: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+            className="text-xl mt-80 text-red-500 w-max hover:cursor-pointer "
+            onClick={() => {
+              navigate("/studentLogin");
+            }}
+          >
+            <motion.img src="/images/explore-arrow.png" />
+            Find More{" "}
+          </motion.p>
         </div>
-
-        
       </div>
 
       {/* SECTION 2 */}
@@ -190,8 +251,13 @@ const IntroPage = () => {
 
         {/* CTA Button - Left Aligned */}
         <div className="mt-20 mb-16 text-left bg-gray-300  ">
-          <button onClick={()=>{navigate("/studentLogin")}} className="text-white bg-rose-500 hover:bg-rose-400 border border-rose-500 rounded-md px-12 py-4 text-2xl font-bold shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
-            FIND YOUR MENTOR 
+          <button
+            onClick={() => {
+              navigate("/studentLogin");
+            }}
+            className="text-white bg-rose-500 hover:bg-rose-400 border border-rose-500 rounded-md px-12 py-4 text-2xl font-bold shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out"
+          >
+            FIND YOUR MENTOR
           </button>
         </div>
       </div>
@@ -199,7 +265,7 @@ const IntroPage = () => {
       <div className="ml-60 mt-40">
         <h1 className="text-4xl font-bold text-rose-500">SUCCESS STORIES</h1>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
