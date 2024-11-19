@@ -203,19 +203,19 @@ const MentorAccount = () => {
       {mentorData ? (
         <div className="">
           <ToastContainer theme="dark" hideProgressBar={true}  />
-          <div className="border bg-slate-100 m-12 ml-56  w-max rounded-t-lg ">
-            <div className="  flex ">
+          <div className="border bg-slate-100 m-12 lg:ml-56  w-max rounded-t-lg ">
+            <div className="  lg:flex ">
               <div className="flex m-10">
                 <div>
                   <img
-                    className="  w-36 h-full rounded-full  "
+                    className=" w-16   lg:w-36 lg:h-full h-16 rounded-full  "
                     // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3mr0rOaAemqvSNKmzBD-I6mcpod9HFQuCw&usqp=CAU"
                     src={`${mentorData.picture}`}
                   />
                 </div>
-                <div className="mt-10 m-5 ">
+                <div className="lg:mt-10 lg:m-5 m-3 mt-0">
                   <p className="font-bold text-4xl "> {mentorData.firstname}</p>
-                  <p className="text-xl mt-5 flex">
+                  <p className="text-xl lg:mt-5 flex">
                     {mentorData.age} y/o{" "}
                     <img className="ml-4" src="/images/location.png" />{" "}
                     <span className="">{mentorData.place} </span>{" "}
@@ -223,7 +223,7 @@ const MentorAccount = () => {
                 </div>
               </div>
 
-              <div className="ml-36 mt-24 flex">
+              <div className="lg:ml-36 mt-24 lg:flex">
                 <div>
                   <img className="h-10 mr-3 mt-6" src="/images/grag.png" />
                 </div>
@@ -301,7 +301,7 @@ const MentorAccount = () => {
 
 
     {/*------------------------ DESCRIPTION SECTION -------------------------------*/}
-          <div className="border flex bg-slate-100 m-12 ml-[215px] w-3/4 -mt-10 rounded-b-xl">
+          <div className="border lg:flex bg-slate-100 m-12 lg:ml-[215px] w-3/4 -mt-10 rounded-b-xl">
             <div className="w-max  border-r">
               <p className="text-4xl text-rose-400 m-7 font-bold"> About Me </p>
               {/* <hr className="border border-black" /> */}

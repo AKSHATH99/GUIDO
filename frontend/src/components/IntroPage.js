@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
+import HeaderSmallScreens from "./HeaderSmallScreens";
 
 const IntroPage = () => {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const IntroPage = () => {
   return (
     <div className="">
       {/* <HeaderComponent/> */}
+      {/* <HeaderSmallScreens/>    */}
       {/* HEADER */}
 
       <div className="p-3 flex">
@@ -72,7 +74,7 @@ const IntroPage = () => {
           GUIDO
         </h1>
 
-        {/* <div className="flex  ml-[300px] p-10 mt-5 text-2xl font-bold ">
+        <div className="flex  ml-[300px] p-10 mt-5 text-2xl font-bold ">
           <motion.p
             whileHover={{
               scale: 1.2,
@@ -125,7 +127,7 @@ const IntroPage = () => {
           >
             LOGIN / SIGN-UP
           </motion.div>
-        </div> */}
+        </div>
       </div>
 
       {/* BODY SECTIONS */}
