@@ -2,53 +2,54 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="mt-52 border shadow-2xl border-red-200 p-24 pt-11 pb-20 mb-0   ">
-      <div className="flex">
-        <div>
-          <p className="text-6xl text-rose-500 font-bold">GUIDO</p>
-          <p className="mt-5 w-80">
-            At Guido students find tech industry mentors for support and career
+    <div className="mt-20 border shadow-2xl border-red-200 p-10 pt-8 pb-12">
+      <div className="flex flex-col lg:flex-row">
+        {/* Left Section */}
+        <div className="flex-1 mb-10 lg:mb-0">
+          <p className="text-4xl lg:text-6xl text-rose-500 font-bold">GUIDO</p>
+          <p className="mt-5 text-sm lg:text-base w-full lg:w-80">
+            At Guido, students find tech industry mentors for support and career
             advice. Connect with experienced professionals for personalized
             guidance in your educational and professional journey. Learn new
-            skills, get career advice, and network with industry experts.
-            Guido is here to help you achieve your tech career goals.
+            skills, get career advice, and network with industry experts. Guido
+            is here to help you achieve your tech career goals.
           </p>
-          <div className="m-5 ml-1 flex">
-            <img className="m-4 h-7 w-7" src="/images/Xlogo.png" />
-            <img className="m-4 h-7 w-7" src="/images/email.png" />
-            <img className="m-4 h-7 w-7" src="/images/linkedin.png" />
-            <img className="m-4 h-7 w-7" src="/images/call.png" />
+          <div className="mt-5 flex justify-start">
+            <img className="mx-2 h-6 w-6 lg:h-7 lg:w-7" src="/images/Xlogo.png" alt="X Logo" />
+            <img className="mx-2 h-6 w-6 lg:h-7 lg:w-7" src="/images/email.png" alt="Email" />
+            <img className="mx-2 h-6 w-6 lg:h-7 lg:w-7" src="/images/linkedin.png" alt="LinkedIn" />
+            <img className="mx-2 h-6 w-6 lg:h-7 lg:w-7" src="/images/call.png" alt="Call" />
           </div>
         </div>
 
-        <div className="m-4 ml-32 m text-xl">
-          <p className="m-2 mt-10"> FAQS</p>
-          <p className="m-2 mt-10">HELP CENTRE</p>
-          <p className="m-2 mt-10">CAREERS</p>  
-          <p className="m-2 mt-10">PRIVACY</p>  
-          <p className="m-2 mt-10">TERMS & CONDITIONS</p>  
+        {/* Middle Section */}
+        <div className="flex-1 mb-10 lg:mb-0">
+          <p className="mb-4 text-lg lg:text-xl font-semibold">Quick Links</p>
+          <div className="grid grid-cols-2 gap-2 lg:gap-4 text-sm lg:text-base">
+            <p className="hover:underline cursor-pointer">FAQs</p>
+            <p className="hover:underline cursor-pointer">Help Centre</p>
+            <p className="hover:underline cursor-pointer">Careers</p>
+            <p className="hover:underline cursor-pointer">Privacy</p>
+            <p className="hover:underline cursor-pointer">Terms & Conditions</p>
+          </div>
         </div>
 
-        <div className="m-10 mt-0 ml-40 mb-0 ">
-          <p className="text-4xl  text-rose-600 font-bold">Reach Out To Us !</p>
-          <p className="mt-3 text-xl ">
-            Report any inconvinience or do let us know your to experience
+        {/* Right Section */}
+        <div className="flex-1">
+          <p className="text-2xl lg:text-4xl text-rose-600 font-bold mb-4">Reach Out To Us!</p>
+          <p className="text-sm lg:text-base mb-5">
+            Report any inconvenience or share your feedback.
           </p>
-
           <input
-            className="border m-3 w-full h-10 p-7 rounded-lg mt-10 text-xl "
+            className="border w-full h-10 px-4 py-2 rounded-lg mb-4 text-sm lg:text-base"
             placeholder="Enter your email"
             type="email"
           />
-          <br />
           <textarea
-            className="border m-3 w-full h-32  p-5 rounded-lg text-xl"
-            placeholder="Your review or inconvinience"
-            rows="10"
-            cols="20"
-            type="text"
+            className="border w-full h-24 lg:h-32 px-4 py-2 rounded-lg text-sm lg:text-base"
+            placeholder="Your review or inconvenience"
           />
-          <button className="w-full border p-4 mt-10 rounded-xl font-bold bg-green-300">
+          <button className="w-full mt-5 border py-2 lg:py-3 rounded-lg font-bold bg-green-300 text-sm lg:text-base">
             SUBMIT
           </button>
         </div>
