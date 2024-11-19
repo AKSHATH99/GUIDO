@@ -3,6 +3,7 @@ import HeaderComponent from "./HeaderComponent";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 
 const IntroPage = () => {
   const navigate = useNavigate();
@@ -31,6 +32,36 @@ const IntroPage = () => {
     },
   ];
 
+  const testimonials= [
+    {
+      name: "Emily Carter",
+      feedback:
+        "Guidance from my mentor helped me land a dream role at Amazon. The experience was transformative!",
+      role: "Software Engineer at Amazon",
+      image: "/images/student1.jpg",
+    },
+    {
+      name: "Daniel Thompson",
+      feedback:
+        "I was struggling with my career path, but GUIDO's mentorship gave me clarity and confidence to excel.",
+      role: "Frontend Developer at Spotify",
+      image: "/images/student2.jpg",
+    },
+    {
+      name: "Sophia Patel",
+      feedback:
+        "The personalized learning paths and 1:1 mentoring made a huge difference in my tech journey.",
+      role: "Data Scientist at Facebook",
+      image: "/images/student3.jpg",
+    },
+    {
+      name: "Michael Lee",
+      feedback:
+        "Joining GUIDO was the best decision of my career. My mentor provided invaluable insights!",
+      role: "DevOps Engineer at Netflix",
+      image: "/images/student4.jpg",
+    },
+  ]
   return (
     <div className="">
       {/* <HeaderComponent/> */}
@@ -153,7 +184,7 @@ const IntroPage = () => {
             return (
               <div className="w-1/4    border border-gray-300 shadow-lg text-center text-lg font-semibold p-8 rounded-lg hover:shadow-2xl transition duration-300 ease-in-out">
                 <img src={mentor.image} />
-                <p className="text-bold  mt-10 text-2xl"> {mentor.name}</p>
+                <p className="text-bold text-rose-500  mt-10 text-2xl"> {mentor.name}</p>
                 <p>{mentor.Company}</p>
                 <p>{mentor.level}</p>
                 <p className="italic">{mentor.bio}</p>
@@ -263,8 +294,28 @@ const IntroPage = () => {
       </div>
 
       <div className="ml-60 mt-40">
-        <h1 className="text-4xl font-bold text-rose-500">SUCCESS STORIES</h1>
+  <h1 className="text-4xl font-bold text-rose-500">SUCCESS STORIES</h1>
+  <div className="flex flex-wrap gap-12 mt-12">
+    {testimonials.map((student, index) => (
+      <div
+        key={index}
+        className="w-1/4 p-6 border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out"
+      >
+        <div className="text-left">
+          <p className="text-2xl font-bold text-rose-500 mb-2">
+            {student.name}
+          </p>
+          <p className="text-sm text-gray-500 mb-4">{student.role}</p>
+          <p className="italic text-gray-700">{`"${student.feedback}"`}</p>
+        </div>
+        <div className="border-t border-gray-200 mt-6 pt-4">
+          <p className="text-sm text-gray-600">Inspired by {student.name}'s journey? Join GUIDO today!</p>
+        </div>
       </div>
+    ))}
+  </div>
+</div>
+
       <Footer />
     </div>
   );

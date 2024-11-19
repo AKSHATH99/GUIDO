@@ -14,12 +14,14 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.6",
     "reactjs-popup": "^2.0.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.4"
   },
-  "scripts": {
+  "scripts": {  
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test",   
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
