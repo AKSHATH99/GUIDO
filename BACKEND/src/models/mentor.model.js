@@ -36,7 +36,11 @@
   const MentorSchema = new Schema({
 
     //basic personal details
-
+    isApproved:{
+      type:Boolean,
+      required:true,
+      default:false,
+    },
     firstname: {
       type: String,
       required: true,

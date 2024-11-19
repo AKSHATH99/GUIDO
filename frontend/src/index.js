@@ -16,6 +16,8 @@ import StudentLogin from "./components/Student/StudentLogin.js";
 import StudentAcount from "./components/Student/StudentAcount.js";
 import Home from "./components/Home.js";
 import StudentRegister from "./components/Student/StudentrRegister.js";
+import Admin from "./components/admin/Admin.js";
+import AdminLogin from "./components/admin/AdminLogin.js"
 import IntroPage from "./components/IntroPage.js";
 
 const appRouter = createBrowserRouter([
@@ -55,6 +57,14 @@ const appRouter = createBrowserRouter([
   {
     path:"/myMentorAccount",
     element: <MyMentorAccount/>
+  },
+  {
+    path:"/adminlogin",
+    element: <AdminLogin/>
+  },
+  {
+    path:"/admin",
+    element: <Admin />
   }
 ]);
 
