@@ -50,7 +50,7 @@ const app = express();
 
 app.use(cors({
   origin: 'https://guido-frontend.vercel.app', // Replace with your frontend's origin
-  origin: 'http ://localhost:3000', // Replace with your frontend's origin
+  // origin: 'http ://localhost:3000', // Replace with your frontend's origin
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Include OPTIONS method for preflight requests
   credentials: true, // Allow credentials (cookies)
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], // Specify allowed headers
