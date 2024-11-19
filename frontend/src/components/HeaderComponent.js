@@ -29,9 +29,10 @@ const HeaderComponent = (picture) => {
         {/* <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
           <p>MENTOR CHAT </p>
         </div> */}
+        <Link to="/mentorLogin">
         <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
-          <p>GUIDO </p>
-        </div>
+          <p>BECOME A MENTOR </p>
+        </div></Link>
       </div>
 
       <div className="m-9 mb-2 mt-5   ml-20 hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out">

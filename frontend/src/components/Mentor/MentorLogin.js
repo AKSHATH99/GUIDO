@@ -50,7 +50,7 @@ const MentorLogin = () => {
   return (
     <div className="flex bg-gray-200">
       <div className="m-48">
-        <p className="text-4xl">LOGIN TO YOUR <span className="underline text-rose-500 font-bold mr-3 ">GUIDO </span> ACCOUNT  </p>
+        <p className="text-4xl">LOGIN TO YOUR <span className="underline text-rose-500 font-bold mr-3 ">GUIDO </span> MENTOR  ACCOUNT  </p>
 
         <form className="m-10" onSubmit={submitData}>
           <label>
