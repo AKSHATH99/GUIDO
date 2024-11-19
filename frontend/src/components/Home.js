@@ -102,7 +102,7 @@ const Home = () => {
 
       {/* Hero Section */}
       <div className="text-center mt-12 mb-8">
-        <h1 className="text-5xl font-bold text-gray-800">
+        <h1 className="lg:text-5xl text-xl font-bold text-gray-800">
           Find your <span className="text-rose-500">Mentor</span> from the{" "}
           <span className="text-rose-500">1000s</span>!
         </h1>
@@ -113,7 +113,7 @@ const Home = () => {
         <input
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="w-1/2 h-12 border rounded-l-xl p-4 text-lg"
+          className="lg:w-1/2 h-12 border rounded-l-xl p-4 text-lg"
           placeholder="Search for a Mentor..."
         />
         <button
@@ -136,7 +136,7 @@ const Home = () => {
       )}
 
       {/* Filter Dropdown */}
-      <div className="flex justify-center items-center mb-12">
+      <div className="lg:flex justify-center items-center mb-12 lg:ml-0 ml-20">
         <p className="text-2xl font-semibold text-rose-500 mr-4">Filter Mentors</p>
         <select
           onChange={(e) => setFilterField(e.target.value)}
@@ -152,7 +152,7 @@ const Home = () => {
         </select>
       </div>
 
-      <div className="ml-64 text-3xl text-red-300 font-bold mt-24">BASED ON YOUR PREFERENCES </div>
+      <div className="lg:ml-64 ml-20 lg:text-3xl  text-red-300 font-bold lg:mt-24 mt-10">BASED ON YOUR PREFERENCES </div>
       {/* Mentor List */}
       <div className="container mx-auto px-6">
         {noFilter ? (

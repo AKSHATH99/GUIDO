@@ -30,7 +30,7 @@ const AccountBox = ({ data }) => {
                 e.stopPropagation(); // Prevent navigation on button click
                 navigateToProfile();
               }}
-              className="w-full md:w-40 bg-green-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition duration-200 ease-in-out mt-4"
+              className="w-full md:w-40 bg-green-500 text-white font-semibold px-6 py-3 lg:my-0 my-4 rounded-lg shadow-md hover:bg-green-600 transition duration-200 ease-in-out mt-4"
             >
               BOOK  SESSION ${mentor?.fees}
             </button>
