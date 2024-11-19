@@ -147,7 +147,7 @@ const IntroPage = () => {
           />
         </div>
 
-        <div className="p-3 -mt-64">
+        <div className="p-3 -mt-48">
           <div className="ml-56 text-2xl my-10 text-gray-600 ">
             <p>Feeling lost ? Dont know how to build your career? </p>
             <p>
