@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import HomeShimmer from "./Shimmer/HomeShimmer";
 import SearchResultComponent from "./SearchResultComponent";
+import {ToastContainer , toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const [mentorsData, setMentorsData] = useState([]);
@@ -26,6 +28,12 @@ const Home = () => {
       setMentorsData(response.data.data);
     } catch (error) {
       console.error("Error fetching mentors:", error);
+      if(error?.response?.status){
+        toast.error(`${error?.response?.status}`);
+      }else{
+        toast.error("Some error occured while fetching data ")
+      }
+
     }
   };
 
@@ -152,6 +160,7 @@ const Home = () => {
         </select>
       </div>
 
+      <ToastContainer theme="dark" hideProgressBar={true}/>
       <div className="lg:ml-64 ml-20 lg:text-3xl  text-red-300 font-bold lg:mt-24 mt-10">BASED ON YOUR PREFERENCES </div>
       {/* Mentor List */}
       <div className="container mx-auto px-6">

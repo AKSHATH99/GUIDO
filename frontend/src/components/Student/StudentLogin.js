@@ -46,7 +46,11 @@ const StudentLogin = () => {
     } catch (error) {
       console.log(error?.response?.status);
       setErrormsg(error?.response?.status);
-      toast.error(`${error?.response?.status}, Incorrect mail or password`);
+      if(error?.response?.status){
+        toast.error(`${error?.response?.status}, Incorrect mail or password`);
+      }else{
+        toast.error("SOME UNKNOWN ERROR OCCURED WHILE LOGGING IN ")
+      }
       setLoader(false)
     }
   };
