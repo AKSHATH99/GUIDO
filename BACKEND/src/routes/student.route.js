@@ -8,7 +8,7 @@ import cors from "cors";
 const router = Router();
 
 const corsOptions = {
-    origin: 'https://guido-frontend.vercel.app/', // Replace with the allowed origin
+    origin: 'https://guido-frontend.vercel.app', // Replace with the allowed origin
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
