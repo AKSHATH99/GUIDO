@@ -28,7 +28,6 @@ router
 
   const allowedOrigins = [
     "https://guido-frontend.vercel.app",
-    "http://localhost:3000",
   ];
   
   const corsOptions = {
