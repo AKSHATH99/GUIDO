@@ -34,6 +34,7 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin, callback) => {
+    console.log("Origin:", origin);
     if (!origin) return callback(null, true); // Allow non-browser requests
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
