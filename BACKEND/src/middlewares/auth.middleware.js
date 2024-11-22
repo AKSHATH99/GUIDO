@@ -5,7 +5,7 @@ import {Mentor} from "../models/mentor.model.js";
 
 export const verifyJWT = asyncHandler(async(req , _ ,next)=>{
     try{
-        console.log(req.cookies?.accessToken)
+        console.log("verifying",req.cookies?.accessToken)
         const token = req.cookies?.accessToken ||  req.header("Authorization")?.replace("Bearer ", "")
 
         if(!token){

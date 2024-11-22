@@ -195,6 +195,7 @@ const LoginMentor = asyncHandler(async (req, res) => {
 
 const fetchMentor = asyncHandler(async (req, res) => {
   try {
+    console.log("REACHED")
     console.log(req.user);
     return res
       .status(200)

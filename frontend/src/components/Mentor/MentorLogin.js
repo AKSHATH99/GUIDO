@@ -37,9 +37,10 @@ const MentorLogin = () => {
       console.log(response.data.data.accessToken);
       const mentorID = response.data.data.user._id;
       console.log(response)
+      console.log("setting token", response.data.data.accessToken)
       localStorage.setItem("token", response.data.data.accessToken);
       if (response) { 
-        navigate(`/MentorAccount/${mentorID}`);
+        navigate(`/myMentorAccount`);
       }
     } catch (error) {
       console.log(error);

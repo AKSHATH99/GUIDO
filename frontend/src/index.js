@@ -20,6 +20,7 @@ import Admin from "./components/admin/Admin.js";
 import AdminLogin from "./components/admin/AdminLogin.js"
 import IntroPage from "./components/IntroPage.js";
 import AboutUs from "./components/AboutUs.js";
+import Dashboard from "./components/Mentor/Dashboard.js";
 
 const appRouter = createBrowserRouter([
   {
@@ -66,9 +67,14 @@ const appRouter = createBrowserRouter([
   {
     path:"/admin",
     element: <Admin />
-  },{
+  },
+  {
     path:"/about",
     element: <AboutUs/>
+  },
+  {
+    path:"/dashboard",
+    element:<Dashboard/>
   }
 ]);
 

@@ -15,8 +15,9 @@ const MyMentorAccount  = () => {
     try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
+      console.log("token" , token)
       const response = await axios.get(
-        " https://guido-backend.vercel.app/api/v1/mentor/fetch",
+        "https://guido-backend.vercel.app/api/v1/mentor/fetch",
         {
           withCredentials: true,
           headers: {
