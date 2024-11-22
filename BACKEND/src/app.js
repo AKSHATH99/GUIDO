@@ -32,28 +32,28 @@ const allowedOrigins = [
   "http://localhost:3000"
 ];
 
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     console.log("Origin:", origin);
-//     if (!origin) return callback(null, true); // Allow non-browser requests
-//     if (allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true,
-//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-// };
-
 const corsOptions = {
   origin: (origin, callback) => {
-    console.log(origin, "<-ORIGIN")
-    callback(null, true); // Allow all origins
+    console.log("Origin:", origin);
+    if (!origin) return callback(null, true); // Allow non-browser requests
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
   },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 };
+
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     console.log(origin, "<-ORIGIN")
+//     callback(null, true); // Allow all origins
+//   },
+//   credentials: true,
+// };
 app.use(cors(corsOptions));
 
 
