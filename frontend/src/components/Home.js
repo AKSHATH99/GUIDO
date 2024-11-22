@@ -22,7 +22,7 @@ const Home = () => {
   const fetchAllMentors = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:8000/api/v1/mentor/fetchAll`, {
+      const response = await axios.get(`https://guido-backend.vercel.app/api/v1/mentor/fetchAll`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMentorsData(response.data.data);
@@ -41,7 +41,7 @@ const Home = () => {
   const fetchLoggedInStudent = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:8000/api/v1/student/fetch`, {
+      const response = await axios.get(`https://guido-backend.vercel.app/api/v1/student/fetch`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLoginStudentData(response.data.data);
@@ -55,7 +55,7 @@ const Home = () => {
     if (!searchInput.trim()) return;
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:8000/api/v1/mentor/find/${searchInput}`, {
+      const response = await axios.get(`https://guido-backend.vercel.app/api/v1/mentor/find/${searchInput}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSearchResult(response.data.data);
@@ -75,7 +75,7 @@ const Home = () => {
 
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:8000/api/v1/mentor/filter?filterfield=${filterField}`,
+        `https://guido-backend.vercel.app/api/v1/mentor/filter?filterfield=${filterField}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

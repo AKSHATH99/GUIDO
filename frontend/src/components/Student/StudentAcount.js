@@ -13,7 +13,7 @@ const StudentAcount = () => {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        " http://localhost:8000/api/v1/student/fetch",
+        " https://guido-backend.vercel.app/api/v1/student/fetch",
         {
           withCredentials: true,
           headers: {

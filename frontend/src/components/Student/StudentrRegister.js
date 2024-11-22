@@ -74,7 +74,7 @@ const StudentRegister = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/student/register",
+        "https://guido-backend.vercel.app/api/v1/student/register",
         formData,
         {
           headers: {

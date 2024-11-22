@@ -84,7 +84,7 @@ const MentorRegistration = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/mentor/register",
+        "https://guido-backend.vercel.app/api/v1/mentor/register",
         formData,
         {
           headers: {
