@@ -113,55 +113,55 @@ const registerStudent = asyncHandler(async (req, res) => {
 
 //---------------LOGIN STUDENT-----------------------------------------------------------
 
-const loginStudent = asyncHandler(async (req, res) => {
-  const { gmail, password } = req.body;
+  const loginStudent = asyncHandler(async (req, res) => {
+    const { gmail, password } = req.body;
 
-  if (!gmail || !password) {
-    throw new ApiError(400, "ALL FIELDS ARE REQUIRED");
-  }
+    if (!gmail || !password) {
+      throw new ApiError(400, "ALL FIELDS ARE REQUIRED");
+    }
 
-  const student = await Student.findOne({
-    $or: [{ gmail }, { password }],
+    const student = await Student.findOne({
+      $or: [{ gmail }, { password }],
+    });
+
+    if (!student) {
+      throw new ApiError(404, "STUDENT DOES NOT EXIST");
+    }
+
+    const validPassword = await student.isPasswordWrong(password);
+
+    if (!validPassword) {
+      throw new ApiError(401, "WRONG PASSWORD BRUH");
+    }
+
+    const { accessToken, refreshToken } = await generateToken(student._id);
+
+    // console.log(accessToken)
+    const loggedIn = await Student
+      .findById(student._id)
+      .select("firstname  lastname gmail  age gender education picure ");
+
+      const options = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // use secure cookies in production
+        sameSite: 'None', // adjust sameSite policy according to your needs
+      };
+
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json(
+        new ApiResponse(
+          200 , {
+            user: loggedIn,
+            accessToken,
+            refreshToken
+          },
+          "LOGIN OF STUDENT SUCCSSFULL"
+        )
+      );
   });
-
-  if (!student) {
-    throw new ApiError(404, "STUDENT DOES NOT EXIST");
-  }
-
-  const validPassword = await student.isPasswordWrong(password);
-
-  if (!validPassword) {
-    throw new ApiError(401, "WRONG PASSWORD BRUH");
-  }
-
-  const { accessToken, refreshToken } = await generateToken(student._id);
-
-  // console.log(accessToken)
-  const loggedIn = await Student
-    .findById(student._id)
-    .select("firstname  lastname gmail  age gender education picure ");
-
-    const options = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // use secure cookies in production
-      sameSite: 'None', // adjust sameSite policy according to your needs
-    };
-
-  return res
-    .status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json(
-      new ApiResponse(
-        200 , {
-          user: loggedIn,
-          accessToken,
-          refreshToken
-        },
-        "LOGIN OF STUDENT SUCCSSFULL"
-      )
-    );
-});
 
 //--------------------------------FETCHING CURRENT STUDENT DETAILS-------------------------
 const fetchStudent = asyncHandler(async(req , res)=>{
@@ -323,4 +323,45 @@ const deleteAccount= asyncHandler(async(req , res)=>{
  })
 
 
-export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController ,updateDetails , deleteAccount , updatePicture};
+
+ //-------------------------------------LOGOUT ACCOUNT-----------------------------------------------
+ const logoutStudent = asyncHandler(async (req, res) => {
+  try {
+    const id = req.user._id;
+    const logout = await Student.findByIdAndUpdate(
+     id, 
+      { 
+        $unset: { refreshToken: 1 } 
+      },
+      { new: true }
+    );
+
+    if(!logout){
+      throw new ApiError(400 , "COULDNT LOGOUT ACCOUNT")
+    }
+  
+    // Cookie clearing options
+    const options = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None'
+    };
+  
+    return res
+      .status(200)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json(
+        new ApiResponse(
+          200, 
+          {}, 
+          "STUDENT LOGGED OUT SUCCESSFULLY"
+        )
+      );
+  } catch (error) {
+    
+  }
+});
+
+
+export { registerStudent, loginStudent , fetchStudent , mentorReview , emailController ,updateDetails , deleteAccount , updatePicture , logoutStudent};

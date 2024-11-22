@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {registerStudent , loginStudent , fetchStudent , mentorReview ,emailController, updateDetails, deleteAccount, updatePicture} from "../controllers/student.controller.js";
+import {registerStudent , loginStudent , fetchStudent , mentorReview ,emailController, updateDetails, deleteAccount, updatePicture, logoutStudent} from "../controllers/student.controller.js";
 import multer from "multer";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT2 } from "../middlewares/authStudent.middleware.js";
@@ -45,6 +45,11 @@ router.route("/updateStudentDetails").put(cors(corsOptions),verifyJWT2 , updateD
 // https://localhost:8000/api/student/updateimage
 router.route("/updateStudentImage").put(cors(corsOptions), verifyJWT2 , upload.single("picture"), updatePicture)
 
+// https://localhost:8000/api/student/logoutStudent
+router.route("/logoutStudent").post(cors(corsOptions), verifyJWT2 , logoutStudent)
+
+
+// https://localhost:8000/api/student/deleteStudentAccount
 router.route("/deleteStudentAccount").delete(cors(corsOptions), verifyJWT2 , deleteAccount)
 
 // https://localhost:8000/api/student/review/ID
