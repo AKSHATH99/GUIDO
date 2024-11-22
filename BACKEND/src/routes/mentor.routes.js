@@ -28,6 +28,7 @@ router
 
   const allowedOrigins = [
     "https://guido-frontend.vercel.app",
+    "http://localhost:3000"
   ];
   
   const corsOptions = {
@@ -51,7 +52,7 @@ router.route("/login").post(cors(corsOptions), LoginMentor);
 router.route("/fetch").get(verifyJWT, fetchMentor);
 
 //https://localhost:8000/api/mentor/fetchAll
-router.route("/fetchAll").get(fetchAllMentor)   
+router.route("/fetchAll").get(cors(corsOptions),fetchAllMentor)   
 
 //https://localhost:8000/api/mentor/updateDetails
 router.route("/updateDetails").put(cors(corsOptions),verifyJWT,updateDetails)

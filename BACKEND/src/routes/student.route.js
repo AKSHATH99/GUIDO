@@ -9,6 +9,7 @@ const router = Router();
 
 const allowedOrigins = [
   "https://guido-frontend.vercel.app",
+  "http://localhost:3000"
 ];
 
 const corsOptions = {
@@ -33,7 +34,7 @@ router.route("/register").post(
 )
 
 // https://localhost:8000/api/student/login
-router.route("/login").post(loginStudent)
+router.route("/login").post( cors(corsOptions),loginStudent)
 
 // https://localhost:8000/api/student/fetch
 router.route("/fetch").get( cors(corsOptions), verifyJWT2 , fetchStudent)
