@@ -23,9 +23,10 @@ const HeaderComponent = (picture) => {
             <p> HOME </p>
           </Link>
         </div>
+        <Link to="/about">
         <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
           <p>ABOUT US </p>
-        </div>
+        </div></Link>
         {/* <div className="hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out hover:text-rose-700">
           <p>MENTOR CHAT </p>
         </div> */}

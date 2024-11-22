@@ -19,6 +19,7 @@ import StudentRegister from "./components/Student/StudentrRegister.js";
 import Admin from "./components/admin/Admin.js";
 import AdminLogin from "./components/admin/AdminLogin.js"
 import IntroPage from "./components/IntroPage.js";
+import AboutUs from "./components/AboutUs.js";
 
 const appRouter = createBrowserRouter([
   {
@@ -65,6 +66,9 @@ const appRouter = createBrowserRouter([
   {
     path:"/admin",
     element: <Admin />
+  },{
+    path:"/about",
+    element: <AboutUs/>
   }
 ]);
 
