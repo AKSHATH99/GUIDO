@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import LoaderAnimation from "../Shimmer/LoaderAnimation";
 import ErrorBlock from "../ErrorBlock";
+import {ToastContainer , toast} from 'react-toastify'
+
 
 const MentorLogin = () => {
   const navigate = useNavigate();
@@ -10,7 +13,9 @@ const MentorLogin = () => {
     password: "",
   });
 
-  const [errormsg , setErrormsg] = useState("")
+  const [errormsg , setErrormsg] = useState("");
+  const [Loader , setLoader] = useState(false);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +26,7 @@ const MentorLogin = () => {
   };
 
   const submitData = async (e) => {
+    setLoader(true)
     e.preventDefault();
     try {
       axios.defaults.withCredentials = true;
@@ -40,12 +46,15 @@ const MentorLogin = () => {
       console.log("setting token", response.data.data.accessToken)
       localStorage.setItem("token", response.data.data.accessToken);
       if (response) { 
-        navigate(`/myMentorAccount`);
+        navigate(`/dashboard`);
       }
     } catch (error) {
-      console.log(error);
-      setErrormsg(error.response.statusText)
-
+      if(error?.response?.status){
+        toast.error(`${error?.response?.status}, Incorrect mail or password`);
+      }else{
+        toast.error("SOME UNKNOWN ERROR OCCURED WHILE LOGGING IN ")
+      }
+      setLoader(false)
     }
   };
   return (
@@ -87,7 +96,7 @@ const MentorLogin = () => {
 
           <button className="border border-green-100 bg-green-100  w-96 ml-0  h-12 rounded-md m-5 text-2xl hover:bg-green-300" type="submit">
 
-            LOGIN
+          {Loader?<div className="ml-44"><LoaderAnimation/></div>:"LOGIN "}
           </button>
           <p className="text-xl mt-10">Don't have a account ? <Link className="text-rose-500 hover:text-rose-700" to = "/MentorReg">Create your Account</Link> </p>
         </form>
