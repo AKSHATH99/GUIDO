@@ -35,7 +35,7 @@ const setDetails = asyncHandler(async (req, res) => {
 
 //-----------THIS CONTROLLER USED TO FETCH STUDENTS OF A  MENTOR USING ID FOR DASHBOARD-------------
 const fetchStudentsOfAMentor = asyncHandler(async (req, res) => {
-  const userID = req.user._id;;
+  const mentorID = req.user._id;
 
     if(!mentorID){
         throw new ApiError(400 , "Didnt recieve mentor id ")
@@ -59,7 +59,7 @@ const fetchStudentsOfAMentor = asyncHandler(async (req, res) => {
 
 //---------------------------FETCH LIST OF MENTORS A STUDENTS HAS BEEN MENTOTERED WITH----------
 const fetchMentorsOfAStudent = asyncHandler(async (req, res) => {
-    const {studentID } = req.body;
+    const {studentID } = req.user._id;
 
     if(!studentID){
         throw new ApiError(400 , "Didnt recieve student id ")
