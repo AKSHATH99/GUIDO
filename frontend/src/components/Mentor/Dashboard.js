@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from "axios"
+import {ToastContainer , toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 //--------------------------This table holds student request list-----------------
@@ -47,6 +50,68 @@ const RequestsTable = () => {
 
 //-------------------DASHBORD COMPONENT--------------------------------------------------
 const Dashboard = () => {
+
+  const [status , setStatus] = useState(true);
+
+  //Toggle status of mentor
+  const ToggleStatus = async (e) => {
+    e.preventDefault();
+    try {
+      axios.defaults.withCredentials = true;
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `https://guido-backend.vercel.app/api/v1/mentor/toggleStatus`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response) {
+        console.log("TOGGLE SUCCESS", response);
+        toast.success("Toggled your status ")
+      }
+
+    } catch (error) {
+      toast.error(`Some error occured while toggling status   . Try again`,{transition:"Slide"})
+      console.log(error);
+    }
+  };
+
+  //FETCH CURRENT STATUS
+  const fetchStatus = async (e) => {
+    e.preventDefault();
+    try {
+      axios.defaults.withCredentials = true;
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `https://guido-backend.vercel.app/api/v1/mentor/fetchCurrentStatus`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response) {
+        console.log("Status Fetch  SUCCESS", response);
+        // toast.success("Toggled your status ")
+      }
+
+    } catch (error) {
+      toast.error(`Some error occured while fetching mentor status   . Try again`,{transition:"Slide"})
+      console.log(error);
+    }
+  };
+
+  useEffect(()=>{
+    console.log("FETCHING STATUS")
+    fetchStatus();
+  },[]);
+
   return (
     <div className=''>
       <h1 className='text-4xl  font-mono border p-10 shadow-lg' >MENTOR DASHBOARD</h1>
@@ -57,10 +122,15 @@ const Dashboard = () => {
 
         <h1 className='text-2xl font-bold'>Student Request Accepting Status </h1>
         <p className='mt-2 text-gray-500 text-xl'>Set this to false if you dont want to accept request from student for temporarily</p>
-        <select className='mt-5 w-1/4 p-5 border rounded-lg'>
-          <option className=''>ACCEPTING </option>
-          <option>NOT ACCEPTING </option>
-        </select>
+        <div className='flex'>
+        <button onClick={(e)=>{ToggleStatus()}} className='mt-5 w-max p-5 px-10 border rounded-lg text-white bg-gray-500 text-xl '> Change Status
+        </button>
+
+        <div className='mt-10 ml-10'>
+        <p className='text-2xl text-green-500 font-bold font-mono  '>✅ Accepting Requests</p>
+        <p className='text-2xl text-red-500 font-bold font-mono  '> Not Accepting ❌</p>
+        </div>
+        </div>
 
         {/* ---------------STUDENT REQUEST LIST------------------------------------------ */}
       <div className='mt-20  '>
