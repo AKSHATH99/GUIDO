@@ -11,7 +11,9 @@ import {
   updateDetails,
   deleteAccount,
   updatePicture,
-  filterMentor
+  filterMentor,
+  toggleIsAcceptingStatus,
+  fetchAcceptingStatus
 } from "../controllers/mentor.controller.js";
 import multer from "multer";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -59,6 +61,12 @@ router.route("/updateDetails").put(cors(corsOptions),verifyJWT,updateDetails)
 
 // https://localhost:8000/api/mentor/updateimage
 router.route("/updateImage").put(cors(corsOptions), verifyJWT , upload.single("picture"), updatePicture)
+
+//https://localhost:8000/api/mentor/toggleStatus
+router.route("/toggleStatus").post(cors(corsOptions),verifyJWT , toggleIsAcceptingStatus )
+
+//https://localhost:8000/api/mentor/fetchCurrentStatus
+router.route("/fetchCurrentStatus").get(cors(corsOptions),verifyJWT , fetchAcceptingStatus )
 
 //https://localhost:8000/api/mentor/deleteAccount
 router.route("/deleteAccount").delete(cors(corsOptions), verifyJWT ,deleteAccount)

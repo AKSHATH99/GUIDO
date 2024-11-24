@@ -216,7 +216,7 @@ const fetchAMentor = asyncHandler(async (req, res) => {
 
     const regex = new RegExp(`^${firstname}`, "i");
     const user = await Mentor.find({ firstname: { $regex: regex } }).select(
-      "_id firstname lastname company role field picture "
+      "_id firstname lastname company role field picture isAcceptingRequest"
     );
 
     if (!user || user.length == 0) {
@@ -252,6 +252,81 @@ const fetchMentorByID = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, mentor, "fetched mentor details"));
 });
+
+//-------------------------------TOGGLING ISACCEPTING STATUS-----------------------
+const toggleIsAcceptingStatus = asyncHandler(async(req,res)=>{
+  try {
+    const userID = req.user._id;
+    
+
+    if (!userID) {
+      throw new ApiError(404, "MENTOR ID NOT PROVID   ED");
+    }
+  
+    const mentor = await Mentor.findById(userID);
+    if (!mentor) {
+      throw new ApiError(404, "MENTOR NOT FOUND");
+    }
+
+    // if (mentor.userID.toString() !== userID.toString()) {
+    //   throw new ApiError(403, "UNAUTHORIZED TO TOGGLE THIS MENTOR'S STATUS");
+    // }
+    console.log("status",!mentor.isAcceptingRequest)
+
+    mentor.isAcceptingRequest = (!mentor.isAcceptingRequest);
+
+    const updated = await mentor.save();
+
+    if(updated){
+    throw new ApiError(400, "FAILED", error);
+
+    }
+
+    console.log("UPDATED", updated)
+    return res
+    .status(200)
+    .json(new ApiResponse(200,  "toggled  mentor status"));
+
+
+  } catch (error) {
+    throw new ApiError(400, "SOME ERROR WHILE UPDATING MENTOR STATUS", error);
+    
+  }
+})
+
+
+//----------------------FETCH CURENT STATUS OF ISACCEPTING------------------------------------------
+const fetchAcceptingStatus = asyncHandler(async(req,res)=>{
+  try {
+    const userID = req.user._id;
+    
+
+    if (!userID) {
+      throw new ApiError(404, "MENTOR ID NOT PROVID   ED");
+    }
+  
+    const mentor = await Mentor.findById(userID);
+    if (!mentor) {
+      throw new ApiError(404, "MENTOR NOT FOUND");
+    }
+
+    // if (mentor.userID.toString() !== userID.toString()) {
+    //   throw new ApiError(403, "UNAUTHORIZED TO TOGGLE THIS MENTOR'S STATUS");
+    // }
+    console.log("CURENT STATUS: ",mentor.isAcceptingRequest)
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200,mentor.isAcceptingRequest , "toggled  mentor status"));
+
+
+  } catch (error) {
+    throw new ApiError(400, "SOME ERROR WHILE UPDATING MENTOR STATUS", error);
+    
+  }
+})
+
+
 
 //----------------------------UPDATING MENTOR DETAILS----------------------------------------------------------------
 
@@ -449,4 +524,6 @@ export {
   deleteAccount,
   updatePicture,
   filterMentor,
+  toggleIsAcceptingStatus,
+  fetchAcceptingStatus
 };

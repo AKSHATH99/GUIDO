@@ -41,6 +41,11 @@
       required:true,
       default:false,
     },
+    isAcceptingRequest:{
+      type:Boolean,
+      required:true,
+      default:true,
+    },
     firstname: {
       type: String,
       required: true,
