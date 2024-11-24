@@ -37,8 +37,8 @@ const MyMentorAccount  = () => {
   }, []);
   return (
     <>
-      <HeaderComponent />
-      <div className="bg-gray-50 p-3 pt-5">
+      {/* <HeaderComponent /> */}
+      <div className="bg-gray-50  ">
         <div className="ml-[360px]  mt-16 text-4xl flex border-b-2 w-max pb-10 ">
           <p className="mt-4">My Account Settings </p>
           <button className="ml-[700px] text-2xl border p-3 px-9 rounded-xl bg-orange-300 font-semibold">
@@ -225,7 +225,7 @@ const MyMentorAccount  = () => {
           <StudentAccountShimmer />
         )}
       </div>
-      <Footer />
+      {/* <Footer />  */}
     </>
   );
 };
