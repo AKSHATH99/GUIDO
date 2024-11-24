@@ -122,8 +122,9 @@ const Dashboard = () => {
     try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
+      // console.log(token)
       const response = await axios.post(
-        `https://guido-backend.vercel.app/api/v1/mentor/toggleStatus`,
+        `https://guido-backend.vercel.app/api/v1/mentor/toggleStatus`,{},
         {
           withCredentials: true,
           headers: {
@@ -135,6 +136,7 @@ const Dashboard = () => {
       if (response) {
         console.log("TOGGLE SUCCESS", response);
         toast.success("Toggled your status ");
+        fetchStatus();
       }
     } catch (error) {
       toast.error(`Some error occured while toggling status   . Try again`, {
