@@ -1,61 +1,124 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
-import {ToastContainer , toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //--------------------------This table holds student request list-----------------
 const RequestsTable = () => {
-  const requests = [
-    { id: 1, name: 'John Doe', email: 'john.doe@example.com', phone: '123-456-7890' },
-    { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', phone: '987-654-3210' },
-    { id: 3, name: 'Alice Johnson', email: 'alice.johnson@example.com', phone: '456-789-1234' },
-  ];
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    // e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `https://guido-backend.vercel.app/api/v1/mentorships/fetchStudents`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data && response.data.data) {
+        setStudents(response.data.data); // Save fetched students
+        toast.success("Students fetched successfully");
+      } else {
+        toast.error("No data found");
+      }
+    } catch (error) {
+      toast.error("Error fetching students. Please try again.");
+      console.error(error);
+    }
+  };
 
   return (
-    <table className='w-3/4 border-collapse border border-gray-300 mt-5 rounded-lg'>
-      <thead>
-        <tr className='bg-gray-100'>
-          <th className='border border-gray-300 p-2'>Student ID</th>
-          <th className='border border-gray-300 p-2'>Student Name</th>
-          <th className='border border-gray-300 p-2'>Email ID</th>
-          <th className='border border-gray-300 p-2'>Phone Number</th>
-          <th className='border border-gray-300 p-2'>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {requests.map((request) => (
-          <tr key={request.id} className='text-center'>
-            <td className='border border-gray-300 p-2'>{request.id}</td>
-            <td className='border border-gray-300 p-2'>{request.name}</td>
-            <td className='border border-gray-300 p-2'>{request.email}</td>
-            <td className='border border-gray-300 p-2'>{request.phone}</td>
-            <td className='border border-gray-300 p-2'>
-              <button className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600'>
-                View Account
-              </button>
-            </td>
+    <div>
+      {/* <button
+        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mb-5"
+        onClick={fetchStudents}
+      >
+        Fetch Students
+      </button> */}
+
+      <table className="w-full border-collapse border border-gray-300 rounded-lg">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="border border-gray-300 p-2">Student Name</th>
+            <th className="border border-gray-300 p-2">Email ID</th>
+            <th className="border border-gray-300 p-2">Phone Number</th>
+            <th className="border border-gray-300 p-2">College</th>
+            <th className="border border-gray-300 p-2">Degree</th>
+            <th className="border border-gray-300 p-2">Skills</th>
+            <th className="border border-gray-300 p-2">Profile Picture</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {students.length > 0 ? (
+            students.map((student) => (
+              <tr key={student.studentID._id} className="text-center">
+                <td className="border border-gray-300 p-2">
+                  {student.studentID.firstname} {student.studentID.lastname}
+                </td>
+                <td className="border border-gray-300 p-2">
+                  <a
+                    href={`mailto:${student.studentID.gmail}`}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {student.studentID.gmail}
+                  </a>
+                </td>
+                <td className="border border-gray-300 p-2">
+                  <a
+                    href={`tel:${student.studentID.phone}`}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {student.studentID.phone}
+                  </a>
+                </td>
+                <td className="border border-gray-300 p-2">
+                  {student.studentID.education[0]?.collegeName || "N/A"}
+                </td>
+                <td className="border border-gray-300 p-2">
+                  {student.studentID.education[0]?.degreeName || "N/A"}
+                </td>
+                <td className="border border-gray-300 p-2">
+                  {student.studentID.skills}
+                </td>
+                <td className="border border-gray-300 p-2">
+                  <img
+                    src={student.studentID.picure}
+                    alt="Profile"
+                    className="w-16 h-16 rounded-full mx-auto"
+                  />
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="7" className="text-center p-4">
+                No students found. Try Refreshing.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
-
-
-
-
-
-
 //-------------------DASHBORD COMPONENT--------------------------------------------------
 const Dashboard = () => {
-
-  const [status , setStatus] = useState(true);
+  const [status, setStatus] = useState(true);
 
   //Toggle status of mentor
   const ToggleStatus = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
@@ -71,18 +134,19 @@ const Dashboard = () => {
 
       if (response) {
         console.log("TOGGLE SUCCESS", response);
-        toast.success("Toggled your status ")
+        toast.success("Toggled your status ");
       }
-
     } catch (error) {
-      toast.error(`Some error occured while toggling status   . Try again`,{transition:"Slide"})
+      toast.error(`Some error occured while toggling status   . Try again`, {
+        transition: "Slide",
+      });
       console.log(error);
     }
   };
 
   //FETCH CURRENT STATUS
   const fetchStatus = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
@@ -100,51 +164,78 @@ const Dashboard = () => {
         console.log("Status Fetch  SUCCESS", response);
         // toast.success("Toggled your status ")
       }
-
     } catch (error) {
-      toast.error(`Some error occured while fetching mentor status   . Try again`,{transition:"Slide"})
+      toast.error(
+        `Some error occured while fetching mentor status   . Try again`,
+        { transition: "Slide" }
+      );
       console.log(error);
     }
   };
 
-  useEffect(()=>{
-    console.log("FETCHING STATUS")
+  useEffect(() => {
+    console.log("FETCHING STATUS");
     fetchStatus();
-  },[]);
+  }, []);
 
   return (
-    <div className=''>
-      <h1 className='text-4xl  font-mono border p-10 shadow-lg' >MENTOR DASHBOARD</h1>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header Section */}
+      <header className="bg-white border-b p-6 shadow-sm">
+        <h1 className="text-4xl font-mono text-center text-gray-800">
+          MENTOR DASHBOARD
+        </h1>
+        <p className="text-center mt-2 text-xl text-gray-600">
+          Manage your account and settings here
+        </p>
+      </header>
 
-      <div className='p-10 text-2xl text-gray-600'>MANAGE YOUR ACCOUNT AND SETTING HERE</div>
+      {/* Main Content */}
+      <main className="p-10">
+        {/* Status Section */}
+        <section className="bg-white p-8 rounded-lg shadow-lg mb-12">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Student Request Accepting Status
+          </h2>
+          <p className="mt-2 text-lg text-gray-600">
+            Toggle the status if you want to temporarily stop accepting mentorship requests from students.
+          </p>
+          <div className="flex items-center mt-6">
+            {/* Button */}
+            <button
+              onClick={(e) => {
+                ToggleStatus();
+              }}
+              className="py-3 px-6 bg-blue-500 text-white font-bold text-lg rounded-lg shadow-md hover:bg-blue-600 transition"
+            >
+              Change Status
+            </button>
 
-      <div className='p-10 shadow-lg m-10 mt-0' >
+            {/* Status Display */}
+            <div className="ml-8">
+              <p className="text-2xl font-mono font-bold text-green-500 flex items-center">
+                ✅ Accepting Requests
+              </p>
+              {/* <p className="text-2xl font-mono font-bold text-red-500 flex items-center">
+                ❌ Not Accepting Requests
+              </p> */}
+            </div>
+          </div>
+        </section>
 
-        <h1 className='text-2xl font-bold'>Student Request Accepting Status </h1>
-        <p className='mt-2 text-gray-500 text-xl'>Set this to false if you dont want to accept request from student for temporarily</p>
-        <div className='flex'>
-        <button onClick={(e)=>{ToggleStatus()}} className='mt-5 w-max p-5 px-10 border rounded-lg text-white bg-gray-500 text-xl '> Change Status
-        </button>
-
-        <div className='mt-10 ml-10'>
-        <p className='text-2xl text-green-500 font-bold font-mono  '>✅ Accepting Requests</p>
-        <p className='text-2xl text-red-500 font-bold font-mono  '> Not Accepting ❌</p>
-        </div>
-        </div>
-
-        {/* ---------------STUDENT REQUEST LIST------------------------------------------ */}
-      <div className='mt-20  '>
-        <h1 className=' text-3xl font-bold'>Requests List</h1>
-        <p className='mt-2 text-gray-500 text-xl'>Browse through students currently taking mentorship under you </p>
-        <RequestsTable/>
-      </div>
-      </div>
-
-
-      
-      STUDENT REQUEST FOR MENTORING LIST  , SET IS ACCEPTING REQUEST STATUS , 
+        {/* Students List Section */}
+        <section className="bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-3xl font-bold text-gray-800">Students List</h2>
+          <p className="mt-3 text-lg text-gray-600">
+            Browse through students currently taking mentorship under you.
+          </p>
+          <div className="mt-6">
+            <RequestsTable />
+          </div>
+        </section>
+      </main>
     </div>
-  )
-}
+  );;
+};
 
-export default Dashboard
+export default Dashboard;
