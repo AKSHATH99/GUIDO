@@ -83,4 +83,7 @@ app.use("/api/v1/student", studentRouter);
 import adminRouter from "./routes/admin.route.js"
 app.use("/api/v1/admin",adminRouter)
 
+import mentorshipsRouter from "./routes/mentorships.route.js";
+app.use("/api/v1/mentorships",mentorshipsRouter);
+
 export default app;
