@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import LoaderAnimation from "../Shimmer/LoaderAnimation";
 import "react-toastify/dist/ReactToastify.css";
 
 //--------------------------This table holds student request list-----------------
@@ -116,11 +117,14 @@ const RequestsTable = () => {
 
 const DashboardComponent = () => {
   const [status, setStatus] = useState(true);
+  const [Loader , setLoader] = useState(false);
+
 
     //Toggle status of mentor
     const ToggleStatus = async (e) => {
         // e.preventDefault();
         try {
+          setLoader(true)
           axios.defaults.withCredentials = true;
           const token = localStorage.getItem("token");
           // console.log(token)
@@ -138,11 +142,13 @@ const DashboardComponent = () => {
             console.log("TOGGLE SUCCESS", response);
             toast.success("Toggled your status ");
             fetchStatus();
+            setLoader(false)
           }
         } catch (error) {
           toast.error(`Some error occured while toggling status   . Try again`, {
             transition: "Slide",
           });
+          setLoader(false)
           console.log(error);
         }
       };
@@ -202,7 +208,7 @@ const DashboardComponent = () => {
               }}
               className="py-3 px-6 bg-blue-500 text-white font-bold text-lg rounded-lg shadow-md hover:bg-blue-600 transition"
             >
-              Change Status
+             {Loader?<LoaderAnimation/>:" Change Status"}
             </button>
 
             {/* Status Display */}

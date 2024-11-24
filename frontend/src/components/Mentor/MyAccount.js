@@ -37,197 +37,145 @@ const MyMentorAccount  = () => {
   }, []);
   return (
     <>
-      {/* <HeaderComponent /> */}
-      <div className="bg-gray-50  ">
-        <div className="ml-[360px]  mt-16 text-4xl flex border-b-2 w-max pb-10 ">
-          <p className="mt-4">My Account Settings </p>
-          <button className="ml-[700px] text-2xl border p-3 px-9 rounded-xl bg-orange-300 font-semibold">
-            Sign Out{" "}
+      <div className="bg-gray-100 min-h-screen p-10">
+        {/* Header */}
+        <header className="flex justify-between items-center bg-white shadow p-6 rounded-lg">
+          <h1 className="text-3xl font-bold text-gray-800">My Account Settings</h1>
+          <button className="bg-orange-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-orange-400">
+            Sign Out
           </button>
-        </div>
-
-        <p className="ml-[360px] m-10 text-3xl text-gray-400">
+        </header>
+  
+        {/* Account Management Info */}
+        <p className="mt-6 text-xl text-gray-500 text-center">
           Manage your account and edit your details
         </p>
+  
         {studentData ? (
-          <div className="">
-            <div className="flex">
-              <div className=" m-20   -mt-5   ml-60   w-max hover:cursor-pointer  transform hover:scale-95 transition duration-150 ease-in-out ">
-                {/* <p>PERSONAL DETAILS</p> */}
-
-                <div className="p-5 pr-32 flex">
-                  <img
-                    className="rounded-full m-3 ml-24 w-40 h-40 p-2"
-                    // src="https://media.istockphoto.com/id/597958694/photo/young-adult-male-student-in-the-lobby-of-a-university.jpg?s=612x612&w=0&k=20&c=QaNEzmcKrLJzmwOcu2lgwm1B7rm3Ouq2McYYdmoMGpU="
-                    src={studentData.picture}
-                  />
-                  <img
-                    className="w-10 h-10 ml mt-5 hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out"
-                    src="/images/edit.png"
-                  />
+          <div className="mt-10">
+            {/* Profile Section */}
+            <div className="bg-white shadow p-8 rounded-lg flex gap-8 items-center">
+              <img
+                className="rounded-full w-32 h-32 object-cover"
+                src={studentData.picture}
+                alt="Profile"
+              />
+              <div className="flex-grow">
+                <h2 className="text-4xl font-bold text-gray-800">
+                  {studentData.firstname} {studentData.lastname}
+                </h2>
+                <div className="flex items-center gap-4 mt-4 text-gray-600">
+                  <img className="w-6" src="/images/email.png" alt="Email" />
+                  <span className="text-lg">{studentData.email}</span>
                 </div>
-
-                <div className=" ml-14 m-5 p-3">
-                  <p className="font-bold text-5xl ml-10">
-                    {" "}
-                    {studentData.firstname} {studentData.lastname}
-                  </p>
-                  <div className="flex m-3 p-3 ml-5">
-                    {" "}
-                    <img className="mx-3" src="/images/email.png" />
-                    <p className="text-xl">akshathpkk@gmail.com</p>
-                  </div>
-                  <div className="flex m-3 p-3 ml-6">
-                    {" "}
-                    <img className="mx-3 mt-1 h-5" src="/images/call.png" />
-                    <img className="mx-3" src="/images/linkedin.png" />
-                    <img className="mx-3" src="/images/Xlogo.png" />
-                    {/* 8590518257 */}
-                  </div>
-                  {/* <div className="flex m-3 p-3 ml-5">
-                  {" "}
-                  <img className="mx-3" src="/images/linkedin.png" />
-                  <img className="mx-3" src="/images/Xlogo.png" />
-                </div> */}
-
-                  {/* <p className=" text-xl mt-4"> Speaks  : {studentData.language_spoken  }</p> */}
-                  <p className="text-xl mt-4  p-2 pl-0">
-                    {/* {studentData.education[0].degreeName} */}
-                    <div className="flex mt-4 -ml-5">
-                      {/* <img className="ml-4" src="/images/location.png" />{" "}
-                <p className="">{studentData.place}</p>{" "} */}
-                    </div>
-                  </p>
+                <div className="flex items-center gap-4 mt-2">
+                  <img className="w-6" src="/images/call.png" alt="Call" />
+                  <img className="w-6" src="/images/linkedin.png" alt="LinkedIn" />
+                  <img className="w-6" src="/images/Xlogo.png" alt="Twitter" />
                 </div>
               </div>
-              <div>
-                {/* <h1 className=" text-3xl mt-10 font-bold "> PERSONAL DETAILS </h1> */}
-                <div className="m-20 mt-10 ml-0   rounded-lg  w-3/4  h-max hover:cursor-pointer  transform hover:scale-95 transition duration-150 ease-in-out  ">
-                  <div className="flex">
-                    <p className="p-5 text-4xl ml-5 font-bold">About</p>
-                    <img
-                      className="w-10 h-10 ml-96 mt-5 hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out"
-                      src="/images/edit.png"
-                    />
-                  </div>
-                  <p className="p-10">
-                   {studentData.bio}
-                  </p>
+              <img
+                className="w-8 h-8 cursor-pointer hover:scale-110 transition"
+                src="/images/edit.png"
+                alt="Edit"
+              />
+            </div>
+  
+            {/* About Section */}
+            <div className="mt-8 bg-white shadow p-8 rounded-lg">
+              <div className="flex justify-between items-center">
+                <h3 className="text-3xl font-bold text-gray-800">About</h3>
+                <img
+                  className="w-8 h-8 cursor-pointer hover:scale-110 transition"
+                  src="/images/edit.png"
+                  alt="Edit"
+                />
+              </div>
+              <p className="mt-4 text-gray-600">{studentData.bio}</p>
+            </div>
+  
+            {/* Education Section */}
+            <div className="mt-8 bg-white shadow p-8 rounded-lg">
+              <div className="flex justify-between items-center">
+                <h3 className="text-3xl font-bold text-gray-800">Education</h3>
+                <img
+                  className="w-8 h-8 cursor-pointer hover:scale-110 transition"
+                  src="/images/edit.png"
+                  alt="Edit"
+                />
+              </div>
+              <div className="mt-4 space-y-4 text-gray-600">
+                <div>
+                  <span className="font-bold">At:</span> {studentData.education[0]?.collegeName || "N/A"}
+                </div>
+                <div>
+                  <span className="font-bold">Doing:</span> {studentData.education[0]?.degreeName || "N/A"}
+                </div>
+                <div>
+                  <span className="font-bold">Currently in:</span> {studentData.education[0]?.currentYear || "N/A"}
+                </div>
+                <div>
+                  <span className="font-bold">Graduating in:</span>{" "}
+                  {studentData.education[0]?.passoutYear || "N/A"}
                 </div>
               </div>
             </div>
-
-            <div className="m-20  -mt-20 rounded-lg  ml-72   w-3/4 flex ">
-              <div className=" p-8 ml-10  rounded-lg hover:cursor-pointer  transform hover:scale-95 transition duration-150 ease-in-out ">
-                <div className="flex justify-between items-center mb-6">
-                  <p className="text-4xl font-bold">EDUCATION</p>
-                  <img
-                    className="w-10 h-10 ml-10 cursor-pointer transform hover:scale-110 transition-transform duration-200 ease-in-out"
-                    src="/images/edit.png"
-                    alt="Edit icon"
-                  />
+  
+            {/* Skills Section (Hardcoded) */}
+            <div className="mt-8 bg-white shadow p-8 rounded-lg">
+              <div className="flex justify-between items-center">
+                <h3 className="text-3xl font-bold text-gray-800">Skills</h3>
+                <img
+                  className="w-8 h-8 cursor-pointer hover:scale-110 transition"
+                  src="/images/edit.png"
+                  alt="Edit"
+                />
+              </div>
+              <div className="p-5 ml-16 flex flex-wrap">
+                <div className="m-5 border p-3 shadow-lg">
+                  <span className="text-xl font-bold">Java</span>
                 </div>
-
-                <div className="ml-8">
-                  <div className="flex items-center mb-4">
-                    <span className="text-xl font-bold mr-3">AT:</span>
-                    <p className="text-xl">
-                      {studentData.education[0].collegeName}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center mb-4">
-                    <span className="text-xl font-bold mr-3">DOING:</span>
-                    <p className="text-xl">
-                      {studentData.education[0].degreeName}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center mb-4">
-                    <span className="text-xl font-bold mr-3">
-                      CURRENTLY IN:
-                    </span>
-                    <p className="text-xl">
-                      {studentData.education[0].currentYear}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="text-xl font-bold mr-3">
-                      GRADUATING IN:
-                    </span>
-                    <p className="text-xl">
-                      {studentData.education[0].passoutYear}
-                    </p>
-                  </div>
+                <div className="m-5 border p-3 shadow-lg">
+                  <span className="text-xl font-bold">SpringBoot</span>
+                </div>
+                <div className="m-5 border p-3 shadow-lg">
+                  <span className="text-xl font-bold">MySQL</span>
+                </div>
+                <div className="m-5 border p-3 shadow-lg">
+                  <span className="text-xl font-bold">C++</span>
+                </div>
+                <div className="m-5 border p-3 shadow-lg">
+                  <span className="text-xl font-bold">GitHub</span>
+                </div>
+                <div className="m-5 border p-3 shadow-lg">
+                  <span className="text-xl font-bold">Python</span>
+                </div>
+                <div className="m-5 border p-3 shadow-lg">
+                  <span className="text-xl font-bold">RestAPI</span>
+                </div>
+                <div className="m-5 border p-3 shadow-lg">
+                  <span className="text-xl font-bold">MongoDB</span>
                 </div>
               </div>
-
-              <div className=" w-1/2 ml-20 border hover:cursor-pointer  transform hover:scale-95 transition duration-150 ease-in-out ">
-                <div className="flex">
-                  <p className="p-5 text-4xl ml-20 font-bold">SKILLS</p>
-                  <img
-                    className="w-10 h-10 ml-52 mt-5 hover:cursor-pointer  transform hover:scale-110 transition duration-200 ease-in-out"
-                    src="/images/edit.png"
-                  />
-                </div>
-                <div className="p-5 ml-16 flex flex-wrap">
-                  <div className=" m-5 border p-3 shadow-lg">
-                    {" "}
-                    <span className="text-xl  font-bold "> Java</span>{" "}
-                  </div>
-                  <div className=" m-5 border p-3 shadow-lg">
-                    {" "}
-                    <span className="text-xl  font-bold ">
-                      {" "}
-                      SpringBoot
-                    </span>{" "}
-                  </div>
-                  <div className=" m-5 border p-3 shadow-lg">
-                    {" "}
-                    <span className="text-xl  font-bold "> MySQL</span>{" "}
-                  </div>
-                  <div className=" m-5 border p-3 shadow-lg">
-                    {" "}
-                    <span className="text-xl  font-bold "> C++ </span>{" "}
-                  </div>
-                  <div className=" m-5 border p-3 shadow-lg">
-                    {" "}
-                    <span className="text-xl  font-bold "> Github </span>{" "}
-                  </div>
-                  <div className=" m-5 border p-3 shadow-lg">
-                    {" "}
-                    <span className="text-xl  font-bold "> Python </span>{" "}
-                  </div>
-                  <div className=" m-5 border p-3 shadow-lg">
-                    {" "}
-                    <span className="text-xl  font-bold "> RestApi </span>{" "}
-                  </div>
-                  <div className=" m-5 border p-3 shadow-lg">
-                    {" "}
-                    <span className="text-xl  font-bold "> MongoDb </span>{" "}
-                  </div>
-                </div>
-                ` `
-              </div>
             </div>
-
-            <h1 className="ml-80 m-10 text-3xl">OTHER ACCOUNT SETTINGS </h1>
-            <div>
-              <button className="ml-96 border bg-red-900 text-white px-10 py-5 rounded-xl text-xl shadow-lg hover:bg-red-600    transform hover:scale-110 transition duration-200 ease-in-out">DELETE YOUR ACCOUNT </button>
+  
+            {/* Other Account Settings */}
+            <h3 className="mt-10 text-2xl text-gray-700 text-center">
+              Other Account Settings
+            </h3>
+            <div className="flex justify-center mt-6">
+              <button className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-500 transition">
+                DELETE YOUR ACCOUNT
+              </button>
             </div>
-
-            <button className="border border-black" onClick={fetchData}>
-              FETCH DATA
-            </button>
           </div>
         ) : (
           <StudentAccountShimmer />
         )}
       </div>
-      {/* <Footer />  */}
     </>
   );
+  
 };
 
 export default MyMentorAccount;

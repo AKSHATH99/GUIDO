@@ -22,48 +22,4 @@ WORK ON RESPONSIVENESS AND DESIGN 😭
 
 
 
- <main className="p-10 pt-0">
-        {/* Status Section */}
-        <section className="bg-white p-8 rounded-lg shadow-lg mb-12">
-          <h2 className="text-2xl font-bold text-gray-800">
-            Student Request Accepting Status
-          </h2>
-          <p className="mt-2 text-lg text-gray-600">
-            Toggle the status if you want to temporarily stop accepting mentorship requests from students.
-          </p>
-          <div className="flex items-center mt-6">
-            {/* Button */}
-            <button
-              onClick={(e) => {
-                ToggleStatus();
-              }}
-              className="py-3 px-6 bg-blue-500 text-white font-bold text-lg rounded-lg shadow-md hover:bg-blue-600 transition"
-            >
-              Change Status
-            </button>
-
-            {/* Status Display */}
-            <div className="ml-8">
-              {status?<p className="text-2xl font-mono font-bold text-green-500 flex items-center">
-                ✅ Accepting Requests
-              </p>:<p className="text-2xl font-mono font-bold text-red-500 flex items-center">
-                ❌ Not Accepting Requests
-              </p>}
-              {/* <p className="text-2xl font-mono font-bold text-red-500 flex items-center">
-                ❌ Not Accepting Requests
-              </p> */}
-            </div>
-          </div>
-        </section>
-
-        {/* Students List Section */}
-        <section className="bg-white p-8 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold text-gray-800">Students List</h2>
-          <p className="mt-3 text-lg text-gray-600">
-            Browse through students currently taking mentorship under you.
-          </p>
-          <div className="mt-6">
-            <RequestsTable />
-          </div>
-        </section>
-      </main>
+ 
