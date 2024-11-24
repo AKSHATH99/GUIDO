@@ -257,6 +257,8 @@ const fetchMentorByID = asyncHandler(async (req, res) => {
 const toggleIsAcceptingStatus = asyncHandler(async(req,res)=>{
   try {
     const userID = req.user._id;
+
+    console.log("USER ID", userID)
     
 
     if (!userID) {
@@ -277,7 +279,7 @@ const toggleIsAcceptingStatus = asyncHandler(async(req,res)=>{
 
     const updated = await mentor.save();
 
-    if(updated){
+    if(!updated){
     throw new ApiError(400, "FAILED", error);
 
     }

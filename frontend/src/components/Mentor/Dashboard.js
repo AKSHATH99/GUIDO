@@ -162,6 +162,8 @@ const Dashboard = () => {
 
       if (response) {
         console.log("Status Fetch  SUCCESS", response);
+        setStatus(response.data.data);
+        console.log(response.data.data)
         // toast.success("Toggled your status ")
       }
     } catch (error) {
@@ -213,9 +215,11 @@ const Dashboard = () => {
 
             {/* Status Display */}
             <div className="ml-8">
-              <p className="text-2xl font-mono font-bold text-green-500 flex items-center">
+              {status?<p className="text-2xl font-mono font-bold text-green-500 flex items-center">
                 ✅ Accepting Requests
-              </p>
+              </p>:<p className="text-2xl font-mono font-bold text-red-500 flex items-center">
+                ❌ Not Accepting Requests
+              </p>}
               {/* <p className="text-2xl font-mono font-bold text-red-500 flex items-center">
                 ❌ Not Accepting Requests
               </p> */}
