@@ -28,13 +28,13 @@ const allowedOrigins = [
 
 
 //https://localhost:8000/api/mentorships/setDetails
-router.route("/setDetails").post(cors(corsOptions), setDetails);
+router.route("/setDetails").post(cors(corsOptions), verifyJWT, setDetails);
 
 //https://localhost:8000/api/mentorships/fetchStudents
-router.route("/fetchStudents").get(cors(corsOptions), fetchStudentsOfAMentor);
+router.route("/fetchStudents").get(cors(corsOptions),verifyJWT , fetchStudentsOfAMentor);
 
 //https://localhost:8000/api/mentorships/fetchMentors
-router.route("/fetchMentors").get(cors(corsOptions), fetchMentorsOfAStudent);
+router.route("/fetchMentors").get(cors(corsOptions), verifyJWT2, fetchMentorsOfAStudent);
 
 
 export default router;
