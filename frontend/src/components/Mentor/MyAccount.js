@@ -46,10 +46,11 @@ const MyMentorAccount  = () => {
   //Delete mentor account
   const deleteMentor = async () => {
     try {
+      setLoader(true)
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
       console.log("token" , token)
-      const response = await axios.get(
+      const response = await axios.delete(
         "https://guido-backend.vercel.app/api/v1/mentor/deleteAccount",
         {
           withCredentials: true,
@@ -59,9 +60,10 @@ const MyMentorAccount  = () => {
         }
       );
       if(response){
-        navigate("/mentorLogin")
+        navigate("/")
       }
     } catch (error) {
+      setLoader(false)
       if(error?.response?.status){
         toast.error(`${error?.response?.status}, Couldnt delete your account `);
       }else{
@@ -70,7 +72,34 @@ const MyMentorAccount  = () => {
     }
   };
 
-
+//Logout mentor account
+const logout = async () => {
+  try {
+    setLoader(true)
+    axios.defaults.withCredentials = true;
+    const token = localStorage.getItem("token");
+    console.log("token" , token)
+    const response = await axios.post(
+      "https://guido-backend.vercel.app/api/v1/mentor/logoutMentor",{},
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if(response){
+      navigate("/mentorLogin")
+    }
+  } catch (error) {
+    setLoader(false)
+    if(error?.response?.status){
+      toast.error(`${error?.response?.status}, Couldnt delete your account `);
+    }else{
+      toast.error("So,e unknown error occured while deleting account ")
+    }
+  }
+};
   useEffect(() => {
     fetchData();
   }, []);
@@ -83,8 +112,8 @@ const MyMentorAccount  = () => {
         {/* Header */}
         <header className="flex justify-between items-center bg-white shadow p-6 rounded-lg">
           <h1 className="text-3xl font-bold text-gray-800">My Account Settings</h1>
-          <button className="bg-orange-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-orange-400">
-            Sign Out
+          <button onClick={()=>{logout()}} className="bg-orange-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-orange-400">
+           {Loader?<LoaderAnimation/>:"Sign Out"} 
           </button>
         </header>
   
