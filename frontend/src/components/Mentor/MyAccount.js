@@ -6,11 +6,20 @@ import React, { useState, useEffect } from "react";
 import HeaderComponent from "../HeaderComponent.js";
 import Footer from "../Footer.js";
 import StudentAccountShimmer from "../Shimmer/StudentAccountShimmer.js";
+import { Link, useNavigate } from "react-router-dom";
+import {ToastContainer , toast} from 'react-toastify'
+import LoaderAnimation from "../Shimmer/LoaderAnimation";
+
+
 
 const MyMentorAccount  = () => {
+  const navigate = useNavigate();
   const [studentData, setStudentData] = useState("");
+  const [Loader , setLoader] = useState(false);
   const [student, setStudent] = useState({});
 
+
+  //Fetches data about mentor
   const fetchData = async () => {
     try {
       axios.defaults.withCredentials = true;
@@ -32,9 +41,42 @@ const MyMentorAccount  = () => {
       console.log(error);
     }
   };
+
+
+  //Delete mentor account
+  const deleteMentor = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const token = localStorage.getItem("token");
+      console.log("token" , token)
+      const response = await axios.get(
+        "https://guido-backend.vercel.app/api/v1/mentor/deleteAccount",
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if(response){
+        navigate("/mentorLogin")
+      }
+    } catch (error) {
+      if(error?.response?.status){
+        toast.error(`${error?.response?.status}, Couldnt delete your account `);
+      }else{
+        toast.error("So,e unknown error occured while deleting account ")
+      }
+    }
+  };
+
+
   useEffect(() => {
     fetchData();
   }, []);
+
+
+  //----------------------------------------------UI------------------------------------
   return (
     <>
       <div className="bg-gray-100 min-h-screen p-10">
@@ -164,8 +206,8 @@ const MyMentorAccount  = () => {
               Other Account Settings
             </h3>
             <div className="flex justify-center mt-6">
-              <button className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-500 transition">
-                DELETE YOUR ACCOUNT
+              <button onClick={()=>{deleteMentor()}} className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-500 transition">
+                {Loader?<LoaderAnimation/>:"DELETE YOUR ACCOUNT"}
               </button>
             </div>
           </div>
