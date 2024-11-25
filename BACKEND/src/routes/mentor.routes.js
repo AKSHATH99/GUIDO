@@ -13,7 +13,8 @@ import {
   updatePicture,
   filterMentor,
   toggleIsAcceptingStatus,
-  fetchAcceptingStatus
+  fetchAcceptingStatus,
+  logoutMentor
 } from "../controllers/mentor.controller.js";
 import multer from "multer";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -67,6 +68,10 @@ router.route("/toggleStatus").post(cors(corsOptions),verifyJWT , toggleIsAccepti
 
 //https://localhost:8000/api/mentor/fetchCurrentStatus
 router.route("/fetchCurrentStatus").get(cors(corsOptions),verifyJWT , fetchAcceptingStatus )
+
+//https://localhost:8000/api/mentor/logoutMentor
+router.route("/logoutMentor").post(cors(corsOptions),verifyJWT , logoutMentor )
+
 
 //https://localhost:8000/api/mentor/deleteAccount
 router.route("/deleteAccount").delete(cors(corsOptions), verifyJWT ,deleteAccount)

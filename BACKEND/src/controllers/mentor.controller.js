@@ -512,6 +512,47 @@ const deleteAccount = asyncHandler(async (req, res) => {
   }
 });
 
+//----------------LOGOUT MENTOR----------------------------------------
+const logoutMentor = asyncHandler(async (req, res) => {
+  try {
+    const id = req.user._id;
+    const logout = await Mentor.findByIdAndUpdate(
+     id, 
+      { 
+        $unset: { refreshToken: 1 } 
+      },
+      { new: true }
+    );
+
+    if(!logout){
+      throw new ApiError(400 , "COULDNT LOGOUT ACCOUNT")
+    }
+  
+    // Cookie clearing options
+    const options = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None'
+    };
+  
+    return res
+      .status(200)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json(
+        new ApiResponse(
+          200, 
+          {}, 
+          "MENTOR LOGGED OUT SUCCESSFULLY"
+        )
+      );
+  } catch (error) {
+    throw new ApiError(400 , "Couldnt logout sutdent")
+  
+  }
+});
+
+
 //---------------------------------CHANGE PASSWORD--------------------------------------------------------------
 export {
   registerMentor,
@@ -527,5 +568,6 @@ export {
   updatePicture,
   filterMentor,
   toggleIsAcceptingStatus,
-  fetchAcceptingStatus
+  fetchAcceptingStatus,
+  logoutMentor
 };
