@@ -381,6 +381,7 @@ const updatePicture = asyncHandler(async (req, res) => {
   try {
     const id = req.user._id;
     const photolocalpath = req.file?.path;
+    console.log("local path: ",photolocalpath)
     if (!photolocalpath) {
       throw new ApiError(404, "Didint recieve photolocalpath");
     }
