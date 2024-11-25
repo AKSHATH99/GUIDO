@@ -359,7 +359,7 @@ const deleteAccount= asyncHandler(async(req , res)=>{
         )
       );
   } catch (error) {
-    
+    throw new ApiError(400 , "Couldnt logout sutdent")
   }
 });
 
