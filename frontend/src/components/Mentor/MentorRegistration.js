@@ -95,7 +95,7 @@ const MentorRegistration = () => {
 
       console.log(response);
       if (response) {
-        navigate("/MentorAccount");
+        navigate("/myMentorAccount");
       }
     } catch (error) {
       console.log(error);
