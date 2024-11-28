@@ -16,8 +16,8 @@ const MyMentorAccount = () => {
   const [studentData, setStudentData] = useState("");
   const [Loader, setLoader] = useState(false);
   const [student, setStudent] = useState({});
-  const [data , setdata] = useState("");
-
+  const [data, setdata] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
 
   //Fetches data about mentor
   const fetchData = async () => {
@@ -41,8 +41,6 @@ const MyMentorAccount = () => {
       console.log(error);
     }
   };
-
-
 
   //Delete mentor account
   const deleteMentor = async () => {
@@ -72,8 +70,6 @@ const MyMentorAccount = () => {
       }
     }
   };
-
-
 
   //Logout mentor account
   const logout = async () => {
@@ -105,17 +101,13 @@ const MyMentorAccount = () => {
     }
   };
 
-
-
   //---Handle change in update input field
   const handleChange = (e) => {
     const { value } = e.target;
     setdata(value);
     // console.log(value , "from handlechange")
   };
-  
 
-  
   //--Update mentor details
   const updateMentorDetails = async (updatedData) => {
     try {
@@ -133,17 +125,68 @@ const MyMentorAccount = () => {
       );
 
       console.log(response.data);
-      if(response){
+      if (response) {
         //clear up the input field and make variable empty for next updation if any
         setdata("");
-        toast.success(" Updation SuccessFull ")
-        navigate(0)
-
+        toast.success(" Updation SuccessFull ");
+        navigate(0);
       }
     } catch (error) {
       console.error("Error updating mentor details:", error);
-      toast.error("Couldnt update details . Try again")
+      toast.error("Couldnt update details . Try again");
+    }
+  };
 
+  //Handles image updation
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      console.log("Selected File:", file); // Debug to confirm file selection
+    } else {
+      console.error("No file selected");
+    }
+  };
+
+  const updateImage = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!selectedFile) {
+        toast.error("Please select a file before submitting.");
+        return;
+      }
+
+      console.log("from func", selectedFile);
+      const formData = new FormData();
+      formData.append("picture", selectedFile);
+
+      // Log the contents of the FormData
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }
+
+      // Make the API call
+      const response = await axios.put(
+        "https://guido-backend.vercel.app/api/v1/mentor/updateImage",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+      if (response) {
+        toast.success("Image updated successfully!");
+        setSelectedFile(null);
+        navigate(0);
+      }
+    } catch (error) {
+      console.error("Error updating mentor image:", error);
+      toast.error("Could not update the image. Please try again.");
     }
   };
 
@@ -175,7 +218,7 @@ const MyMentorAccount = () => {
           Manage your account and edit your details
         </p>
 
-        <ToastContainer theme="dark" hideProgressBar={true}  />
+        <ToastContainer theme="dark" hideProgressBar={true} />
 
         {studentData ? (
           <div className="mt-10">
@@ -204,11 +247,40 @@ const MyMentorAccount = () => {
                   <img className="w-6" src="/images/Xlogo.png" alt="Twitter" />
                 </div>
               </div>
-              <img
+              <Popup
+                trigger={
+                  <div className="m-5 flex items-center justify-center ml-56 w-48 font-bold rounded-lg">
+                    <img
+                      className="w-8 h-8 cursor-pointer hover:scale-110 transition"
+                      src="/images/edit.png"
+                      alt="Edit"
+                    />
+                  </div>
+                }
+                position="bottom center"
+              >
+                <div className="bg-white border shadow-lg">
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    name="picture"
+                    accept="image/*"
+                    className="border border-black"
+                  />
+                  <br />
+                  <button
+                    className="border m-5 border-green-300 h-10 w-36 ml-28 bg-green-100"
+                    onClick={updateImage}
+                  >
+                    SUBMIT
+                  </button>
+                </div>
+              </Popup>
+              {/* <img
                 className="w-8 h-8 cursor-pointer hover:scale-110 transition"
                 src="/images/edit.png"
                 alt="Edit"
-              />
+              /> */}
             </div>
 
             {/* About Section */}
@@ -241,7 +313,9 @@ const MyMentorAccount = () => {
                     <br />
                     <button
                       className="border m-5 border-green-300 h-10 w-36 ml-28 bg-green-100"
-                      onClick={()=>{updateMentorDetails({"bio": data})}}
+                      onClick={() => {
+                        updateMentorDetails({ bio: data });
+                      }}
                     >
                       SUBMIT{" "}
                     </button>
@@ -255,11 +329,11 @@ const MyMentorAccount = () => {
             <div className="mt-8 bg-white shadow p-8 rounded-lg">
               <div className="flex justify-between items-center">
                 <h3 className="text-3xl font-bold text-gray-800">Education</h3>
-                <img
+                {/* <img
                   className="w-8 h-8 cursor-pointer hover:scale-110 transition"
                   src="/images/edit.png"
                   alt="Edit"
-                />
+                /> */}
               </div>
               <div className="mt-4 space-y-4 text-gray-600">
                 <div>
