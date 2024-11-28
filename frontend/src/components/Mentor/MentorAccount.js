@@ -35,7 +35,7 @@ const MentorAccount = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        `http://localhost:8000/api/v1/mentor/updateCount/${id}`,
+        `https://guido-backend.vercel.app/api/v1/mentor/updateCount/${id}`,
         {},
         {
           withCredentials: true,
@@ -75,7 +75,7 @@ const MentorAccount = () => {
       axios.defaults.withCredentials = true;
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        `http://localhost:8000/api/v1/student/review/${id}`,
+        `https://guido-backend.vercel.app/api/v1/student/review/${id}`,
         { review: reviewdata },
         {
           withCredentials: true,
@@ -107,7 +107,7 @@ const MentorAccount = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        ` http://localhost:8000/api/v1/mentor/${id}`,
+        ` https://guido-backend.vercel.app/api/v1/mentor/${id}`,
         {
           withCredentials: true,
           headers: {
@@ -132,7 +132,7 @@ const MentorAccount = () => {
       const token = localStorage.getItem("token");
   
       const response = await axios.get(
-        ` http://localhost:8000/api/v1/mentor/review/${id}`,
+        ` https://guido-backend.vercel.app/api/v1/review/${id}`,
         {
           withCredentials: true,
           headers: {
