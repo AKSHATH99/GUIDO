@@ -81,13 +81,22 @@ const registerMentor = asyncHandler(async (req, res) => {
     throw new ApiError(409, "ALREADY EXIST");
   }
 
-  const photolocalpath = req.file?.path;
-  if (!photolocalpath) {
-    throw new ApiError(404, "Didint recieve photolocalpath");
+   // Check if file exists in the request
+   if (!req.file) {
+    throw new ApiError(404, "No picture provided");
   }
 
-  const photo = await uploadOnCloudinary(photolocalpath);
-  console.log(photo);
+  // Upload picture to Cloudinary
+  const fileBuffer = req.file.buffer; // File buffer from multer.memoryStorage
+  const originalName = req.file.originalname; // Original file name
+  
+  const photo = await uploadOnCloudinary(fileBuffer, originalName);
+
+  if (!photo || !photo.url) {
+    throw new ApiError(500, "Image upload to Cloudinary failed");
+  }
+
+
   const parsedEducation = JSON.parse(education);
 
   const mentor = await Mentor.create({
